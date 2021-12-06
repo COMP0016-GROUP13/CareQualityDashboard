@@ -47,7 +47,7 @@
   border: none !important;
 }
 
-@media (max-width: 648px) {
+@media (max-width: 300px) {
   /*Mobile view*/
   .navbarExpandIcon {
     display: inline-block !important;

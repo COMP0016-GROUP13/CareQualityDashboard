@@ -211,13 +211,6 @@ function Home({ session, toggleTheme }) {
             </div>
           </main>
         </div>
-
-        <div className={styles.cube}></div>
-        <div className={styles.cube}></div>
-        <div className={styles.cube}></div>
-        <div className={styles.cube}></div>
-        <div className={styles.cube}></div>
-        <div className={styles.cube}></div>
       </div>
 
       <div className={styles.iconInfo}>
