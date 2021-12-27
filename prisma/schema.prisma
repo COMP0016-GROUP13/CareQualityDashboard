@@ -7,6 +7,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model users {
+  id        String      @id
+  user_type user_type?  @default(unknown)
+  responses responses[]
+}
+
 model hospitals {
   id              Int           @id @default(autoincrement())
   name            String
@@ -30,7 +36,7 @@ model questions {
 model responses {
   id                   Int         @id @default(autoincrement())
   user_id              String
-  timestamp            DateTime
+  timestamp            DateTime    @db.Timestamptz(6)
   department_id        Int
   is_mentoring_session Boolean
   departments          departments @relation(fields: [department_id], references: [id])
@@ -54,12 +60,6 @@ model standards {
   name      String
   questions questions[]
   scores    scores[]
-}
-
-model users {
-  id        String      @id
-  user_type user_type?  @default(unknown)
-  responses responses[]
 }
 
 model words {
