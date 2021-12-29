@@ -13,8 +13,8 @@ import { ProfileButton } from '..';
 const paths = {
   [Roles.USER_TYPE_HEALTH_BOARD]: ['statistics'],
   [Roles.USER_TYPE_HOSPITAL]: ['statistics', 'manage'],
-  [Roles.USER_TYPE_DEPARTMENT]: ['statistics', 'self-reporting', 'manage'],
-  [Roles.USER_TYPE_CLINICIAN]: ['statistics', 'self-reporting'],
+  [Roles.USER_TYPE_DEPARTMENT]: ['view', 'create'],
+  [Roles.USER_TYPE_CLINICIAN]: ['view'],
   [Roles.USER_TYPE_ADMIN]: ['admin', 'manage'],
 };
 
@@ -65,7 +65,7 @@ function Header({ session, toggleTheme }) {
       <Link href="/">
         <ul className={styles.list}>
           <Nav.Item className={styles.logoWrapper}>
-            <span className={styles.logo}>CQ Dashboard</span>
+            <span className={styles.logo}>Multidashboard</span>
           </Nav.Item>
         </ul>
       </Link>

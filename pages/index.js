@@ -136,16 +136,19 @@ function Home({ session, toggleTheme }) {
         <div className={styles.container}>
           {router.query && router.query.error && showError(router.query.error)}
           <main className={styles.mainContent}>
-            <h1 className={styles.title}>Welcome to Care Quality Dashboard</h1>
+            <h1 className={styles.title}>
+              Welcome to the Multidashboard project
+            </h1>
+
             {!session && (
               <div className={styles.loginButton}>
                 <h2>Get started</h2>
                 <p
                   style={{ width: '60%', margin: 'auto', marginBottom: '5px' }}>
-                  If this is your first time using the Care Quality Dashboard,
-                  please contact your department or hospital manager to obtain a
-                  unique Join URL. This will automatically link your account to
-                  your corresponding department or hospital, so you can start
+                  If this is your first time using the Multidashboard, please
+                  contact your department or hospital manager to obtain a unique
+                  Join URL. This will automatically link your account to your
+                  corresponding department or hospital, so you can start
                   completing self-reports and viewing your statistics.
                 </p>
                 <Button
@@ -157,7 +160,23 @@ function Home({ session, toggleTheme }) {
               </div>
             )}
 
-            {session && <div className={styles.spacing}></div>}
+            {session && (
+              <div className={styles.spacing}>
+                <div className={styles.mainContent}>
+                  <img
+                    src="/images/dashboard.png"
+                    alt="Dashboard icon"
+                    width="120"
+                    height="120"
+                  />
+
+                  <p>
+                    Multidashboard will allow clinicians to easily view their
+                    progress as a doctor in different areas of care.
+                  </p>
+                </div>
+              </div>
+            )}
 
             <div className={styles.features} ref={featuresRef}>
               <div className={styles.feature}>
