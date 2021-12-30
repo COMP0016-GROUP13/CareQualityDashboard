@@ -158,7 +158,6 @@ const handler = async (req, res) => {
       dashboards.map(d => ({
         id: d.id,
         name: d.name,
-        user_id: d.user_id,
       }))
     );
   }

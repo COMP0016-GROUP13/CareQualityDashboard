@@ -19,10 +19,9 @@ model dashboard {
   name          String
   user_id       String
   users         users          @relation(fields: [user_id], references: [id])
-  questions     questions[]
-  responses     responses[]
-  standards     standards[]
-  question_urls question_urls[]
+  questions     questions?
+  responses     responses?
+  standards     standards?
 }
 
 model hospitals {
@@ -49,12 +48,12 @@ model questions {
 
 model responses {
   id                   Int         @id @default(autoincrement())
-  dashboard_id         Int
+  dashboard_id         Int?
   user_id              String
   timestamp            DateTime
   department_id        Int
   is_mentoring_session Boolean
-  dashboard            dashboard   @relation(fields: [dashboard_id], references: [id])
+  dashboard            dashboard?  @relation(fields: [dashboard_id], references: [id])
   departments          departments @relation(fields: [department_id], references: [id])
   users                users       @relation(fields: [user_id], references: [id])
   scores               scores[]
@@ -111,8 +110,6 @@ model question_urls {
   question_id   Int
   department_id Int
   url           String
-  dashboard_id  Int
-  dashboard     dashboard   @relation(fields: [dashboard_id], references: [id])
   departments   departments @relation(fields: [department_id], references: [id])
   questions     questions   @relation(fields: [question_id], references: [id])
 

@@ -7,6 +7,7 @@ import { Header } from '../components';
 import { Button, Message } from 'rsuite';
 import { signIn, getSession } from 'next-auth/client';
 import styles from './view.module.css';
+import useSWR from '../lib/swr';
 
 const errors = {
   configuration: {
@@ -85,12 +86,28 @@ const errors = {
   },
 };
 
+/**
+ * Fetches dashboards from the backend
+ */
+const fetchDashboards = () => {
+  const { data, error } = useSWR('/api/dashboards', {
+    revalidateOnFocus: false,
+  });
+
+  if (data) {
+    return { data: data, error: error || data.error, message: data.message };
+  }
+  return { data: null, error: error, message: error ? error.message : null };
+};
+
 export async function getServerSideProps(context) {
   return { props: { session: await getSession(context) } };
 }
 
 function Home({ session, toggleTheme }) {
   const router = useRouter();
+  // TODO: Handle Errors here, such as no dashboards created
+  const { data, error, message } = fetchDashboards();
   const featuresRef = useRef(null);
 
   const showError = error => {
@@ -128,13 +145,27 @@ function Home({ session, toggleTheme }) {
             <h2 className={styles.title}>Here are your dashboards</h2>
             <div className={styles.features} ref={featuresRef}>
               <div className={styles.feature}>
-                <button
+                {/* Data is the data for all the dashboards, this includes id and name as stated in API */}
+                {data &&
+                  data.map(dashboard => (
+                    <>
+                      <button
+                        onClick={() => {
+                          router.push('/statistics');
+                        }}
+                        id={dashboard.id}
+                        className={styles.DashboardButtons}>
+                        {dashboard.name}
+                      </button>
+                    </>
+                  ))}
+                {/* <button
                   onClick={() => {
                     router.push('/statistics');
                   }}
                   className={styles.DashboardButtons}>
                   CQ Dashboard
-                </button>
+                </button> */}
               </div>
             </div>
           </main>
