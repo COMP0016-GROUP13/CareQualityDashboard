@@ -128,13 +128,19 @@ function Home({ session, toggleTheme }) {
             <h2 className={styles.title}>Here are your dashboards</h2>
             <div className={styles.features} ref={featuresRef}>
               <div className={styles.feature}>
-                <button
-                  onClick={() => {
-                    router.push('/statistics');
-                  }}
-                  className={styles.DashboardButtons}>
-                  CQ Dashboard
-                </button>
+                {data &&
+                  data.map(dashboard => (
+                    <>
+                      <button
+                        onClick={() => {
+                          router.push('/statistics');
+                        }}
+                        id={dashboard.id}
+                        className={styles.DashboardButtons}>
+                        {dashboard.name}
+                      </button>
+                    </>
+                  ))}
               </div>
             </div>
           </main>

@@ -1,6 +1,6 @@
 # Note this is a development version of the Docker Compose configuration, so there is no web container
 # The web service should be run manually, outside of Docker, for easiest development
-version: '3.8'
+version: '3.3'
 services:
   keycloak:
     image: 'jboss/keycloak'

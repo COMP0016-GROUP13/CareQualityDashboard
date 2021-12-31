@@ -5,10 +5,14 @@
 
 .DashboardButtons {
   background-color: #90ee90;
+  display: block;
   color: black;
   text-align: center;
-  height: 30px;
+  height: 50px;
   width: 300px;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
   border-radius: 100px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -20,6 +24,8 @@
   margin: 1vh;
   margin-bottom: -4vh;
   display: flex;
+
+  justify-content: center;
   flex-direction: row;
   justify-content: center;
 }
