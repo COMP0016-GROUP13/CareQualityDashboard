@@ -7,6 +7,23 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model users {
+  id        String      @id
+  user_type user_type?  @default(unknown)
+  responses responses[]
+  dashboard dashboard[]
+}
+
+model dashboard {
+  id            Int            @id @default(autoincrement())
+  name          String
+  user_id       String
+  users         users          @relation(fields: [user_id], references: [id])
+  questions     questions?
+  responses     responses?
+  standards     standards?
+}
+
 model hospitals {
   id              Int           @id @default(autoincrement())
   name            String
@@ -21,6 +38,8 @@ model questions {
   standard_id   Int
   body          String
   type          question_type
+  dashboard_id  Int?
+  dashboard     dashboard?      @relation(fields: [dashboard_id], references: [id])
   archived      Boolean?        @default(false)
   standards     standards       @relation(fields: [standard_id], references: [id])
   question_urls question_urls[]
@@ -29,10 +48,12 @@ model questions {
 
 model responses {
   id                   Int         @id @default(autoincrement())
+  dashboard_id         Int?
   user_id              String
   timestamp            DateTime
   department_id        Int
   is_mentoring_session Boolean
+  dashboard            dashboard?  @relation(fields: [dashboard_id], references: [id])
   departments          departments @relation(fields: [department_id], references: [id])
   users                users       @relation(fields: [user_id], references: [id])
   scores               scores[]
@@ -49,16 +70,12 @@ model scores {
 }
 
 model standards {
-  id        Int         @id @default(autoincrement())
-  name      String
-  questions questions[]
-  scores    scores[]
-}
-
-model users {
-  id        String      @id
-  user_type user_type?  @default(unknown)
-  responses responses[]
+  id           Int         @id @default(autoincrement())
+  name         String
+  dashboard_id Int?
+  dashboard    dashboard?  @relation(fields: [dashboard_id], references: [id])
+  questions    questions[]
+  scores       scores[]
 }
 
 model words {
