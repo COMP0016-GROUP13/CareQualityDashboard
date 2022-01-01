@@ -104,10 +104,14 @@ export async function getServerSideProps(context) {
   return { props: { session: await getSession(context) } };
 }
 
-function View({ session, toggleTheme }) {
+function Test({ session, toggleTheme }) {
   const router = useRouter();
   // TODO: Handle Errors here, such as no dashboards created
-  const { data, error, message } = fetchDashboards();
+  const id = router.query.dashboard_id;
+  const { data, error } = useSWR('/api/dashboards/' + id);
+
+  console.log(data);
+  // console.log(router.query);
   const featuresRef = useRef(null);
 
   const showError = error => {
@@ -138,49 +142,14 @@ function View({ session, toggleTheme }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header session={session} toggleTheme={toggleTheme} />
-      <div className={styles.squares}>
-        <div className={styles.container}>
-          {router.query && router.query.error && showError(router.query.error)}
-          <main className={styles.mainContent}>
-            <h2 className={styles.title}>Here are your dashboards</h2>
-            <div className={styles.features} ref={featuresRef}>
-              <div className={styles.feature}>
-                {/* Data is the data for all the dashboards, this includes id and name as stated in API */}
-                {data &&
-                  data.map(dashboard => (
-                    <>
-                      <button
-                        onClick={() => {
-                          router.push({
-                            pathname: '/test',
-                            query: { dashboard_id: dashboard.id },
-                          });
-                        }}
-                        id={dashboard.id}
-                        className={styles.DashboardButtons}>
-                        {dashboard.name}
-                      </button>
-                    </>
-                  ))}
-                {/* <button
-                  onClick={() => {
-                    router.push('/statistics');
-                  }}
-                  className={styles.DashboardButtons}>
-                  CQ Dashboard
-                </button> */}
-              </div>
-            </div>
-          </main>
-        </div>
-      </div>
+      <div></div>
     </div>
   );
 }
 
-View.propTypes = {
+Test.propTypes = {
   session: PropTypes.object.isRequired,
   toggleTheme: PropTypes.func.isRequired,
 };
 
-export default View;
+export default Test;
