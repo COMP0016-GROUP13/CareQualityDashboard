@@ -1,23 +1,135 @@
 const { PrismaClient } = require('@prisma/client');
+const {
+  standards,
+  likertScaleQuestions,
+  wordsQuestions,
+} = require('../seedData');
 const prisma = new PrismaClient();
 
+const getRandomScore = () => Math.floor(Math.random() * 5);
+
 const seedDashboards = async userId => {
-  await Promise.all([
-    prisma.dashboard.create({
-      data: {
-        users: { connect: { id: userId } },
-        name: 'Test1',
+  standards_data = [];
+  question_data = [];
+
+  // standards.map((standard, i) =>
+  //   standards_data.push({ name: standard, id: i + 10 })
+  // );
+
+  likertScaleQuestions.map(question =>
+    question_data.push({
+      default_url: question.url,
+      standards: { connect: { id: question.standardId } },
+      type: 'likert_scale',
+      body: question.question,
+    })
+  );
+
+  // TODO: Create seed data for words
+  responses = [
+    {
+      users: { connect: { id: userId } },
+      departments: { connect: { id: 1 } },
+      timestamp: new Date('2020-12-01 13:00:00'),
+      is_mentoring_session: true,
+      scores: {
+        create: [
+          { score: getRandomScore(), standards: { connect: { id: 1 } } },
+          { score: getRandomScore(), standards: { connect: { id: 2 } } },
+          { score: getRandomScore(), standards: { connect: { id: 3 } } },
+          { score: getRandomScore(), standards: { connect: { id: 4 } } },
+          { score: getRandomScore(), standards: { connect: { id: 5 } } },
+          { score: getRandomScore(), standards: { connect: { id: 6 } } },
+          { score: getRandomScore(), standards: { connect: { id: 7 } } },
+        ],
       },
-    }),
-    prisma.dashboard.create({
-      data: {
-        users: { connect: { id: userId } },
-        name: 'Test2',
+    },
+    {
+      users: { connect: { id: userId } },
+      departments: { connect: { id: 1 } },
+      timestamp: new Date('2020-12-07 13:00:00'),
+      is_mentoring_session: false,
+      scores: {
+        create: [
+          { score: getRandomScore(), standards: { connect: { id: 1 } } },
+          { score: getRandomScore(), standards: { connect: { id: 2 } } },
+          { score: getRandomScore(), standards: { connect: { id: 3 } } },
+          { score: getRandomScore(), standards: { connect: { id: 4 } } },
+          { score: getRandomScore(), standards: { connect: { id: 5 } } },
+          { score: getRandomScore(), standards: { connect: { id: 6 } } },
+          { score: getRandomScore(), standards: { connect: { id: 7 } } },
+        ],
       },
-    }),
-  ]);
+    },
+    {
+      users: { connect: { id: userId } },
+      departments: { connect: { id: 1 } },
+      timestamp: new Date('2020-12-14 13:00:00'),
+      is_mentoring_session: true,
+      scores: {
+        create: [
+          { score: getRandomScore(), standards: { connect: { id: 1 } } },
+          { score: getRandomScore(), standards: { connect: { id: 2 } } },
+          { score: getRandomScore(), standards: { connect: { id: 3 } } },
+          { score: getRandomScore(), standards: { connect: { id: 4 } } },
+          { score: getRandomScore(), standards: { connect: { id: 5 } } },
+          { score: getRandomScore(), standards: { connect: { id: 6 } } },
+          { score: getRandomScore(), standards: { connect: { id: 7 } } },
+        ],
+      },
+    },
+    {
+      users: { connect: { id: userId } },
+      departments: { connect: { id: 1 } },
+      timestamp: new Date('2021-01-01 10:00:00'),
+      is_mentoring_session: false,
+      scores: {
+        create: [
+          { score: getRandomScore(), standards: { connect: { id: 1 } } },
+          { score: getRandomScore(), standards: { connect: { id: 2 } } },
+          { score: getRandomScore(), standards: { connect: { id: 3 } } },
+          { score: getRandomScore(), standards: { connect: { id: 4 } } },
+          { score: getRandomScore(), standards: { connect: { id: 5 } } },
+          { score: getRandomScore(), standards: { connect: { id: 6 } } },
+          { score: getRandomScore(), standards: { connect: { id: 7 } } },
+        ],
+      },
+    },
+  ];
+
+  dashboard = {
+    data: {
+      users: { connect: { id: userId } },
+      name: 'Care Quality Dashboard',
+      // standards: { create: standards_data },
+      questions: { create: question_data },
+      responses: { create: responses },
+    },
+  };
+
+  await Promise.all([prisma.dashboard.create(dashboard)]);
+  // await Promise.all([
+  //   prisma.dashboard.create({
+  //     data: {
+  //       users: { connect: { id: userId } },
+  //       name: 'Test1',
+  //     },
+  //   }),
+  //   prisma.dashboard.create({
+  //     data: {
+  //       users: { connect: { id: userId } },
+  //       name: 'Test2',
+  //     },
+  //   }),
+  // ]);
 };
 
+/**
+ * IMPORTANT:
+ * Dashboard does not need to store standards
+ * Standards can be stored seperately and questions may share standards
+ * Questions should be linked to dashboard
+ */
 const userId = process.argv[2];
 
 if (!userId) {

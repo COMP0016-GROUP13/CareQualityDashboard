@@ -19,9 +19,8 @@ model dashboard {
   name          String
   user_id       String
   users         users          @relation(fields: [user_id], references: [id])
-  questions     questions?
-  responses     responses?
-  standards     standards?
+  questions     questions[]
+  responses     responses[]
 }
 
 model hospitals {
@@ -38,8 +37,8 @@ model questions {
   standard_id   Int
   body          String
   type          question_type
-  dashboard_id  Int?
-  dashboard     dashboard?      @relation(fields: [dashboard_id], references: [id])
+  dashboard_id  Int
+  dashboard     dashboard       @relation(fields: [dashboard_id], references: [id])
   archived      Boolean?        @default(false)
   standards     standards       @relation(fields: [standard_id], references: [id])
   question_urls question_urls[]
@@ -73,8 +72,6 @@ model scores {
 model standards {
   id           Int         @id @default(autoincrement())
   name         String
-  dashboard_id Int?
-  dashboard    dashboard?  @relation(fields: [dashboard_id], references: [id])
   questions    questions[]
   scores       scores[]
 }

@@ -163,9 +163,10 @@ const handler = async (req, res) => {
     }
 
     const questions = await prisma.questions.findMany({
-      select: queryParams,
       where: { archived: false },
     });
+
+    console.log(questions);
 
     // Return an object with keys as question types, and values as arrays of questions with each type
     // e.g. { likert_scale: [{...}, {...}], words: [{...}, {...}] }
