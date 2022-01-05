@@ -2,11 +2,10 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { useRef } from 'react';
 import PropTypes from 'prop-types';
-
 import { Header } from '../components';
 import { Button, Message } from 'rsuite';
 import { signIn, getSession } from 'next-auth/client';
-import styles from './view.module.css';
+import styles from './DashboardNav.module.css';
 import useSWR from '../lib/swr';
 
 const errors = {
@@ -86,30 +85,8 @@ const errors = {
   },
 };
 
-/**
- * Fetches dashboards from the backend
- */
-const fetchDashboards = () => {
-  const { data, error } = useSWR('/api/dashboards', {
-    revalidateOnFocus: false,
-  });
-
-  if (data) {
-    return { data: data, error: error || data.error, message: data.message };
-  }
-  return { data: null, error: error, message: error ? error.message : null };
-};
-
-export async function getServerSideProps(context) {
-  return { props: { session: await getSession(context) } };
-}
-
-function View({ session, toggleTheme }) {
+function DashboardNav({ session, toggleTheme }) {
   const router = useRouter();
-  // TODO: Handle Errors here, such as no dashboards created
-  const { data, error, message } = fetchDashboards();
-  const featuresRef = useRef(null);
-
   const showError = error => {
     // Don't do exact match
     error = error.toLowerCase();
@@ -138,39 +115,52 @@ function View({ session, toggleTheme }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header session={session} toggleTheme={toggleTheme} />
-      <div className={styles.squares}>
-        <div className={styles.container}>
-          {router.query && router.query.error && showError(router.query.error)}
-          <main className={styles.mainContent}>
-            <h2 className={styles.title}>Here are your dashboards</h2>
-            <div className={styles.features} ref={featuresRef}>
-              <div className={styles.feature}>
-                {/* Data is the data for all the dashboards, this includes id and name as stated in API */}
-                {data &&
-                  data.map(dashboard => (
-                    <>
-                      <button
-                        onClick={() => {
-                          router.push('/DashboardNav');
-                        }}
-                        id={dashboard.id}
-                        className={styles.DashboardButtons}>
-                        {dashboard.name}
-                      </button>
-                    </>
-                  ))}
-              </div>
+      <div className={styles.container}>
+        {router.query && router.query.error && showError(router.query.error)}
+        <main className={styles.mainContent}>
+          {/* back button */}
+          <button
+            className={styles.backButton}
+            onClick={() => router.push('/view')}>
+            <img src="/images/backButton.png" alt="Go Back" width="26px" />
+            Go Back
+          </button>
+
+          {/* TODO need to account for Dashboard name */}
+          <h2 className={styles.DashboardName}>Dashboard Name</h2>
+          <div className={styles.navItems}>
+            <div>
+              {/* TODO account for different types of users */}
+              {
+                <>
+                  <button
+                    onClick={() => {
+                      router.push('/statistics');
+                    }}
+                    className={styles.navItem}>
+                    Statistics
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      router.push('/self-reporting');
+                    }}
+                    className={styles.navItem}>
+                    Self-reporting
+                  </button>
+                </>
+              }
             </div>
-          </main>
-        </div>
+          </div>
+        </main>
       </div>
     </div>
   );
 }
 
-View.propTypes = {
+DashboardNav.propTypes = {
   session: PropTypes.object.isRequired,
   toggleTheme: PropTypes.func.isRequired,
 };
 
-export default View;
+export default DashboardNav;

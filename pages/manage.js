@@ -3,7 +3,6 @@ import Head from 'next/head';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Alert, Button, ButtonGroup, Modal } from 'rsuite';
-
 import {
   UrlsTable,
   Header,

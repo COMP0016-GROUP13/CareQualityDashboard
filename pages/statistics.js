@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import querystring from 'querystring';
 import { useState } from 'react';
 import { Alert } from 'rsuite';
@@ -163,14 +164,22 @@ function Statistics({ session, toggleTheme }) {
         }))
       : null;
 
+  const router = useRouter();
   return (
     <div>
       <Head>
         <title>Statistics</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <Header session={session} toggleTheme={toggleTheme} />
+
+      {/* back button */}
+      <button
+        className={styles.backButton}
+        onClick={() => router.push('/DashboardNav')}>
+        <img src="/images/backButton.png" alt="Go Back" width="26px" />
+        Go Back
+      </button>
 
       <CirclesAccordion circles={averageStats} />
 
