@@ -87,6 +87,8 @@ const errors = {
 
 function DashboardNav({ session, toggleTheme }) {
   const router = useRouter();
+  const dashboardId = router.query.dashboard_id;
+
   const showError = error => {
     // Don't do exact match
     error = error.toLowerCase();
@@ -135,7 +137,10 @@ function DashboardNav({ session, toggleTheme }) {
                 <>
                   <button
                     onClick={() => {
-                      router.push('/statistics');
+                      router.push({
+                        pathname: '/statistics',
+                        query: { dashboard_id: dashboardId },
+                      });
                     }}
                     className={styles.navItem}>
                     Statistics
@@ -143,7 +148,10 @@ function DashboardNav({ session, toggleTheme }) {
 
                   <button
                     onClick={() => {
-                      router.push('/self-reporting');
+                      router.push({
+                        pathname: '/self-reporting',
+                        query: { dashboard_id: dashboardId },
+                      });
                     }}
                     className={styles.navItem}>
                     Self-reporting

@@ -12,10 +12,6 @@ const seedDashboards = async userId => {
   standards_data = [];
   question_data = [];
 
-  // standards.map((standard, i) =>
-  //   standards_data.push({ name: standard, id: i + 10 })
-  // );
-
   likertScaleQuestions.map(question =>
     question_data.push({
       default_url: question.url,
@@ -101,13 +97,21 @@ const seedDashboards = async userId => {
     data: {
       users: { connect: { id: userId } },
       name: 'Care Quality Dashboard',
-      // standards: { create: standards_data },
       questions: { create: question_data },
       responses: { create: responses },
     },
   };
 
-  await Promise.all([prisma.dashboard.create(dashboard)]);
+  /**
+   * Uncomment this for all data, eg questions and responses
+   */
+
+  // await Promise.all([prisma.dashboard.create(dashboard)]);
+
+  /**
+   * Uncomments this for fake date, just names
+   */
+
   // await Promise.all([
   //   prisma.dashboard.create({
   //     data: {

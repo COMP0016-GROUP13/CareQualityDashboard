@@ -151,7 +151,10 @@ function View({ session, toggleTheme }) {
                     <>
                       <button
                         onClick={() => {
-                          router.push('/DashboardNav');
+                          router.push({
+                            pathname: '/DashboardNav',
+                            query: { dashboard_id: dashboard.id },
+                          });
                         }}
                         id={dashboard.id}
                         className={styles.DashboardButtons}>

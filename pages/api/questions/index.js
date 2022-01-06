@@ -146,6 +146,8 @@ const handler = async (req, res) => {
   }
 
   if (req.method === 'GET') {
+    const dashboardId = parseInt(req.query.dashboard_id);
+
     const queryParams = {
       id: true,
       body: true,
@@ -163,10 +165,11 @@ const handler = async (req, res) => {
     }
 
     const questions = await prisma.questions.findMany({
-      where: { archived: false },
+      where: {
+        archived: false,
+        dashboard_id: dashboardId,
+      },
     });
-
-    console.log(questions);
 
     // Return an object with keys as question types, and values as arrays of questions with each type
     // e.g. { likert_scale: [{...}, {...}], words: [{...}, {...}] }
