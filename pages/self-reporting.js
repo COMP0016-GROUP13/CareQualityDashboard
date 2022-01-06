@@ -210,6 +210,13 @@ function SelfReporting({ session, toggleTheme }) {
         text={dialogText}
         actions={dialogActions}
       />
+      {/* back button */}
+      <button
+        className={styles.backButton}
+        onClick={() => router.push('/DashboardNav')}>
+        <img src="/images/backButton.png" alt="Go Back" width="26px" />
+        Go Back
+      </button>
 
       {!questionsError && !isQuestionsLoading && (
         <div className={styles.mentoringSessionContainer}>

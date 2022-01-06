@@ -1,4 +1,4 @@
-.DashboardButtons {
+.navItem {
   background-color: #90ee90;
   display: block;
   color: black;
@@ -15,7 +15,7 @@
   border-bottom-right-radius: 10px;
 }
 
-.features {
+.navItems {
   margin: 1vh;
   margin-bottom: -4vh;
   display: flex;
@@ -25,7 +25,11 @@
   justify-content: center;
 }
 
-.title,
-.description {
+.DashboardName {
   text-align: center;
+}
+
+.backButton {
+  display: block;
+  color: black;
 }

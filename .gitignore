@@ -33,3 +33,4 @@ yarn-error.log*
 keycloak
 postgres
 .docz
+prisma/migrations/20211231223821_test2/migration.sql
