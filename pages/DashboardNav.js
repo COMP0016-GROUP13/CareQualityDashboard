@@ -8,6 +8,14 @@ import { signIn, getSession } from 'next-auth/client';
 import styles from './DashboardNav.module.css';
 import useSWR from '../lib/swr';
 
+import {
+  Roles,
+  StandardColors,
+  Standards,
+  Visualisations,
+} from '../lib/constants';
+import { options } from 'less';
+
 const errors = {
   configuration: {
     heading: 'Server error',
@@ -85,36 +93,63 @@ const errors = {
   },
 };
 
+const showError = error => {
+  // Don't do exact match
+  error = error.toLowerCase();
+  const key = Object.keys(errors).find(e => error.indexOf(e) > -1);
+
+  if (key) {
+    const details = errors[key];
+    return (
+      <Message
+        type="error"
+        closable
+        title={details.heading}
+        description={details.message}
+      />
+    );
+  }
+
+  console.error('Unknown error');
+  return null;
+};
+
+export async function getServerSideProps(context) {
+  return { props: { session: await getSession(context) } };
+}
+
 function DashboardNav({ session, toggleTheme }) {
   const router = useRouter();
-  const showError = error => {
-    // Don't do exact match
-    error = error.toLowerCase();
-    const key = Object.keys(errors).find(e => error.indexOf(e) > -1);
 
-    if (key) {
-      const details = errors[key];
-      return (
-        <Message
-          type="error"
-          closable
-          title={details.heading}
-          description={details.message}
-        />
-      );
-    }
+  if (!session) {
+    return (
+      <div>
+        <Header session={session} toggleTheme={toggleTheme} />
+        <LoginMessage />
+      </div>
+    );
+  } else {
+  }
 
-    console.error('Unknown error');
-    return null;
-  };
+  const options = [];
 
+  // TODO must account for other roles
+  if (session.user.roles.includes(Roles.USER_TYPE_CLINICIAN)) {
+    options.push('statistics');
+    options.push('self-reporting');
+  } else if (session.user.roles.includes(Roles.USER_TYPE_DEPARTMENT)) {
+    options.push('statistics');
+    options.push('self-reporting');
+    options.push('manage');
+  }
   return (
-    <div>
+    <>
       <Head>
         <title>MultiDashboard</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header session={session} toggleTheme={toggleTheme} />
+
       <div className={styles.container}>
         {router.query && router.query.error && showError(router.query.error)}
         <main className={styles.mainContent}>
@@ -133,28 +168,22 @@ function DashboardNav({ session, toggleTheme }) {
               {/* TODO account for different types of users */}
               {
                 <>
-                  <button
-                    onClick={() => {
-                      router.push('/statistics');
-                    }}
-                    className={styles.navItem}>
-                    Statistics
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      router.push('/self-reporting');
-                    }}
-                    className={styles.navItem}>
-                    Self-reporting
-                  </button>
+                  {options.map(name => (
+                    <button
+                      onClick={() => {
+                        router.push('/' + name);
+                      }}
+                      className={styles.navItem}>
+                      {name}
+                    </button>
+                  ))}
                 </>
               }
             </div>
           </div>
         </main>
       </div>
-    </div>
+    </>
   );
 }
 
@@ -162,5 +191,4 @@ DashboardNav.propTypes = {
   session: PropTypes.object.isRequired,
   toggleTheme: PropTypes.func.isRequired,
 };
-
 export default DashboardNav;
