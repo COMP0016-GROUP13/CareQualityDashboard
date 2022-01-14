@@ -292,11 +292,14 @@ const handler = async (req, res) => {
 
     const responses = filters.length
       ? await prisma.responses.findMany({
-          where: { AND: filters },
+          where: { user_id: { equals: session.user.userId } },
           select,
           orderBy,
         })
       : await prisma.responses.findMany({ select, orderBy });
+
+    console.log('responseData');
+    console.log(responses);
 
     const scoresPerStandard = {};
     responses.forEach(val =>

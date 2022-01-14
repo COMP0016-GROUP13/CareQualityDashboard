@@ -1,4 +1,4 @@
-import querystring from 'querystring';
+import querystring from 'query-string';
 import { useState } from 'react';
 import { Alert } from 'rsuite';
 import { getSession } from 'next-auth/client';
@@ -34,6 +34,7 @@ const generateQueryParams = ({
   isMentoringSession = null,
   dataToDisplayOverride,
 } = {}) => {
+  const queryString = require('query-string');
   const query = { from: start, to: end };
 
   if (isMentoringSession === true) {
@@ -46,7 +47,9 @@ const generateQueryParams = ({
     query[dataToDisplayOverride.key] = dataToDisplayOverride.value;
   }
 
-  return querystring.stringify(query);
+  console.log(query);
+  console.log(queryString.stringify(query));
+  return queryString.stringify(query);
 };
 
 export async function getServerSideProps(context) {
@@ -89,6 +92,8 @@ function Statistics({ session, toggleTheme }) {
       dataToDisplayOverride,
     })}`
   );
+
+  console.log(data);
 
   var localData, localError, localMessage;
   if (data) {

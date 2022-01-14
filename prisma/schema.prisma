@@ -45,7 +45,6 @@ model scores {
   score       Int
   responses   responses @relation(fields: [response_id], references: [id])
   standards   standards @relation(fields: [standard_id], references: [id])
-
   @@id([response_id, standard_id])
 }
 
@@ -95,7 +94,6 @@ model question_urls {
   url           String
   departments   departments @relation(fields: [department_id], references: [id])
   questions     questions   @relation(fields: [question_id], references: [id])
-
   @@id([question_id, department_id])
 }
 
