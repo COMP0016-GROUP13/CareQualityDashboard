@@ -121,7 +121,7 @@ const handler = async (req, res) => {
       });
     }
 
-    const { name } = req.body;
+    const { name, questions } = req.body;
     if (!name) {
       return res.status(422).json({
         error: true,
@@ -131,20 +131,22 @@ const handler = async (req, res) => {
 
     // TODO: Create POST for adding new Dashboard
 
-    // const record = await prisma.departments.create({
-    //   data: {
-    //     name: name,
-    //     hospitals: { connect: { id: session.user.hospitalId } },
-    //     clinician_join_codes: { create: { code: await createJoinCode() } },
-    //     department_join_codes: { create: { code: await createJoinCode() } },
-    //   },
-    //   include: {
-    //     department_join_codes: { select: { code: true } },
-    //     clinician_join_codes: { select: { code: true } },
-    //   },
-    // });
+    const record = await prisma.dashboard.create({
+      data: {
+        users: { connect: { id: session.user.userId } },
+        name: name,
 
-    // return res.json(record);
+        ////     hospitals: { connect: { id: session.user.hospitalId } },
+        ////     clinician_join_codes: { create: { code: await createJoinCode() } },
+        ////     department_join_codes: { create: { code: await createJoinCode() } },
+      },
+      ////   include: {
+      ////     department_join_codes: { select: { code: true } },
+      ////     clinician_join_codes: { select: { code: true } },
+      //   },
+    });
+
+    return res.json(record);
   }
 
   if (req.method === 'GET') {

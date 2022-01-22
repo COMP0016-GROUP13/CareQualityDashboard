@@ -141,46 +141,55 @@ function Home({ session, toggleTheme }) {
             errors.title = 'Required';
           }
 
-          if (!values.question1) {
-            errors.question1 = 'Required';
-          }
-          if (!values.quality1) {
-            errors.quality1 = 'Required';
-          }
-          if (!values.question2) {
-            errors.question2 = 'Required';
-          }
-          if (!values.question3) {
-            errors.question3 = 'Required';
-          }
-          if (!values.question4) {
-            errors.question4 = 'Required';
-          }
-          if (!values.question5) {
-            errors.question5 = 'Required';
-          }
-          if (!values.question6) {
-            errors.question6 = 'Required';
-          }
-          if (!values.question7) {
-            errors.question7 = 'Required';
-          }
-          if (!values.question8) {
-            errors.question8 = 'Required';
-          }
-          if (!values.question9) {
-            errors.question9 = 'Required';
-          }
-          if (!values.question10) {
-            errors.question10 = 'Required';
-          }
-          if (!values.quality1) {
-            errors.quality1 = 'Required';
-          }
+          // if (!values.question1) {
+          //   errors.question1 = 'Required';
+          // }
+          // if (!values.quality1) {
+          //   errors.quality1 = 'Required';
+          // }
+          // if (!values.question2) {
+          //   errors.question2 = 'Required';
+          // }
+          // if (!values.question3) {
+          //   errors.question3 = 'Required';
+          // }
+          // if (!values.question4) {
+          //   errors.question4 = 'Required';
+          // }
+          // if (!values.question5) {
+          //   errors.question5 = 'Required';
+          // }
+          // if (!values.question6) {
+          //   errors.question6 = 'Required';
+          // }
+          // if (!values.question7) {
+          //   errors.question7 = 'Required';
+          // }
+          // if (!values.question8) {
+          //   errors.question8 = 'Required';
+          // }
+          // if (!values.question9) {
+          //   errors.question9 = 'Required';
+          // }
+          // if (!values.question10) {
+          //   errors.question10 = 'Required';
+          // }
+          // if (!values.quality1) {
+          //   errors.quality1 = 'Required';
+          // }
           return errors;
         }}
-        onSubmit={(values, { setSubmitting }) => {
+        onSubmit={async (values, { setSubmitting }) => {
           // post data to server
+          const res = await fetch('/api/dashboards/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name: values.title,
+            }),
+          }).then(res => res.json());
+
+          // TODO: Remove during refactor
           alert(JSON.stringify(values, null, 2));
           setSubmitting(false);
         }}>

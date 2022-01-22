@@ -187,6 +187,9 @@ import { Roles } from '../../lib/constants';
  *              is_mentoring_session:
  *                type: boolean
  *                example: true
+ *              dashboard:
+ *                type: integer
+ *                example: 3
  *    responses:
  *      200:
  *        description: Success
@@ -201,6 +204,7 @@ import { Roles } from '../../lib/constants';
  */
 const handler = async (req, res) => {
   const { session } = req;
+  const dashboardId = parseInt(req.query.dashboard_id);
 
   if (req.method === 'GET') {
     const {
@@ -292,7 +296,8 @@ const handler = async (req, res) => {
 
     const responses = filters.length
       ? await prisma.responses.findMany({
-          where: { AND: filters },
+          // where: { AND: filters },
+          where: { user_id: { equals: session.user.userId } },
           select,
           orderBy,
         })
@@ -338,6 +343,7 @@ const handler = async (req, res) => {
       data: {
         users: { connect: { id: session.user.userId } },
         timestamp: new Date(),
+        // dashboard: { connect: { id: dashboardId } },
         departments: { connect: { id: session.user.departmentId } },
         is_mentoring_session: req.body.is_mentoring_session,
         scores: { create: scores },
