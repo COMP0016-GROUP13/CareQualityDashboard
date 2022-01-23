@@ -143,7 +143,7 @@ const handler = async (req, res) => {
         default_url: url,
         standards: { connect: { id: standard } },
         type: type,
-        // dashboard: { connect: { id: dashboardId } },
+        dashboard: { connect: { id: dashboardId } },
       },
     });
 
@@ -157,6 +157,7 @@ const handler = async (req, res) => {
       default_url: true,
       type: true,
       standards: { select: { name: true, id: true } },
+      dashboard_id: true,
     };
 
     // Handle the `default_urls` override to always fetch the default URL
@@ -167,11 +168,15 @@ const handler = async (req, res) => {
       };
     }
 
+    const whereParams = { archived: false };
+
+    if (!isNaN(dashboardId)) {
+      whereParams.dashboard_id = dashboardId;
+    }
+
     const questions = await prisma.questions.findMany({
-      where: {
-        archived: false,
-        dashboard_id: dashboardId,
-      },
+      select: queryParams,
+      where: whereParams,
     });
 
     // Return an object with keys as question types, and values as arrays of questions with each type
