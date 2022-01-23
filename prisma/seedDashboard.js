@@ -116,7 +116,7 @@ const seedDashboards = async userId => {
     prisma.dashboard.create({
       data: {
         users: { connect: { id: userId } },
-        name: 'Test1',
+        name: 'MSK Triage Dashboard',
       },
     }),
     prisma.dashboard.create({
