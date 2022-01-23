@@ -106,26 +106,26 @@ const seedDashboards = async userId => {
    * Uncomment this for all data, eg questions and responses
    */
 
-  // await Promise.all([prisma.dashboard.create(dashboard)]);
+  await Promise.all([prisma.dashboard.create(dashboard)]);
 
   /**
-   * Uncomments this for fake date, just names
+   * Uncomment this for fake date, just names
    */
 
-  // await Promise.all([
-  //   prisma.dashboard.create({
-  //     data: {
-  //       users: { connect: { id: userId } },
-  //       name: 'Test1',
-  //     },
-  //   }),
-  //   prisma.dashboard.create({
-  //     data: {
-  //       users: { connect: { id: userId } },
-  //       name: 'Test2',
-  //     },
-  //   }),
-  // ]);
+  await Promise.all([
+    prisma.dashboard.create({
+      data: {
+        users: { connect: { id: userId } },
+        name: 'MSK Triage Dashboard',
+      },
+    }),
+    prisma.dashboard.create({
+      data: {
+        users: { connect: { id: userId } },
+        name: 'Test2',
+      },
+    }),
+  ]);
 };
 
 /**

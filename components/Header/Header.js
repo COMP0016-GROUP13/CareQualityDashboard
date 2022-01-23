@@ -14,7 +14,7 @@ const paths = {
   [Roles.USER_TYPE_HEALTH_BOARD]: ['statistics'],
   [Roles.USER_TYPE_HOSPITAL]: ['statistics', 'manage'],
   [Roles.USER_TYPE_DEPARTMENT]: ['view', 'create'],
-  [Roles.USER_TYPE_CLINICIAN]: ['view', 'test', 'self-reporting'],
+  [Roles.USER_TYPE_CLINICIAN]: ['view'],
   [Roles.USER_TYPE_ADMIN]: ['admin', 'manage'],
 };
 
