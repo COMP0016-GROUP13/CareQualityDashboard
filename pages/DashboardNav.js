@@ -162,6 +162,9 @@ function DashboardNav({ session, toggleTheme }) {
     options.push('statistics');
     options.push('self-reporting');
     options.push('manage');
+  } else if (session.user.roles.includes(Roles.USER_TYPE_ADMIN)) {
+    options.push('admin');
+    options.push('manage');
   }
 
   return (

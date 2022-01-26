@@ -15,7 +15,7 @@ const paths = {
   [Roles.USER_TYPE_HOSPITAL]: ['statistics', 'manage'],
   [Roles.USER_TYPE_DEPARTMENT]: ['view', 'create'],
   [Roles.USER_TYPE_CLINICIAN]: ['view'],
-  [Roles.USER_TYPE_ADMIN]: ['admin', 'manage'],
+  [Roles.USER_TYPE_ADMIN]: ['view', 'admin', 'manage'],
 };
 
 function Header({ session, toggleTheme }) {
