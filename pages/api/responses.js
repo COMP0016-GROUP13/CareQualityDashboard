@@ -204,7 +204,7 @@ import { Roles } from '../../lib/constants';
  */
 const handler = async (req, res) => {
   const { session } = req;
-  const dashboardId = parseInt(req.query.dashboard_id);
+  // const dashboardId = parseInt(req.query.dashboard_id);
 
   if (req.method === 'GET') {
     const {
@@ -216,6 +216,7 @@ const handler = async (req, res) => {
       user_id: userIdOverride,
       department_id: departmentIdOverride,
       hospital_id: hospitalIdOverride,
+      dashboard_id,
     } = req.query;
 
     const filters = [];
@@ -294,10 +295,18 @@ const handler = async (req, res) => {
 
     const orderBy = { timestamp: 'asc' };
 
+    console.log('ID: ');
+    console.log(dashboard_id);
+
     const responses = filters.length
       ? await prisma.responses.findMany({
           // where: { AND: filters },
-          where: { user_id: { equals: session.user.userId } },
+          where: {
+            AND: {
+              user_id: { equals: session.user.userId },
+              dashboard_id: { equals: parseInt(dashboard_id) },
+            },
+          },
           select,
           orderBy,
         })
@@ -322,36 +331,6 @@ const handler = async (req, res) => {
     );
 
     return res.json(responseData);
-  }
-
-  if (req.method === 'POST') {
-    const scores = req.body.scores.map(scoreObj => {
-      return {
-        standards: { connect: { id: scoreObj.standardId } },
-        score: scoreObj.score,
-      };
-    });
-
-    const words = req.body.words.map(word => {
-      return {
-        questions: { connect: { id: word.questionId } },
-        word: word.word.toLowerCase(),
-      };
-    });
-
-    const insertion = await prisma.responses.create({
-      data: {
-        users: { connect: { id: session.user.userId } },
-        timestamp: new Date(),
-        // dashboard: { connect: { id: dashboardId } },
-        departments: { connect: { id: session.user.departmentId } },
-        is_mentoring_session: req.body.is_mentoring_session,
-        scores: { create: scores },
-        words: { create: words },
-      },
-    });
-
-    return res.json(insertion);
   }
 
   res.status(405).json({ error: true, message: 'Method Not Allowed' });

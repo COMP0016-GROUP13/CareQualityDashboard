@@ -35,8 +35,9 @@ const generateQueryParams = ({
   end = new Date().getTime(),
   isMentoringSession = null,
   dataToDisplayOverride,
+  dashboardId,
 } = {}) => {
-  const query = { from: start, to: end };
+  const query = { from: start, to: end, dashboard_id: dashboardId };
 
   if (isMentoringSession === true) {
     query.only_is_mentoring_session = '1';
@@ -81,14 +82,20 @@ function Statistics({ session, toggleTheme }) {
     start: new Date(new Date().getTime() - DEFAULT_DATE_OFFSET),
     end: new Date(),
   });
+  const router = useRouter();
+  const dashboardId = router.query.dashboard_id;
 
   // When the state is updated, this will re-fetch from the API with the newly required query parameters
+
+  // TODO: Ranges were not working for unknown reason, find out later
+
   const { data, error } = useSWR(
     `/api/responses?${generateQueryParams({
       start: dateRange.start.getTime(),
       end: dateRange.end.getTime(),
       isMentoringSession,
       dataToDisplayOverride,
+      dashboardId,
     })}`
   );
 
@@ -164,7 +171,6 @@ function Statistics({ session, toggleTheme }) {
         }))
       : null;
 
-  const router = useRouter();
   return (
     <div>
       <Head>
