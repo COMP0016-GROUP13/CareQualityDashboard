@@ -7,6 +7,22 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model users {
+  id        String      @id
+  user_type user_type?  @default(unknown)
+  dashboard dashboard[]
+  responses responses[]
+}
+
+model dashboard {
+  id        Int         @id @default(autoincrement())
+  name      String
+  user_id   String
+  users     users       @relation(fields: [user_id], references: [id])
+  questions questions[]
+  responses responses[]
+}
+
 model hospitals {
   id              Int           @id @default(autoincrement())
   name            String
@@ -22,6 +38,8 @@ model questions {
   body          String
   type          question_type
   archived      Boolean?        @default(false)
+  dashboard_id  Int
+  dashboard     dashboard       @relation(fields: [dashboard_id], references: [id])
   standards     standards       @relation(fields: [standard_id], references: [id])
   question_urls question_urls[]
   words         words[]
@@ -33,6 +51,8 @@ model responses {
   timestamp            DateTime
   department_id        Int
   is_mentoring_session Boolean
+  dashboard_id         Int?
+  dashboard            dashboard?  @relation(fields: [dashboard_id], references: [id])
   departments          departments @relation(fields: [department_id], references: [id])
   users                users       @relation(fields: [user_id], references: [id])
   scores               scores[]
@@ -53,12 +73,6 @@ model standards {
   name      String
   questions questions[]
   scores    scores[]
-}
-
-model users {
-  id        String      @id
-  user_type user_type?  @default(unknown)
-  responses responses[]
 }
 
 model words {

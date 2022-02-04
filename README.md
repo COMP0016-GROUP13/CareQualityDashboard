@@ -1,6 +1,5 @@
 # Care Quality Dashboard
 
-
 The Care Quality Dashboard is an online platform for clinicians in NHS Wales to measure themselves against the [Welsh Government's Health and Care Standards](http://www.wales.nhs.uk/governance-emanual/health-and-care-standards).
 
 The aim is to encourage open conversations through the use of regular online self-reports answering short questions (mostly Likert-scale based) relating to each of the 7 Standards.
@@ -119,6 +118,8 @@ You might also want to seed some dummy responses for the new user (note: this mu
 1. Ensure you have logged in as the user you want to seed the responses for on your local server (i.e. at <localhost:3000>). This is needed so that the User ID is added to our database, which only happens on the first login. **You'll get an error about no matching parent ID for nested inserts if you don't do this first!**
 
 2. Run `node prisma/seedResponses.js USER_ID`, replacing `USER_ID` with the new user's ID, which you can copy from Keycloak.
+
+3. Run `node prisma/seedDashboards.js USER_ID`, replacing `USER_ID` with the new user's ID, which you can copy from Keycloak.
 
 Now your database should have some initial fake data for the given user!
 

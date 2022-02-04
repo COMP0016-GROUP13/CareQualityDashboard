@@ -1,4 +1,5 @@
-import querystring from 'query-string';
+import { useRouter } from 'next/router';
+import querystring from 'querystring';
 import { useState } from 'react';
 import { Alert } from 'rsuite';
 import { getSession } from 'next-auth/client';
@@ -13,6 +14,7 @@ import {
   CirclesAccordion,
   AnalyticsAccordion,
   Filters,
+  // DashboardFilters,
   LoginMessage,
   WordCloud,
   NoAccess,
@@ -33,9 +35,9 @@ const generateQueryParams = ({
   end = new Date().getTime(),
   isMentoringSession = null,
   dataToDisplayOverride,
+  dashboardId,
 } = {}) => {
-  const queryString = require('query-string');
-  const query = { from: start, to: end };
+  const query = { from: start, to: end, dashboard_id: dashboardId };
 
   if (isMentoringSession === true) {
     query.only_is_mentoring_session = '1';
@@ -47,9 +49,9 @@ const generateQueryParams = ({
     query[dataToDisplayOverride.key] = dataToDisplayOverride.value;
   }
 
-  console.log(query);
-  console.log(queryString.stringify(query));
-  return queryString.stringify(query);
+  // console.log(query);
+  // console.log(queryString.stringify(query));
+  return querystring.stringify(query);
 };
 
 export async function getServerSideProps(context) {
@@ -82,14 +84,20 @@ function Statistics({ session, toggleTheme }) {
     start: new Date(new Date().getTime() - DEFAULT_DATE_OFFSET),
     end: new Date(),
   });
+  const router = useRouter();
+  const dashboardId = router.query.dashboard_id;
 
   // When the state is updated, this will re-fetch from the API with the newly required query parameters
+
+  // TODO: Ranges were not working for unknown reason, find out later
+
   const { data, error } = useSWR(
     `/api/responses?${generateQueryParams({
       start: dateRange.start.getTime(),
       end: dateRange.end.getTime(),
       isMentoringSession,
       dataToDisplayOverride,
+      dashboardId,
     })}`
   );
 
@@ -173,8 +181,15 @@ function Statistics({ session, toggleTheme }) {
         <title>Statistics</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <Header session={session} toggleTheme={toggleTheme} />
+
+      {/* back button */}
+      <button
+        className={styles.backButton}
+        onClick={() => router.push('/DashboardNav')}>
+        <img src="/images/backButton.png" alt="Go Back" width="26px" />
+        Go Back
+      </button>
 
       <CirclesAccordion circles={averageStats} />
 

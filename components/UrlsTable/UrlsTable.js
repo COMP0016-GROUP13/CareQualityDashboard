@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Input, Alert, Button, Icon } from 'rsuite';
 import { mutate } from 'swr';
+import { useRouter } from 'next/router';
 import styles from './UrlsTable.module.css';
 
 import PropTypes from 'prop-types';
@@ -53,8 +54,8 @@ const columns = [
   { id: 'actions', label: 'Actions', width: 'auto' },
 ];
 
-const useQuestions = () => {
-  const { data, error } = useSWR('/api/questions');
+const useQuestions = dashboardId => {
+  const { data, error } = useSWR('/api/questions?dashboard_id=' + dashboardId);
 
   if (data) {
     return {
@@ -68,9 +69,12 @@ const useQuestions = () => {
 };
 
 var editedRow = null;
+
 export default function UrlsTable({ session, host }) {
   const [editing, setEditing] = useState(null);
-  const { data, error, message } = useQuestions();
+  const router = useRouter();
+  const dashboardId = router.query.dashboard_id;
+  const { data, error, message } = useQuestions(dashboardId);
 
   if (error) {
     Alert.error(

@@ -30,8 +30,8 @@ import { Roles } from '../lib/constants';
 /**
  * Fetches questions from the backend
  */
-const useQuestions = () => {
-  const { data, error } = useSWR('/api/questions', {
+const useQuestions = dashboardId => {
+  const { data, error } = useSWR('/api/questions?dashboard_id=' + dashboardId, {
     // We don't want to refetch questions, as we're storing our score state in this
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
@@ -63,6 +63,7 @@ export async function getServerSideProps(context) {
  */
 function SelfReporting({ session, toggleTheme }) {
   const router = useRouter();
+  const dashboardId = router.query.dashboard_id;
   const { data: words } = useSWR('/api/recent_words');
 
   const {
@@ -70,7 +71,7 @@ function SelfReporting({ session, toggleTheme }) {
     wordsQuestions,
     isQuestionsLoading,
     questionsError,
-  } = useQuestions();
+  } = useQuestions(dashboardId);
 
   const [showDialog, setShowDialog] = useState(false);
   const [dialogTitle, setDialogTitle] = useState(null);
@@ -210,6 +211,13 @@ function SelfReporting({ session, toggleTheme }) {
         text={dialogText}
         actions={dialogActions}
       />
+      {/* back button */}
+      <button
+        className={styles.backButton}
+        onClick={() => router.push('/DashboardNav')}>
+        <img src="/images/backButton.png" alt="Go Back" width="26px" />
+        Go Back
+      </button>
 
       {!questionsError && !isQuestionsLoading && (
         <div className={styles.mentoringSessionContainer}>

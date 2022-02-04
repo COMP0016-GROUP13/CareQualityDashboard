@@ -91,6 +91,9 @@ import requiresAuth from '../../../lib/requiresAuthApiMiddleware';
  *              type:
  *                type: string
  *                example: likert_scale
+ *              dashboard:
+ *                type: integer
+ *                example: 3
  *    responses:
  *      200:
  *        description: Success
@@ -116,6 +119,7 @@ import requiresAuth from '../../../lib/requiresAuthApiMiddleware';
  */
 const handler = async (req, res) => {
   const { session } = req;
+  const dashboardId = parseInt(req.query.dashboard_id);
 
   if (req.method === 'POST') {
     if (!session.user.roles.includes(Roles.USER_TYPE_ADMIN)) {
@@ -139,6 +143,7 @@ const handler = async (req, res) => {
         default_url: url,
         standards: { connect: { id: standard } },
         type: type,
+        dashboard: { connect: { id: dashboardId } },
       },
     });
 
@@ -152,6 +157,7 @@ const handler = async (req, res) => {
       default_url: true,
       type: true,
       standards: { select: { name: true, id: true } },
+      dashboard_id: true,
     };
 
     // Handle the `default_urls` override to always fetch the default URL
@@ -162,9 +168,15 @@ const handler = async (req, res) => {
       };
     }
 
+    const whereParams = { archived: false };
+
+    if (!isNaN(dashboardId)) {
+      whereParams.dashboard_id = dashboardId;
+    }
+
     const questions = await prisma.questions.findMany({
       select: queryParams,
-      where: { archived: false },
+      where: whereParams,
     });
 
     // Return an object with keys as question types, and values as arrays of questions with each type

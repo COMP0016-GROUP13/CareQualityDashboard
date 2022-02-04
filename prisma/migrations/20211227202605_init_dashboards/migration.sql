@@ -16,5 +16,8 @@ DROP INDEX "department_join_codes_department_id_unique";
 -- DropIndex
 DROP INDEX "clinician_join_codes_department_id_unique";
 
+-- AlterTable
+ALTER TABLE "responses" ALTER COLUMN "timestamp" SET DATA TYPE TIMESTAMPTZ(6);
+
 -- DropTable
 DROP TABLE "feedback";

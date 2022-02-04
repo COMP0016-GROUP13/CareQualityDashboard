@@ -9,7 +9,7 @@ const subtractDays = days => {
   return new Date(now - days * 24 * 60 * 60 * 1000);
 };
 
-export function Filters({ session, ...props }) {
+export function DashboardFilters({ session, ...props }) {
   const [departments, setDepartments] = useState([]);
   const [hospitals, setHospitals] = useState([]);
 
@@ -27,67 +27,7 @@ export function Filters({ session, ...props }) {
    */
   const renderExtraFilters = () => {
     if (session.user.roles.includes(Roles.USER_TYPE_HEALTH_BOARD)) {
-      return (
-        <>
-          <p>Group</p>
-          <SelectPicker
-            value={
-              props.dataToDisplayOverride === null
-                ? 'health_board'
-                : `${props.dataToDisplayOverride.key}-${props.dataToDisplayOverride.value}`
-            }
-            onOpen={() => {
-              fetch('/api/departments')
-                .then(res => res.json())
-                .then(res => setDepartments(res));
-
-              fetch('/api/hospitals')
-                .then(res => res.json())
-                .then(res => setHospitals(res));
-            }}
-            onChange={value => {
-              if (value === 'health_board') {
-                props.setDataToDisplayOverride(null);
-              } else {
-                const split = value.split('-');
-                props.setDataToDisplayOverride({
-                  key: split[0],
-                  value: split[1],
-                });
-              }
-            }}
-            searchable={true}
-            placeholder="Select"
-            cleanable={false}
-            block={true}
-            data={[
-              {
-                label: 'My Health Board',
-                value: 'health_board',
-                type: 'Health Board',
-              },
-              ...departments.map(d => ({
-                label: d.name,
-                value: `department_id-${d.id}`,
-                type: 'Department',
-              })),
-              ...hospitals.map(h => ({
-                label: h.name,
-                value: `hospital_id-${h.id}`,
-                type: 'Hospital',
-              })),
-            ]}
-            groupBy="type"
-            renderMenu={menu =>
-              hospitals.length || departments.length ? (
-                menu
-              ) : (
-                <Icon icon="spinner" spin />
-              )
-            }
-          />
-        </>
-      );
+      return <></>;
     }
 
     if (session.user.roles.includes(Roles.USER_TYPE_HOSPITAL)) {
@@ -142,31 +82,7 @@ export function Filters({ session, ...props }) {
     }
 
     if (session.user.roles.includes(Roles.USER_TYPE_DEPARTMENT)) {
-      return (
-        <>
-          <p>Group</p>
-          <SelectPicker
-            aria-label="group"
-            aria-expanded="false"
-            value={props.dataToDisplayOverride ? 'myself' : 'department'}
-            onChange={value =>
-              props.setDataToDisplayOverride(
-                value === 'myself'
-                  ? { key: 'user_id', value: session.user.userId }
-                  : null
-              )
-            }
-            searchable={false}
-            placeholder="Select"
-            cleanable={false}
-            block={true}
-            data={[
-              { label: 'Myself', value: 'myself' },
-              { label: 'My Department', value: 'department' },
-            ]}
-          />
-        </>
-      );
+      return <></>;
     }
 
     return <span />;
@@ -186,27 +102,9 @@ export function Filters({ session, ...props }) {
    */
   return (
     <div>
-      <p>Date Range</p>
-      <DateRangePicker
-        aria-label="Date Range"
-        aria-expanded="false"
-        showOneCalendar
-        onChange={([start, end]) => props.setDateRange({ start, end })}
-        value={[props.dateRange.start, props.dateRange.end]}
-        isoWeek={true}
-        cleanable={false}
-        block={true}
-        disabledDate={DateRangePicker.afterToday()}
-        ranges={[
-          { label: 'Last 7 days', value: [subtractDays(7), new Date()] },
-          { label: 'Last 30 days', value: [subtractDays(30), new Date()] },
-          { label: 'Last year', value: [subtractDays(365), new Date()] },
-        ]}
-      />
-
-      <p>Visualisation</p>
+      <p>Navigate</p>
       <SelectPicker
-        aria-label="Visualisation type filter"
+        aria-label="navigation filter"
         aria-expanded="false"
         value={props.visualisationType}
         onChange={value => props.setVisualisationType(value)}
@@ -216,56 +114,26 @@ export function Filters({ session, ...props }) {
         block={true}
         data={[
           {
-            label: <text id="lineChart">Line Chart</text>,
-            value: Visualisations.LINE_CHART,
+            label: <text id="Statistics">Statistics</text>,
+            value: Visualisations.STATISTICS,
           },
           {
-            label: <text id="enablersWords">Enablers Word Cloud</text>,
+            label: <text id="Self-reporting">Self-reporting</text>,
             value: Visualisations.WORD_CLOUD_ENABLERS,
           },
           {
-            label: <text id="barriersWords">Barriers Word Cloud</text>,
+            label: <text id="Manage">Manage</text>,
             value: Visualisations.WORD_CLOUD_BARRIERS,
           },
         ]}
       />
-
-      <p>Mentoring?</p>
-      <SelectPicker
-        aria-label="Mentoring session filter"
-        aria-expanded="false"
-        value={getMentoringValue()}
-        onChange={value => {
-          if (value === 'yes') props.setIsMentoringSession(true);
-          else if (value === 'no') props.setIsMentoringSession(false);
-          else props.setIsMentoringSession(null);
-        }}
-        searchable={false}
-        placeholder="Select"
-        cleanable={false}
-        block={true}
-        data={[
-          { label: 'Any', value: 'any' },
-          { label: 'Yes', value: 'yes' },
-          { label: 'No', value: 'no' },
-        ]}
-      />
-
-      <div>
-        <img src="/images/black_dot.png" width={10} />
-      </div>
-
-      {props.isMentoringSession === true ||
-        (props.isMentoringSession === null && (
-          <i>Black dots represent a mentoring session</i>
-        ))}
 
       {renderExtraFilters()}
     </div>
   );
 }
 
-Filters.propTypes = {
+DashboardFilters.propTypes = {
   /** The user's session object to decide what to display */
   session: PropTypes.object,
 
@@ -288,4 +156,4 @@ Filters.propTypes = {
   setVisualisationType: PropTypes.func,
 };
 
-export default Filters;
+export default DashboardFilters;

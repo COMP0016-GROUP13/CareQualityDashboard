@@ -5,12 +5,13 @@ import PropTypes from 'prop-types';
 
 import styles from './linechart.module.css';
 
-const MENTORING_SESSION_POINT_COLOR = 'red';
+const MENTORING_SESSION_POINT_COLOR = '#000000'; //maybe light green will be better
 
 const baseProperties = {
   fill: false,
   lineTension: 0.1,
   pointBackgroundColor: '#fff',
+
   // data, label, borderColor, etc. remaining
 };
 
@@ -58,7 +59,7 @@ const formatData = data => {
       if (isMentoringSession) {
         standardData.pointBackgroundColor.push(MENTORING_SESSION_POINT_COLOR);
         standardData.pointBorderColor.push(MENTORING_SESSION_POINT_COLOR);
-        standardData.pointStyle.push('triangle');
+        standardData.pointStyle.push('square');
         standardData.pointBorderWidth.push(4);
       } else {
         standardData.pointBackgroundColor.push('white');
@@ -145,6 +146,10 @@ function LineChart({ data } = {}) {
                   ticks: { maxRotation: 0, fontColor: 'darkgray' },
                   type: 'time',
                   time: { unit: 'day' },
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Time / Day',
+                  },
                   gridLines: {
                     color: isDarkTheme()
                       ? 'rgba(220, 220, 220, 0.1)'
@@ -159,6 +164,10 @@ function LineChart({ data } = {}) {
                     color: isDarkTheme()
                       ? 'rgba(220, 220, 220, 0.1)'
                       : 'rgba(0, 0, 0, 0.1)',
+                  },
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Score / %',
                   },
                 },
               ],

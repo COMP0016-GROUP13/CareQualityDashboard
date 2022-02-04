@@ -1,0 +1,21 @@
+.Button {
+  background: #0070f3;
+  color: whitesmoke;
+  border-radius: 10px;
+  width: 100px;
+  height: 25px;
+  font-weight: bold;
+  margin-left: 20px;
+}
+
+.TextBox {
+  margin-top: 30px;
+}
+.Form {
+  margin-top: 30px;
+}
+
+.quality {
+  margin-top: 5px;
+  margin-left: 100px;
+}
