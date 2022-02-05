@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { useRef } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { arrayOf } from 'prop-types';
 
 import { Header } from '../components';
 import { Button, Message } from 'rsuite';
@@ -110,11 +110,28 @@ function View({ session, toggleTheme }) {
   const { data, error, message } = fetchDashboards();
   const featuresRef = useRef(null);
 
+  if (data != null && data.length < 1) {
+    return (
+      <>
+        <Head>
+          <title>MultiDashboard</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <Header session={session} toggleTheme={toggleTheme} />
+
+        <h2 className={styles.title}>
+          You currently do not have any dashboards yet.{' '}
+        </h2>
+        <h5 className={styles.title}>
+          Please contact your system administrator to assign a dashboard{' '}
+        </h5>
+      </>
+    );
+  }
   const showError = error => {
     // Don't do exact match
     error = error.toLowerCase();
     const key = Object.keys(errors).find(e => error.indexOf(e) > -1);
-
     if (key) {
       const details = errors[key];
       return (
@@ -146,6 +163,7 @@ function View({ session, toggleTheme }) {
             <div className={styles.features} ref={featuresRef}>
               <div className={styles.feature}>
                 {/* Data is the data for all the dashboards, this includes id and name as stated in API */}
+                {(data = arr.sort(data))}
                 {data &&
                   data.map(dashboard => (
                     <>

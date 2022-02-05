@@ -111,7 +111,6 @@ function Home({ session, toggleTheme }) {
         />
       );
     }
-
     console.error('Unknown error');
     return null;
   };
@@ -119,64 +118,19 @@ function Home({ session, toggleTheme }) {
   return (
     <div>
       <Header session={session} toggleTheme={toggleTheme} />
+      <div className={styles.createTitle}>
+        <h1>Create a Dashboard</h1>
+      </div>
 
-      <h1>Create a Dashboard</h1>
       <Formik
         initialValues={{
           title: '',
-          question1: '',
-          question2: '',
-          question3: '',
-          question4: '',
-          question5: '',
-          question6: '',
-          question7: '',
-          question8: '',
-          question9: '',
-          question10: '',
         }}
         validate={values => {
           const errors = {};
           if (!values.title) {
             errors.title = 'Required';
           }
-
-          // if (!values.question1) {
-          //   errors.question1 = 'Required';
-          // }
-          // if (!values.quality1) {
-          //   errors.quality1 = 'Required';
-          // }
-          // if (!values.question2) {
-          //   errors.question2 = 'Required';
-          // }
-          // if (!values.question3) {
-          //   errors.question3 = 'Required';
-          // }
-          // if (!values.question4) {
-          //   errors.question4 = 'Required';
-          // }
-          // if (!values.question5) {
-          //   errors.question5 = 'Required';
-          // }
-          // if (!values.question6) {
-          //   errors.question6 = 'Required';
-          // }
-          // if (!values.question7) {
-          //   errors.question7 = 'Required';
-          // }
-          // if (!values.question8) {
-          //   errors.question8 = 'Required';
-          // }
-          // if (!values.question9) {
-          //   errors.question9 = 'Required';
-          // }
-          // if (!values.question10) {
-          //   errors.question10 = 'Required';
-          // }
-          // if (!values.quality1) {
-          //   errors.quality1 = 'Required';
-          // }
           return errors;
         }}
         onSubmit={async (values, { setSubmitting }) => {
@@ -195,13 +149,31 @@ function Home({ session, toggleTheme }) {
         }}>
         {({ isSubmitting, dirty, handleReset }) => (
           <div className={styles.Form}>
+            <div>
+              <h2>Please enter a title for your new dashboard</h2>
+            </div>
             <Form>
               <div className={styles.TextBox}>
                 <label>
-                  Title
                   <Field type="text" name="title" />
                 </label>
                 <ErrorMessage name="title" component="span" />
+              </div>
+
+              <div className={styles.Buttons}>
+                <button
+                  className={styles.Button}
+                  type="button"
+                  onClick={handleReset}
+                  disabled={!dirty || isSubmitting}>
+                  Reset
+                </button>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className={styles.Button}>
+                  Submit
+                </button>
               </div>
             </Form>
           </div>

@@ -161,6 +161,21 @@ export default function QuestionsTable() {
       Alert.success('Question successfully deleted', 3000);
     }
   };
+  // //TODO account for deleting dashboards
+  // const deleteDashboard = async id => {
+  //   const res = await fetch('/api/questions/' + id, {
+  //     method: 'DELETE',
+  //     headers: { 'Content-Type': 'application/json' },
+  //   }).then(res => res.json());
+
+  //   if (res.error) {
+  //     Alert.error(res.message, 0);
+  //   } else {
+  //     // Refetch to ensure no stale data
+  //     mutate('/api/questions?default_urls=1');
+  //     Alert.success('Dashboard successfully deleted', 3000);
+  //   }
+  // };
 
   const addNewQuestion = async () => {
     if (!newRow.body || newRow.standard === -1 || !newRow.url) {
@@ -301,6 +316,21 @@ export default function QuestionsTable() {
           ]}
         />
       )}
+
+      {/* <Button
+            color="red"
+            className={styles.buttons}
+            onClick={async () => {
+              if (
+                window.confirm(
+                  'Are you sure you want to delete a dashboard?. Deleting a dashboard cannot be undone.'
+                )
+              ) {
+                await deleteDashboard(dashboard.id);
+              }
+            }}>
+            Delete Dashbooard
+          </Button> */}
 
       <Button
         id="addNewQuestion"

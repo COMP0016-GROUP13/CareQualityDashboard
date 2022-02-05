@@ -162,6 +162,13 @@ function DashboardNav({ session, toggleTheme }) {
     options.push('statistics');
     options.push('self-reporting');
     options.push('manage');
+  } else if (session.user.roles.includes(Roles.USER_TYPE_ADMIN)) {
+    options.push('admin');
+  } else if (session.user.roles.includes(Roles.USER_TYPE_HOSPITAL)) {
+    options.push('statistics');
+    options.push('manage');
+  } else if (session.user.roles.includes(Roles.USER_TYPE_HEALTH_BOARD)) {
+    options.push('statistics');
   }
 
   return (
