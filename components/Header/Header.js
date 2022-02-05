@@ -13,9 +13,9 @@ import { ProfileButton } from '..';
 const paths = {
   [Roles.USER_TYPE_HEALTH_BOARD]: ['view'],
   [Roles.USER_TYPE_HOSPITAL]: ['view'],
-  [Roles.USER_TYPE_DEPARTMENT]: ['view', 'create'],
+  [Roles.USER_TYPE_DEPARTMENT]: ['view'],
   [Roles.USER_TYPE_CLINICIAN]: ['view'],
-  [Roles.USER_TYPE_ADMIN]: ['view'],
+  [Roles.USER_TYPE_ADMIN]: ['view', 'create', 'manage'],
 };
 
 function Header({ session, toggleTheme }) {

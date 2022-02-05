@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { useRef } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { arrayOf } from 'prop-types';
 
 import { Header } from '../components';
 import { Button, Message } from 'rsuite';
@@ -163,6 +163,7 @@ function View({ session, toggleTheme }) {
             <div className={styles.features} ref={featuresRef}>
               <div className={styles.feature}>
                 {/* Data is the data for all the dashboards, this includes id and name as stated in API */}
+                {(data = arr.sort(data))}
                 {data &&
                   data.map(dashboard => (
                     <>
