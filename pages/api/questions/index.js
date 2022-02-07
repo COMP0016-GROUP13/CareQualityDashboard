@@ -1,4 +1,4 @@
-import prisma from '../../../lib/prisma';
+import prisma, { dashboard } from '../../../lib/prisma';
 import { Roles } from '../../../lib/constants';
 import requiresAuth from '../../../lib/requiresAuthApiMiddleware';
 
@@ -159,7 +159,7 @@ const handler = async (req, res) => {
       standards: { select: { name: true, id: true } },
       dashboard_id: true,
     };
-
+    console.log('test2');
     // Handle the `default_urls` override to always fetch the default URL
     if (req.query.default_urls !== '1') {
       queryParams.question_urls = {
@@ -173,7 +173,8 @@ const handler = async (req, res) => {
     if (!isNaN(dashboardId)) {
       whereParams.dashboard_id = dashboardId;
     }
-
+    console.log('test');
+    console.log(dashboardId);
     const questions = await prisma.questions.findMany({
       select: queryParams,
       where: whereParams,

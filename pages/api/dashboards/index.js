@@ -110,6 +110,7 @@ import requiresAuth from '../../../lib/requiresAuthApiMiddleware';
  *      500:
  *        $ref: '#/components/responses/internal_server_error'
  */
+
 const handler = async (req, res) => {
   const { session } = req;
 
@@ -150,6 +151,8 @@ const handler = async (req, res) => {
   }
 
   if (req.method === 'GET') {
+    const test = await prisma.dashboard.findMany();
+    console.log(test);
     const dashboards = await prisma.dashboard.findMany({
       where: {
         user_id: session.user.userId,

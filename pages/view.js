@@ -120,7 +120,7 @@ function View({ session, toggleTheme }) {
         <Header session={session} toggleTheme={toggleTheme} />
 
         <h2 className={styles.title}>
-          You currently do not have any dashboards yet.{' '}
+          You currently do not have any dashboards yet.
         </h2>
         <h5 className={styles.title}>
           Please contact your system administrator to assign a dashboard{' '}
@@ -163,7 +163,7 @@ function View({ session, toggleTheme }) {
             <div className={styles.features} ref={featuresRef}>
               <div className={styles.feature}>
                 {/* Data is the data for all the dashboards, this includes id and name as stated in API */}
-                {(data = arr.sort(data))}
+                {/* {(data = arr.sort(data))} */}
                 {data &&
                   data.map(dashboard => (
                     <>
