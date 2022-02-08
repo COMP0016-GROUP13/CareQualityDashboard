@@ -152,13 +152,18 @@ const handler = async (req, res) => {
 
   if (req.method === 'GET') {
     const test = await prisma.dashboard.findMany();
-    console.log(test);
-    const dashboards = await prisma.dashboard.findMany({
-      where: {
-        user_id: session.user.userId,
-      },
-    });
-
+    var dashboards = {};
+    if (!session.user.roles.includes(Roles.USER_TYPE_ADMIN)) {
+      dashboards = await prisma.dashboard.findMany();
+    } else {
+      dashboards = await prisma.dashboard.findMany({
+        where: {
+          department_id: session.user.department_id,
+          // user_id: session.user.userId,
+        },
+      });
+    }
+    console.log(dashboards);
     return res.json(
       dashboards.map(d => ({
         id: d.id,

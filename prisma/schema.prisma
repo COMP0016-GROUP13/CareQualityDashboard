@@ -15,12 +15,14 @@ model users {
 }
 
 model dashboard {
-  id        Int         @id @default(autoincrement())
-  name      String
-  user_id   String
-  users     users       @relation(fields: [user_id], references: [id])
-  questions questions[]
-  responses responses[]
+  id            Int         @id @default(autoincrement())
+  name          String
+  user_id       String
+  department_id Int
+  users         users       @relation(fields: [user_id], references: [id])
+  departments   departments @relation(fields: [department_id], references: [id])
+  questions     questions[]
+  responses     responses[]
 }
 
 model hospitals {
@@ -97,6 +99,7 @@ model departments {
   hospital_id           Int
   archived              Boolean?               @default(false)
   hospitals             hospitals              @relation(fields: [hospital_id], references: [id])
+  dashboard             dashboard[]
   clinician_join_codes  clinician_join_codes?
   department_join_codes department_join_codes?
   question_urls         question_urls[]
