@@ -6,6 +6,7 @@ import styles from './QuestionsTable.module.css';
 
 import { AlertDialog, CustomTable } from '../';
 import useSWR from '../../lib/swr';
+import { useRouter } from 'next/router';
 
 const columns = [
   {
@@ -72,8 +73,10 @@ const columns = [
   { id: 'actions', label: 'Actions', width: 'auto' },
 ];
 
-const useQuestions = () => {
-  const { data, error } = useSWR('/api/questions?default_urls=1');
+const useQuestions = dashboardId => {
+  const { data, error } = useSWR(
+    '/api/questions?default_urls=1&dashboard_id=' + dashboardId
+  );
 
   if (data) {
     return {
@@ -101,12 +104,13 @@ export default function QuestionsTable() {
   const [editing, setEditing] = useState(false);
   const [showNewQuestionDialog, setShowNewQuestionDialog] = useState(false);
   const [dialogText, setDialogText] = useState(null);
-
+  const router = useRouter();
+  const dashboardId = router.query.dashboard_id;
   const {
     data: questions,
     error: questionsError,
     message: questionsMessage,
-  } = useQuestions();
+  } = useQuestions(dashboardId);
 
   const {
     data: standards,
@@ -177,13 +181,13 @@ export default function QuestionsTable() {
   //   }
   // };
 
-  const addNewQuestion = async () => {
+  const addNewQuestion = async dashboardId => {
     if (!newRow.body || newRow.standard === -1 || !newRow.url) {
       setDialogText(
         <div className={styles.alertText}>*Please fill in each field</div>
       );
     } else {
-      const res = await fetch('/api/questions/', {
+      const res = await fetch('/api/questions?dashboard_id=' + dashboardId, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -309,7 +313,7 @@ export default function QuestionsTable() {
             <Button
               id="addQuestion"
               key="alertdialog-confirm"
-              onClick={() => addNewQuestion()}
+              onClick={() => addNewQuestion(dashboardId)}
               appearance="primary">
               Add
             </Button>,
