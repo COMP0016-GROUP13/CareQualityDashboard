@@ -214,7 +214,12 @@ function SelfReporting({ session, toggleTheme }) {
       {/* back button */}
       <button
         className={styles.backButton}
-        onClick={() => router.push('/DashboardNav')}>
+        onClick={() =>
+          router.push({
+            pathname: '/DashboardNav',
+            query: { dashboard_id: dashboardId },
+          })
+        }>
         <img src="/images/backButton.png" alt="Go Back" width="26px" />
         Go Back
       </button>
