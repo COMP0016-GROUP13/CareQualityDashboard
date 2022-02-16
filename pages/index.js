@@ -132,104 +132,101 @@ function Home({ session, toggleTheme }) {
       </Head>
       <Header session={session} toggleTheme={toggleTheme} />
 
-      <div className={styles.squares}>
-        <div className={styles.container}>
-          {router.query && router.query.error && showError(router.query.error)}
-          <main className={styles.mainContent}>
-            <h1 className={styles.title}>
-              Welcome to the Multidashboard project
-            </h1>
+      <div className={styles.container}>
+        {router.query && router.query.error && showError(router.query.error)}
+        <main className={styles.mainContent}>
+          <h1 className={styles.title}>
+            Welcome to the Multidashboard project
+          </h1>
 
-            {!session && (
-              <div className={styles.loginButton}>
-                <h2>Get started</h2>
-                <p
-                  style={{ width: '60%', margin: 'auto', marginBottom: '5px' }}>
-                  If this is your first time using the Multidashboard, please
-                  contact your department or hospital manager to obtain a unique
-                  Join URL. This will automatically link your account to your
-                  corresponding department or hospital, so you can start
-                  completing self-reports and viewing your statistics.
-                </p>
-                <Button
-                  id="loginOrRegister"
-                  appearance="primary"
-                  onClick={() => signIn('keycloak')}>
-                  Login or Register
-                </Button>
-              </div>
-            )}
+          {!session && (
+            <div className={styles.loginButton}>
+              <h2>Get started</h2>
+              <p style={{ width: '60%', margin: 'auto', marginBottom: '5px' }}>
+                If this is your first time using the Multidashboard, please
+                contact your department or hospital manager to obtain a unique
+                Join URL. This will automatically link your account to your
+                corresponding department or hospital, so you can start
+                completing self-reports and viewing your statistics.
+              </p>
+              <Button
+                id="loginOrRegister"
+                appearance="primary"
+                onClick={() => signIn('keycloak')}>
+                Login or Register
+              </Button>
+            </div>
+          )}
 
-            {session && (
-              <div className={styles.spacing}>
-                <div className={styles.mainContent}>
-                  <img
-                    src="/images/dashboard.png"
-                    alt="Dashboard icon"
-                    width="120"
-                    height="120"
-                  />
-
-                  <p>
-                    Multidashboard will allow clinicians to easily view their
-                    progress as a doctor in different areas of care.
-                  </p>
-                </div>
-              </div>
-            )}
-
-            <div className={styles.features} ref={featuresRef}>
-              <div className={styles.feature}>
+          {session && (
+            <div className={styles.spacing}>
+              <div className={styles.mainContent}>
                 <img
-                  src="/images/icons8-todo-list-96.png"
-                  alt="Self-report icon"
-                  width={96}
-                  height={96}
+                  src="/images/dashboard.png"
+                  alt="Dashboard icon"
+                  width="120"
+                  height="120"
                 />
 
                 <p>
-                  Complete your self-reporting on the device of your choice in a
-                  matter of minutes. The self-reporting page is clear and simple
-                  to use allowing you to efficiently report your recent
-                  experience. Remember to submit as your answers are not
-                  automatically saved.
-                </p>
-              </div>
-
-              <div className={styles.feature}>
-                <img
-                  src="/images/icons8-combo-chart-96.png"
-                  alt="Statistics graph icon"
-                  width={96}
-                  height={96}
-                />
-                <p>
-                  Track your self-reporting any time and on any device. The
-                  statistics page gives you great flexibilty allowing you to
-                  change data ranges and whether the submissions were a part of
-                  a mentoring session. There is also a quick to read summary at
-                  the top which gives you great insight of your average.
-                </p>
-              </div>
-
-              <div className={styles.feature}>
-                <img
-                  src="/images/icons8-people-96.png"
-                  alt="Mentoring people icon"
-                  width={96}
-                  height={96}
-                />
-                <p>
-                  Complete your self-reporting by yourself or as part of a
-                  mentoring session. You and your managers can then use these
-                  useful meaningful insights to spark conversaions on how you
-                  and your department can improve and what areas are doing well
-                  and need to be maintained.
+                  Multidashboard will allow clinicians to easily view their
+                  progress as a doctor in different areas of care.
                 </p>
               </div>
             </div>
-          </main>
-        </div>
+          )}
+
+          <div className={styles.features} ref={featuresRef}>
+            <div className={styles.feature}>
+              <img
+                src="/images/icons8-todo-list-96.png"
+                alt="Self-report icon"
+                width={96}
+                height={96}
+              />
+
+              <p>
+                Complete your self-reporting on the device of your choice in a
+                matter of minutes. The self-reporting page is clear and simple
+                to use allowing you to efficiently report your recent
+                experience. Remember to submit as your answers are not
+                automatically saved.
+              </p>
+            </div>
+
+            <div className={styles.feature}>
+              <img
+                src="/images/icons8-combo-chart-96.png"
+                alt="Statistics graph icon"
+                width={96}
+                height={96}
+              />
+              <p>
+                Track your self-reporting any time and on any device. The
+                statistics page gives you great flexibilty allowing you to
+                change data ranges and whether the submissions were a part of a
+                mentoring session. There is also a quick to read summary at the
+                top which gives you great insight of your average.
+              </p>
+            </div>
+
+            <div className={styles.feature}>
+              <img
+                src="/images/icons8-people-96.png"
+                alt="Mentoring people icon"
+                width={96}
+                height={96}
+              />
+              <p>
+                Complete your self-reporting by yourself or as part of a
+                mentoring session. You and your managers can then use these
+                useful meaningful insights to spark conversaions on how you and
+                your department can improve and what areas are doing well and
+                need to be maintained.
+              </p>
+            </div>
+          </div>
+        </main>
       </div>
 
       <div className={styles.iconInfo}>
