@@ -19,7 +19,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
-          repository: uclcomputerscience/comp0016_2020_21_team20/care-quality-dashboard-web
+          repository: comp0016-group13/carequalitydashboard/multidashboard
           tags: latest
       - name: Rebuild & restart containers on server
         uses: appleboy/ssh-action@master
