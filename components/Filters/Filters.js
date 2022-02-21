@@ -251,10 +251,6 @@ export function Filters({ session, ...props }) {
         ]}
       />
 
-      <div>
-        <img src="/images/black_dot.png" width={10} />
-      </div>
-
       {props.isMentoringSession === true ||
         (props.isMentoringSession === null && (
           <i>Black dots represent a mentoring session</i>

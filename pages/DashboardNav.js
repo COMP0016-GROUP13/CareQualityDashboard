@@ -186,7 +186,6 @@ function DashboardNav({ session, toggleTheme }) {
           <button
             className={styles.backButton}
             onClick={() => router.push('/view')}>
-            <img src="/images/backButton.png" alt="Go Back" width="26px" />
             Go Back
           </button>
 

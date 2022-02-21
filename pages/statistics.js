@@ -188,7 +188,6 @@ function Statistics({ session, toggleTheme }) {
             query: { dashboard_id: dashboardId },
           })
         }>
-        <img src="/images/backButton.png" alt="Go Back" width="26px" />
         Go Back
       </button>
 
