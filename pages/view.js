@@ -163,7 +163,6 @@ function View({ session, toggleTheme }) {
             <div className={styles.features} ref={featuresRef}>
               <div className={styles.feature}>
                 {/* Data is the data for all the dashboards, this includes id and name as stated in API */}
-                {/* {(data = arr.sort(data))} */}
                 {data &&
                   data.map(dashboard => (
                     <>

@@ -47,12 +47,11 @@
   border: none !important;
 }
 
-@media (max-width: 300px) {
+@media (max-width: 400px) {
   /*Mobile view*/
   .navbarExpandIcon {
     display: inline-block !important;
   }
-
   .links.open {
     display: inline;
     background-color: #f6f9fc;
@@ -63,11 +62,9 @@
     right: 0;
     user-select: none;
   }
-
   .links.open > li {
     display: block !important;
   }
-
   .links {
     display: none;
   }
