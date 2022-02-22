@@ -19,7 +19,6 @@
   margin: 1vh;
   margin-bottom: -4vh;
   display: flex;
-
   justify-content: center;
   flex-direction: row;
   justify-content: center;
@@ -28,4 +27,10 @@
 .title,
 .description {
   text-align: center;
+}
+
+.search {
+  margin-top: 20px;
+  width: 20em;
+  height: 3em;
 }

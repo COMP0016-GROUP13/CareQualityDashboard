@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { useRef } from 'react';
 import PropTypes, { arrayOf } from 'prop-types';
-
+import { useState } from 'react';
 import { Header } from '../components';
 import { Button, Message } from 'rsuite';
 import { signIn, getSession } from 'next-auth/client';
@@ -148,6 +148,7 @@ function View({ session, toggleTheme }) {
     return null;
   };
 
+  const [searchTerm, setSearchTerm] = useState('');
   return (
     <div>
       <Head>
@@ -163,22 +164,45 @@ function View({ session, toggleTheme }) {
             <div className={styles.features} ref={featuresRef}>
               <div className={styles.feature}>
                 {/* Data is the data for all the dashboards, this includes id and name as stated in API */}
+                {
+                  <input
+                    className={styles.search}
+                    type="text"
+                    placeholder="Search"
+                    onChange={event => {
+                      setSearchTerm(event.target.value);
+                    }}
+                  />
+                }
+
                 {data &&
-                  data.map(dashboard => (
-                    <>
-                      <button
-                        onClick={() => {
-                          router.push({
-                            pathname: '/DashboardNav',
-                            query: { dashboard_id: dashboard.id },
-                          });
-                        }}
-                        id={dashboard.id}
-                        className={styles.DashboardButtons}>
-                        {dashboard.name}
-                      </button>
-                    </>
-                  ))}
+                  data
+                    .filter(value => {
+                      if (searchTerm === '') {
+                        return value;
+                      } else if (
+                        value.name
+                          .toLowerCase()
+                          .includes(searchTerm.toLowerCase())
+                      ) {
+                        return value;
+                      }
+                    })
+                    .map(dashboard => (
+                      <>
+                        <button
+                          onClick={() => {
+                            router.push({
+                              pathname: '/DashboardNav',
+                              query: { dashboard_id: dashboard.id },
+                            });
+                          }}
+                          id={dashboard.id}
+                          className={styles.DashboardButtons}>
+                          {dashboard.name}
+                        </button>
+                      </>
+                    ))}
               </div>
             </div>
           </main>
