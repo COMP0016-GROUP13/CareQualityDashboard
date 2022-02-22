@@ -8,6 +8,7 @@ import { Button, Message } from 'rsuite';
 import { signIn, getSession } from 'next-auth/client';
 import styles from './view.module.css';
 import useSWR from '../lib/swr';
+import SearchFilter from '../components/SearchFilter/SearchFilter';
 
 const errors = {
   configuration: {
@@ -164,45 +165,12 @@ function View({ session, toggleTheme }) {
             <div className={styles.features} ref={featuresRef}>
               <div className={styles.feature}>
                 {/* Data is the data for all the dashboards, this includes id and name as stated in API */}
-                {
-                  <input
-                    className={styles.search}
-                    type="text"
-                    placeholder="Search"
-                    onChange={event => {
-                      setSearchTerm(event.target.value);
-                    }}
-                  />
-                }
-
-                {data &&
-                  data
-                    .filter(value => {
-                      if (searchTerm === '') {
-                        return value;
-                      } else if (
-                        value.name
-                          .toLowerCase()
-                          .includes(searchTerm.toLowerCase())
-                      ) {
-                        return value;
-                      }
-                    })
-                    .map(dashboard => (
-                      <>
-                        <button
-                          onClick={() => {
-                            router.push({
-                              pathname: '/DashboardNav',
-                              query: { dashboard_id: dashboard.id },
-                            });
-                          }}
-                          id={dashboard.id}
-                          className={styles.DashboardButtons}>
-                          {dashboard.name}
-                        </button>
-                      </>
-                    ))}
+                <SearchFilter
+                  data={data}
+                  setSearchTerm={setSearchTerm}
+                  searchTerm={searchTerm}
+                  router={router}
+                />
               </div>
             </div>
           </main>
