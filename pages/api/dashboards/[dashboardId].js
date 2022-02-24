@@ -29,6 +29,32 @@ import requiresAuth from '../../../lib/requiresAuthApiMiddleware';
  *        $ref: '#/components/responses/insufficient_permission'
  *      500:
  *        $ref: '#/components/responses/internal_server_error'
+ *  delete:
+ *    summary: Delete a dashboard
+ *    description: "Delete the given dashboard from the system, to no longer be shown to any users when they view all their dashboards. This is irreversible. Note: you must be an administrator to perform this operation."
+ *    tags: [dashboards]
+ *    parameters:
+ *      - name: id
+ *        in: path
+ *        description: Dashboard ID to delete
+ *        required: true
+ *        schema:
+ *          type: integer
+ *    responses:
+ *      200:
+ *        description: Success
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/dashboard'
+ *      401:
+ *        $ref: '#/components/responses/unauthorized'
+ *      403:
+ *        $ref: '#/components/responses/insufficient_permission'
+ *      422:
+ *        $ref: '#/components/responses/invalid_question_id'
+ *      500:
+ *        $ref: '#/components/responses/internal_server_error'
  */
 
 const handler = async (req, res) => {
@@ -55,6 +81,21 @@ const handler = async (req, res) => {
     //   });
     // }
     return res.json(dashboard);
+  }
+
+  if (req.method === 'DELETE') {
+    if (!session.user.roles.includes(Roles.USER_TYPE_ADMIN)) {
+      return res.status(403).json({
+        error: true,
+        message: 'You do not have permission to delete dashboards',
+      });
+    }
+
+    const response = await prisma.dashboard.delete({
+      where: { id: +req.query.dashboardId },
+    });
+
+    return res.json(response);
   }
 
   res.status(405).json({ error: true, message: 'Method Not Allowed' });

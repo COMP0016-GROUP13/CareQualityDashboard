@@ -97,6 +97,7 @@ const seedDashboards = async userId => {
     data: {
       users: { connect: { id: userId } },
       name: 'Care Quality Dashboard',
+      departments: { connect: { id: 1 } },
       questions: { create: question_data },
       responses: { create: responses },
     },
@@ -112,20 +113,22 @@ const seedDashboards = async userId => {
    * Uncomment this for fake date, just names
    */
 
-  // await Promise.all([
-  //   prisma.dashboard.create({
-  //     data: {
-  //       users: { connect: { id: userId } },
-  //       name: 'MSK Triage Dashboard',
-  //     },
-  //   }),
-  //   prisma.dashboard.create({
-  //     data: {
-  //       users: { connect: { id: userId } },
-  //       name: 'Test2',
-  //     },
-  //   }),
-  // ]);
+  await Promise.all([
+    prisma.dashboard.create({
+      data: {
+        users: { connect: { id: userId } },
+        name: 'MSK Triage Dashboard',
+        departments: { connect: { id: 1 } },
+      },
+    }),
+    prisma.dashboard.create({
+      data: {
+        users: { connect: { id: userId } },
+        name: 'Test2',
+        departments: { connect: { id: 1 } },
+      },
+    }),
+  ]);
 };
 
 /**

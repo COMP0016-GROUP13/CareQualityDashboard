@@ -1,14 +1,14 @@
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { useRef } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { arrayOf } from 'prop-types';
 
 import { Header } from '../components';
 import { Button, Message } from 'rsuite';
 import { signIn, getSession } from 'next-auth/client';
-import styles from './create.module.css';
-
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import styles from './view.module.css';
+import useSWR from '../lib/swr';
+import { ClinicianJoinCode, CustomTable } from '../components';
 
 const errors = {
   configuration: {
@@ -91,15 +91,12 @@ export async function getServerSideProps(context) {
   return { props: { session: await getSession(context) } };
 }
 
-function Home({ session, toggleTheme }) {
+function Join({ session, toggleTheme, host }) {
   const router = useRouter();
-  const featuresRef = useRef(null);
-
   const showError = error => {
     // Don't do exact match
     error = error.toLowerCase();
     const key = Object.keys(errors).find(e => error.indexOf(e) > -1);
-
     if (key) {
       const details = errors[key];
       return (
@@ -111,81 +108,34 @@ function Home({ session, toggleTheme }) {
         />
       );
     }
+
     console.error('Unknown error');
     return null;
   };
 
   return (
     <div>
+      <Head>
+        <title>MultiDashboard</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <Header session={session} toggleTheme={toggleTheme} />
-      <div className={styles.createTitle}>
-        <h1>Create a Dashboard</h1>
+      <div className={styles.squares}>
+        <div className={styles.container}>
+          {router.query && router.query.error && showError(router.query.error)}
+          <main className={styles.mainContent}>
+            <h2 className={styles.title}>Link to provide to other users</h2>
+            <ClinicianJoinCode session={session} host={host} />
+          </main>
+        </div>
       </div>
-
-      <Formik
-        initialValues={{
-          title: '',
-        }}
-        validate={values => {
-          const errors = {};
-          if (!values.title) {
-            errors.title = 'Required';
-          }
-          return errors;
-        }}
-        onSubmit={async (values, { setSubmitting }) => {
-          // post data to server
-          const res = await fetch('/api/dashboards/', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              name: values.title,
-            }),
-          }).then(res => res.json());
-
-          // TODO: Remove during refactor
-          alert(JSON.stringify(values, null, 2));
-          setSubmitting(false);
-        }}>
-        {({ isSubmitting, dirty, handleReset }) => (
-          <div className={styles.Form}>
-            <div>
-              <h2>Please enter a title for your new dashboard</h2>
-            </div>
-            <Form>
-              <div className={styles.TextBox}>
-                <label>
-                  <Field type="text" name="title" />
-                </label>
-                <ErrorMessage name="title" component="span" />
-              </div>
-
-              <div className={styles.Buttons}>
-                <button
-                  className={styles.Button}
-                  type="button"
-                  onClick={handleReset}
-                  disabled={!dirty || isSubmitting}>
-                  Reset
-                </button>
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className={styles.Button}>
-                  Submit
-                </button>
-              </div>
-            </Form>
-          </div>
-        )}
-      </Formik>
     </div>
   );
 }
 
-Home.propTypes = {
+Join.propTypes = {
   session: PropTypes.object.isRequired,
   toggleTheme: PropTypes.func.isRequired,
 };
 
-export default Home;
+export default Join;

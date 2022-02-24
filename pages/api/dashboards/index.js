@@ -110,6 +110,7 @@ import requiresAuth from '../../../lib/requiresAuthApiMiddleware';
  *      500:
  *        $ref: '#/components/responses/internal_server_error'
  */
+
 const handler = async (req, res) => {
   const { session } = req;
 
@@ -135,6 +136,7 @@ const handler = async (req, res) => {
       data: {
         users: { connect: { id: session.user.userId } },
         name: name,
+        departments: { connect: { id: session.user.departmentId } },
 
         ////     hospitals: { connect: { id: session.user.hospitalId } },
         ////     clinician_join_codes: { create: { code: await createJoinCode() } },
@@ -150,12 +152,19 @@ const handler = async (req, res) => {
   }
 
   if (req.method === 'GET') {
-    const dashboards = await prisma.dashboard.findMany({
-      where: {
-        user_id: session.user.userId,
-      },
-    });
-
+    const test = await prisma.dashboard.findMany();
+    var dashboards = {};
+    if (session.user.roles.includes(Roles.USER_TYPE_ADMIN)) {
+      dashboards = await prisma.dashboard.findMany();
+    } else {
+      dashboards = await prisma.dashboard.findMany({
+        where: {
+          department_id: session.user.departmentId,
+          // user_id: session.user.userId,
+        },
+      });
+    }
+    console.log(dashboards);
     return res.json(
       dashboards.map(d => ({
         id: d.id,

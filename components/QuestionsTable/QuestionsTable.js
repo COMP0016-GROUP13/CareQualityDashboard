@@ -6,6 +6,7 @@ import styles from './QuestionsTable.module.css';
 
 import { AlertDialog, CustomTable } from '../';
 import useSWR from '../../lib/swr';
+import { useRouter } from 'next/router';
 
 const columns = [
   {
@@ -72,8 +73,10 @@ const columns = [
   { id: 'actions', label: 'Actions', width: 'auto' },
 ];
 
-const useQuestions = () => {
-  const { data, error } = useSWR('/api/questions?default_urls=1');
+const useQuestions = dashboardId => {
+  const { data, error } = useSWR(
+    '/api/questions?default_urls=1&dashboard_id=' + dashboardId
+  );
 
   if (data) {
     return {
@@ -101,12 +104,13 @@ export default function QuestionsTable() {
   const [editing, setEditing] = useState(false);
   const [showNewQuestionDialog, setShowNewQuestionDialog] = useState(false);
   const [dialogText, setDialogText] = useState(null);
-
+  const router = useRouter();
+  const dashboardId = router.query.dashboard_id;
   const {
     data: questions,
     error: questionsError,
     message: questionsMessage,
-  } = useQuestions();
+  } = useQuestions(dashboardId);
 
   const {
     data: standards,
@@ -161,14 +165,29 @@ export default function QuestionsTable() {
       Alert.success('Question successfully deleted', 3000);
     }
   };
+  // //TODO account for deleting dashboards
+  const deleteDashboard = async id => {
+    const res = await fetch('/api/dashboards/' + id, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+    }).then(res => res.json());
 
-  const addNewQuestion = async () => {
+    if (res.error) {
+      Alert.error(res.message, 0);
+    } else {
+      // Refetch to ensure no stale data
+      mutate('/api/questions?default_urls=1');
+      Alert.success('Dashboard successfully deleted', 3000);
+    }
+  };
+
+  const addNewQuestion = async dashboardId => {
     if (!newRow.body || newRow.standard === -1 || !newRow.url) {
       setDialogText(
         <div className={styles.alertText}>*Please fill in each field</div>
       );
     } else {
-      const res = await fetch('/api/questions/', {
+      const res = await fetch('/api/questions?dashboard_id=' + dashboardId, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -294,13 +313,28 @@ export default function QuestionsTable() {
             <Button
               id="addQuestion"
               key="alertdialog-confirm"
-              onClick={() => addNewQuestion()}
+              onClick={() => addNewQuestion(dashboardId)}
               appearance="primary">
               Add
             </Button>,
           ]}
         />
       )}
+
+      <Button
+        color="red"
+        className={styles.buttons}
+        onClick={async () => {
+          if (
+            window.confirm(
+              'Are you sure you want to delete a dashboard?. Deleting a dashboard cannot be undone.'
+            )
+          ) {
+            await deleteDashboard(dashboardId);
+          }
+        }}>
+        Delete Dashbooard
+      </Button>
 
       <Button
         id="addNewQuestion"

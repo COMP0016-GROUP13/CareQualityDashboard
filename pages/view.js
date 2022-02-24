@@ -1,13 +1,14 @@
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { useRef } from 'react';
-import PropTypes from 'prop-types';
-
+import PropTypes, { arrayOf } from 'prop-types';
+import { useState } from 'react';
 import { Header } from '../components';
 import { Button, Message } from 'rsuite';
 import { signIn, getSession } from 'next-auth/client';
 import styles from './view.module.css';
 import useSWR from '../lib/swr';
+import SearchFilter from '../components/SearchFilter/SearchFilter';
 
 const errors = {
   configuration: {
@@ -110,11 +111,28 @@ function View({ session, toggleTheme }) {
   const { data, error, message } = fetchDashboards();
   const featuresRef = useRef(null);
 
+  if (data != null && data.length < 1) {
+    return (
+      <>
+        <Head>
+          <title>MultiDashboard</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <Header session={session} toggleTheme={toggleTheme} />
+
+        <h2 className={styles.title}>
+          You currently do not have any dashboards yet.
+        </h2>
+        <h5 className={styles.title}>
+          Please contact your system administrator to assign a dashboard{' '}
+        </h5>
+      </>
+    );
+  }
   const showError = error => {
     // Don't do exact match
     error = error.toLowerCase();
     const key = Object.keys(errors).find(e => error.indexOf(e) > -1);
-
     if (key) {
       const details = errors[key];
       return (
@@ -131,6 +149,7 @@ function View({ session, toggleTheme }) {
     return null;
   };
 
+  const [searchTerm, setSearchTerm] = useState('');
   return (
     <div>
       <Head>
@@ -146,22 +165,12 @@ function View({ session, toggleTheme }) {
             <div className={styles.features} ref={featuresRef}>
               <div className={styles.feature}>
                 {/* Data is the data for all the dashboards, this includes id and name as stated in API */}
-                {data &&
-                  data.map(dashboard => (
-                    <>
-                      <button
-                        onClick={() => {
-                          router.push({
-                            pathname: '/DashboardNav',
-                            query: { dashboard_id: dashboard.id },
-                          });
-                        }}
-                        id={dashboard.id}
-                        className={styles.DashboardButtons}>
-                        {dashboard.name}
-                      </button>
-                    </>
-                  ))}
+                <SearchFilter
+                  data={data}
+                  setSearchTerm={setSearchTerm}
+                  searchTerm={searchTerm}
+                  router={router}
+                />
               </div>
             </div>
           </main>
