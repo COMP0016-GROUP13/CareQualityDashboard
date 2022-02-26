@@ -298,22 +298,26 @@ const handler = async (req, res) => {
     console.log('ID: ');
     console.log(dashboard_id);
 
+    filters.push({ dashboard_id: { equals: parseInt(dashboard_id) } });
+
+    // console.log(filters);
+
     const responses = filters.length
       ? await prisma.responses.findMany({
-          // where: { AND: filters },
-          where: {
-            AND: {
-              user_id: { equals: session.user.userId },
-              dashboard_id: { equals: parseInt(dashboard_id) },
-            },
-          },
+          where: { AND: filters },
+          // where: {
+          //   AND: {
+          //     user_id: { equals: session.user.userId },
+          //     dashboard_id: { equals: parseInt(dashboard_id) },
+          //   },
+          // },
           select,
           orderBy,
         })
       : await prisma.responses.findMany({ select, orderBy });
 
-    console.log('responseData');
-    console.log(responses);
+    // console.log('responseData');
+    // console.log(responses);
 
     const scoresPerStandard = {};
     responses.forEach(val =>

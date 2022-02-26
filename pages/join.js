@@ -9,6 +9,16 @@ import { signIn, getSession } from 'next-auth/client';
 import styles from './view.module.css';
 import useSWR from '../lib/swr';
 import { ClinicianJoinCode, CustomTable } from '../components';
+import { Roles } from '../lib/constants';
+
+export async function getServerSideProps(context) {
+  return {
+    props: {
+      session: await getSession(context),
+      host: context.req.headers.host,
+    },
+  };
+}
 
 const errors = {
   configuration: {
@@ -87,12 +97,9 @@ const errors = {
   },
 };
 
-export async function getServerSideProps(context) {
-  return { props: { session: await getSession(context) } };
-}
-
-function Join({ session, toggleTheme, host }) {
+function Join({ session, host, toggleTheme }) {
   const router = useRouter();
+
   const showError = error => {
     // Don't do exact match
     error = error.toLowerCase();
@@ -108,7 +115,16 @@ function Join({ session, toggleTheme, host }) {
         />
       );
     }
+  };
 
+  const renderContent = () => {
+    if (session.user.roles.includes(Roles.USER_TYPE_DEPARTMENT)) {
+      return (
+        <div>
+          <ClinicianJoinCode session={session} host={host} />
+        </div>
+      );
+    }
     console.error('Unknown error');
     return null;
   };
@@ -125,7 +141,7 @@ function Join({ session, toggleTheme, host }) {
           {router.query && router.query.error && showError(router.query.error)}
           <main className={styles.mainContent}>
             <h2 className={styles.title}>Link to provide to other users</h2>
-            <ClinicianJoinCode session={session} host={host} />
+            {renderContent()}
           </main>
         </div>
       </div>
@@ -135,6 +151,7 @@ function Join({ session, toggleTheme, host }) {
 
 Join.propTypes = {
   session: PropTypes.object.isRequired,
+  host: PropTypes.string.isRequired,
   toggleTheme: PropTypes.func.isRequired,
 };
 
