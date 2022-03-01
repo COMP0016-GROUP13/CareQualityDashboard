@@ -124,7 +124,7 @@ function View({ session, toggleTheme }) {
           You currently do not have any dashboards yet.
         </h2>
         <h5 className={styles.title}>
-          Please contact your system administrator to assign a dashboard{' '}
+          Please contact your department manager to assign a dashboard{' '}
         </h5>
       </>
     );
