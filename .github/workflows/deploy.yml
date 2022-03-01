@@ -18,7 +18,7 @@ jobs:
         with:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-          registry: docker.pkg.github.com
+          registry: ghcr.io
           repository: comp0016-group13/carequalitydashboard/multidashboard
           tags: latest
       - name: Rebuild & restart containers on server
