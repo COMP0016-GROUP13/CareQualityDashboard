@@ -113,22 +113,22 @@ const seedDashboards = async userId => {
    * Uncomment this for fake date, just names
    */
 
-  await Promise.all([
-    prisma.dashboard.create({
-      data: {
-        users: { connect: { id: userId } },
-        name: 'MSK Triage Dashboard',
-        departments: { connect: { id: 1 } },
-      },
-    }),
-    prisma.dashboard.create({
-      data: {
-        users: { connect: { id: userId } },
-        name: 'Test2',
-        departments: { connect: { id: 1 } },
-      },
-    }),
-  ]);
+  // await Promise.all([
+  //   prisma.dashboard.create({
+  //     data: {
+  //       users: { connect: { id: userId } },
+  //       name: 'MSK Triage Dashboard',
+  //       departments: { connect: { id: 1 } },
+  //     },
+  //   }),
+  //   prisma.dashboard.create({
+  //     data: {
+  //       users: { connect: { id: userId } },
+  //       name: 'Test2',
+  //       departments: { connect: { id: 1 } },
+  //     },
+  //   }),
+  // ]);
 };
 
 /**
