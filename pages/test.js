@@ -138,7 +138,7 @@ function Test({ session, toggleTheme }) {
   return (
     <div>
       <Head>
-        <title>Care Quality Dashboard</title>
+        <title>MultiDashboard</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header session={session} toggleTheme={toggleTheme} />

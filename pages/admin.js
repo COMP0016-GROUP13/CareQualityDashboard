@@ -36,7 +36,8 @@ function Manage({ session, toggleTheme }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header session={session} toggleTheme={toggleTheme} />
-      {session.user.roles.includes(Roles.USER_TYPE_ADMIN) ? (
+      {session.user.roles.includes(Roles.USER_TYPE_ADMIN) ||
+      session.user.roles.includes(Roles.USER_TYPE_DEPARTMENT) ? (
         <div>
           <h3>Manage and add new questions</h3>
           <QuestionsTable />

@@ -111,7 +111,10 @@ const handler = async (req, res) => {
   }
 
   if (req.method === 'PUT') {
-    if (!session.user.roles.includes(Roles.USER_TYPE_ADMIN)) {
+    if (
+      !session.user.roles.includes(Roles.USER_TYPE_ADMIN) &&
+      !session.user.roles.includes(Roles.USER_TYPE_DEPARTMENT)
+    ) {
       return res.status(403).json({
         error: true,
         message: 'You do not have permission to modify questions',
@@ -142,7 +145,10 @@ const handler = async (req, res) => {
   }
 
   if (req.method === 'DELETE') {
-    if (!session.user.roles.includes(Roles.USER_TYPE_ADMIN)) {
+    if (
+      !session.user.roles.includes(Roles.USER_TYPE_ADMIN) &&
+      !session.user.roles.includes(Roles.USER_TYPE_DEPARTMENT)
+    ) {
       return res.status(403).json({
         error: true,
         message: 'You do not have permission to delete questions',

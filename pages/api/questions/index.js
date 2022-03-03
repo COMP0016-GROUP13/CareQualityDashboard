@@ -122,7 +122,10 @@ const handler = async (req, res) => {
   const dashboardId = parseInt(req.query.dashboard_id);
 
   if (req.method === 'POST') {
-    if (!session.user.roles.includes(Roles.USER_TYPE_ADMIN)) {
+    if (
+      !session.user.roles.includes(Roles.USER_TYPE_ADMIN) &&
+      !session.user.roles.includes(Roles.USER_TYPE_DEPARTMENT)
+    ) {
       return res.status(403).json({
         error: true,
         message: 'You do not have permission to add new questions',

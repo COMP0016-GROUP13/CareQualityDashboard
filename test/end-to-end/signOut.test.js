@@ -17,28 +17,28 @@ describe('Signing out', () => {
   it('Cannot access statistics page ', async () => {
     await page.goto(process.env.BASE_URL + '/statistics');
     await expect(page).toMatchElement('p', {
-      text: 'You must login or register to use the Care Quality Dashboard.',
+      text: 'You must login or register to use the MultiDashboard',
     });
   });
 
   it('Cannot access self-reporting page ', async () => {
     await page.goto(process.env.BASE_URL + '/self-reporting');
     await expect(page).toMatchElement('p', {
-      text: 'You must login or register to use the Care Quality Dashboard.',
+      text: 'You must login or register to use the MultiDashboard',
     });
   });
 
   it('Cannot access manage page ', async () => {
     await page.goto(process.env.BASE_URL + '/manage');
     await expect(page).toMatchElement('p', {
-      text: 'You must login or register to use the Care Quality Dashboard.',
+      text: 'You must login or register to use the MultiDashboard.',
     });
   });
 
   it('Cannot access admin page ', async () => {
     await page.goto(process.env.BASE_URL + '/admin');
     await expect(page).toMatchElement('p', {
-      text: 'You must login or register to use the Care Quality Dashboard.',
+      text: 'You must login or register to use the MultiDashboard.',
     });
   });
 });
