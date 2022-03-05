@@ -1,5 +1,5 @@
 import prisma from '../../lib/prisma';
-
+import { Roles } from '../../lib/constants';
 import requiresAuth from '../../lib/requiresAuthApiMiddleware';
 
 /**
@@ -45,6 +45,39 @@ import requiresAuth from '../../lib/requiresAuthApiMiddleware';
  *        $ref: '#/components/responses/internal_server_error'
  */
 const handler = async (req, res) => {
+  const { session } = req;
+
+  if (req.method === 'POST') {
+    if (!session.user.roles.includes(Roles.USER_TYPE_HOSPITAL)) {
+      return res.status(403).json({
+        error: true,
+        message: 'You do not have permission to add new standards',
+      });
+    }
+
+    const { name } = req.body;
+    if (!name) {
+      return res.status(422).json({
+        error: true,
+        message: 'The required standard details are missing',
+      });
+    }
+
+    // console.log(name);
+
+    const record = await prisma.standards.create({
+      data: {
+        name: name,
+      },
+      //   ////   include: {
+      //   ////     department_join_codes: { select: { code: true } },
+      //   ////     clinician_join_codes: { select: { code: true } },
+      //   //   },
+    });
+
+    return res.json(record);
+  }
+
   if (req.method === 'GET') {
     const standards = await prisma.standards.findMany();
     return res.json(standards);
