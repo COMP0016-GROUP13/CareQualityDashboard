@@ -199,7 +199,7 @@ function Manage({ session, host, toggleTheme }) {
         <>
           <div className={styles.Standard}>
             <div className={styles.child}>
-              <h3 className={styles.standardTitle}>Create A New Standard : </h3>
+              <h3 className={styles.standardTitle}>Create a new standard : </h3>
             </div>
 
             <Formik
