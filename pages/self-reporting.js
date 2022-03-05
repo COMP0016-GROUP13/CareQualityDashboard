@@ -189,6 +189,26 @@ function SelfReporting({ session, toggleTheme }) {
     );
   }
 
+  if (likertScaleQuestions != null && likertScaleQuestions.length < 1) {
+    return (
+      <>
+        <Head>
+          <title>MultiDashboard</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <Header session={session} toggleTheme={toggleTheme} />
+
+        <h2 className={styles.noquestions}>
+          There are no questions that have been added to this dashboard.
+        </h2>
+        <h5 className={styles.contact}>
+          Please contact your department manager or system administrator to
+          resolve this issue{' '}
+        </h5>
+      </>
+    );
+  }
+
   return (
     <div>
       <Head>
@@ -258,6 +278,24 @@ function SelfReporting({ session, toggleTheme }) {
             your recent experience?
           </p>
         )}
+        {/* if (data != null && data.length < 1) {
+    return (
+      <>
+        <Head>
+          <title>MultiDashboard</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <Header session={session} toggleTheme={toggleTheme} />
+
+        <h2 className={styles.title}>
+          You currently do not have any dashboards yet.
+        </h2>
+        <h5 className={styles.title}>
+          Please contact your system administrator to assign a dashboard{' '}
+        </h5>
+      </>
+    );
+  } */}
 
         {!questionsError &&
           !isQuestionsLoading &&
