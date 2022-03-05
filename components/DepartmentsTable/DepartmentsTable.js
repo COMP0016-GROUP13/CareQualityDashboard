@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Button, Input, Alert, Icon } from 'rsuite';
 import { mutate } from 'swr';
+import { useRouter } from 'next/router';
+import { useRef } from 'react';
 
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import PropTypes from 'prop-types';
@@ -9,6 +11,87 @@ import styles from './DepartmentsTable.module.css';
 import { AlertDialog, CustomTable } from '../';
 import { Roles } from '../../lib/constants';
 import useSWR from '../../lib/swr';
+
+const errors = {
+  configuration: {
+    heading: 'Server error',
+    message: (
+      <div>
+        <p>There is a problem with the server configuration.</p>
+        <p>Check the server logs for more information.</p>
+      </div>
+    ),
+  },
+  accessdenied: {
+    heading: 'Access Denied',
+    message: (
+      <div>
+        <p>You do not have permission to sign in.</p>
+        <p>
+          <Button
+            appearance="primary"
+            onClick={() => signIn('keycloak', { callbackUrl: '/' })}>
+            Sign in
+          </Button>
+        </p>
+      </div>
+    ),
+  },
+  verification: {
+    heading: 'Unable to sign in',
+    message: (
+      <div>
+        <p>The sign in link is no longer valid.</p>
+        <p>It may have be used already or it may have expired.</p>
+        <p>
+          <Button
+            appearance="primary"
+            onClick={() => signIn('keycloak', { callbackUrl: '/' })}>
+            Sign in
+          </Button>
+        </p>
+      </div>
+    ),
+  },
+  departmentdeleted: {
+    heading: 'Department deleted',
+    message: (
+      <div>
+        <p>Your department was deleted by your hospital.</p>
+        <p>
+          Please log in again, and request a new join URL to join another
+          department.
+        </p>
+        <p>
+          <Button
+            appearance="primary"
+            onClick={() => signIn('keycloak', { callbackUrl: '/' })}>
+            Sign in
+          </Button>
+        </p>
+      </div>
+    ),
+  },
+  invaliduser: {
+    heading: 'Unable to sign in',
+    message: (
+      <div>
+        <p>There was an error logging in. Please try again.</p>
+        <p>
+          <Button
+            appearance="primary"
+            onClick={() => signIn('keycloak', { callbackUrl: '/' })}>
+            Sign in
+          </Button>
+        </p>
+      </div>
+    ),
+  },
+};
+
+export async function getServerSideProps(context) {
+  return { props: { session: await getSession(context) } };
+}
 
 const columns = [
   {
@@ -37,6 +120,29 @@ const useDepartments = () => {
 };
 
 export default function DepartmentsTable({ host }) {
+  const router = useRouter();
+  const featuresRef = useRef(null);
+
+  const showError = error => {
+    // Don't do exact match
+    error = error.toLowerCase();
+    const key = Object.keys(errors).find(e => error.indexOf(e) > -1);
+
+    if (key) {
+      const details = errors[key];
+      return (
+        <Message
+          type="error"
+          closable
+          title={details.heading}
+          description={details.message}
+        />
+      );
+    }
+    console.error('Unknown error');
+    return null;
+  };
+
   const [showNewDepartmentDialog, setShowNewDepartmentDialog] = useState(false);
   const [dialogText, setDialogText] = useState(null);
   const [newDepartmentName, setNewDepartmentName] = useState(null);
@@ -145,65 +251,67 @@ export default function DepartmentsTable({ host }) {
   };
 
   return (
-    <div>
-      <div className={styles.intro}>
-        <p className={styles.url}>
-          Please send these unique URLs to department managers to join the
-          respective departments
-        </p>
-        <Button
-          id="addNewDept"
-          className={styles.button}
-          appearance="primary"
-          onClick={() => {
-            setDialogText(null);
-            setShowNewDepartmentDialog(true);
-          }}>
-          Add new department
-        </Button>
-      </div>
-
-      <AlertDialog
-        open={showNewDepartmentDialog}
-        setOpen={setShowNewDepartmentDialog}
-        title="Please enter the new department's name:"
-        text={dialogText}
-        content={[
-          <div key="new-department-name" className={styles.alertContent}>
-            <Input
-              className={styles.input}
-              id="newDeptName"
-              onChange={setNewDepartmentName}
-            />
-          </div>,
-        ]}
-        actions={[
+    <>
+      <div>
+        <div className={styles.intro}>
+          <p className={styles.url}>
+            Please send these unique URLs to department managers to join the
+            respective departments
+          </p>
           <Button
-            key="alertdialog-edit"
-            color="red"
-            onClick={() => setShowNewDepartmentDialog(false)}>
-            Cancel
-          </Button>,
-          <Button
-            id="addDept"
-            key="alertdialog-confirm"
-            onClick={addNewDepartment}
-            appearance="primary">
-            Add
-          </Button>,
-        ]}
-      />
+            id="addNewDept"
+            className={styles.button}
+            appearance="primary"
+            onClick={() => {
+              setDialogText(null);
+              setShowNewDepartmentDialog(true);
+            }}>
+            Add new department
+          </Button>
+        </div>
 
-      {!error && (
-        <CustomTable
-          host={host}
-          data={data}
-          columns={columns}
-          renderActionCells={renderActionCells}
-          editing={false} // Cannot edit departments
+        <AlertDialog
+          open={showNewDepartmentDialog}
+          setOpen={setShowNewDepartmentDialog}
+          title="Please enter the new department's name:"
+          text={dialogText}
+          content={[
+            <div key="new-department-name" className={styles.alertContent}>
+              <Input
+                className={styles.input}
+                id="newDeptName"
+                onChange={setNewDepartmentName}
+              />
+            </div>,
+          ]}
+          actions={[
+            <Button
+              key="alertdialog-edit"
+              color="red"
+              onClick={() => setShowNewDepartmentDialog(false)}>
+              Cancel
+            </Button>,
+            <Button
+              id="addDept"
+              key="alertdialog-confirm"
+              onClick={addNewDepartment}
+              appearance="primary">
+              Add
+            </Button>,
+          ]}
         />
-      )}
-    </div>
+
+        {!error && (
+          <CustomTable
+            host={host}
+            data={data}
+            columns={columns}
+            renderActionCells={renderActionCells}
+            editing={false} // Cannot edit departments
+          />
+        )}
+      </div>
+    </>
   );
 }
 

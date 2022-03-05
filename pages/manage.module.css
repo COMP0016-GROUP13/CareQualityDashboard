@@ -1,0 +1,26 @@
+.Standard {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  white-space: nowrap;
+  display: flex;
+}
+
+.standardTitle {
+  margin-right: 20px;
+}
+
+.TextBox {
+  height: 35px;
+  width: 200px;
+}
+
+.SubmitButton {
+  margin-left: 40px;
+  background: #3498ff;
+  color: whitesmoke;
+  border-radius: 10px;
+  width: 80px;
+  height: 35px;
+  font-weight: bold;
+  margin-left: 20px;
+}

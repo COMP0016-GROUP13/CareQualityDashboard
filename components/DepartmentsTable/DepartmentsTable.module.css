@@ -26,12 +26,10 @@
   .url {
     width: 100%;
   }
-
   .intro {
     flex-direction: column;
     text-align: center;
   }
-
   .button {
     margin: auto;
     margin-top: 10px;

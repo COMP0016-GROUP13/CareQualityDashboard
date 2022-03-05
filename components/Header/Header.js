@@ -12,7 +12,7 @@ import { ProfileButton } from '..';
 
 const paths = {
   [Roles.USER_TYPE_HEALTH_BOARD]: ['view'],
-  [Roles.USER_TYPE_HOSPITAL]: ['view', 'manage', 'standard'],
+  [Roles.USER_TYPE_HOSPITAL]: ['view', 'manage'],
   [Roles.USER_TYPE_DEPARTMENT]: ['view', 'create', 'join'],
   [Roles.USER_TYPE_CLINICIAN]: ['view'],
   [Roles.USER_TYPE_ADMIN]: ['view', 'create', 'manage'],
