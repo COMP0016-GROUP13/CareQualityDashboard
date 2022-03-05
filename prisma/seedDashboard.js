@@ -1,9 +1,5 @@
 const { PrismaClient } = require('@prisma/client');
-const {
-  standards,
-  likertScaleQuestions,
-  wordsQuestions,
-} = require('../seedData');
+const { standards, likertScaleQuestions } = require('../seedData');
 const prisma = new PrismaClient();
 
 const getRandomScore = () => Math.floor(Math.random() * 5);

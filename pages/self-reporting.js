@@ -18,7 +18,6 @@ import styles from './self-reporting.module.css';
 import {
   LikertScaleQuestion,
   AlertDialog,
-  WordsQuestion,
   Header,
   LoginMessage,
   NoAccess,
@@ -39,7 +38,6 @@ const useQuestions = dashboardId => {
 
   return {
     likertScaleQuestions: data && data.likert_scale ? data.likert_scale : [],
-    wordsQuestions: data && data.words ? data.words : [],
     isQuestionsLoading: !error && !data,
     questionsError: data ? data.error : error,
   };
@@ -68,7 +66,6 @@ function SelfReporting({ session, toggleTheme }) {
 
   const {
     likertScaleQuestions,
-    wordsQuestions,
     isQuestionsLoading,
     questionsError,
   } = useQuestions(dashboardId);
@@ -87,11 +84,6 @@ function SelfReporting({ session, toggleTheme }) {
    */
   const submitAnswers = async () => {
     const words = [];
-    wordsQuestions.forEach(
-      q =>
-        q.words &&
-        q.words.forEach(w => w && words.push({ questionId: q.id, word: w }))
-    );
     const scores = likertScaleQuestions.map(q => ({
       standardId: q.standards.id,
       score: q.score,
@@ -278,19 +270,6 @@ function SelfReporting({ session, toggleTheme }) {
               questionUrl={question.url}
               onChange={score => (question.score = score)}
               showError={showErrors && typeof question.score === 'undefined'}
-            />
-          ))}
-
-        {!questionsError &&
-          !isQuestionsLoading &&
-          wordsQuestions.map((question, i) => (
-            <WordsQuestion
-              key={i}
-              suggestedWords={words ? words.words : []}
-              question={question.body}
-              questionId={question.id}
-              questionNumber={i + likertScaleQuestions.length + 1}
-              onChange={words => (question.words = words)}
             />
           ))}
 
