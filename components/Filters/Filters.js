@@ -204,32 +204,6 @@ export function Filters({ session, ...props }) {
         ]}
       />
 
-      <p>Visualisation</p>
-      <SelectPicker
-        aria-label="Visualisation type filter"
-        aria-expanded="false"
-        value={props.visualisationType}
-        onChange={value => props.setVisualisationType(value)}
-        searchable={false}
-        placeholder="Select"
-        cleanable={false}
-        block={true}
-        data={[
-          {
-            label: <text id="lineChart">Line Chart</text>,
-            value: Visualisations.LINE_CHART,
-          },
-          {
-            label: <text id="enablersWords">Enablers Word Cloud</text>,
-            value: Visualisations.WORD_CLOUD_ENABLERS,
-          },
-          {
-            label: <text id="barriersWords">Barriers Word Cloud</text>,
-            value: Visualisations.WORD_CLOUD_BARRIERS,
-          },
-        ]}
-      />
-
       <p>Mentoring?</p>
       <SelectPicker
         aria-label="Mentoring session filter"

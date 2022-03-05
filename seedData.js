@@ -55,23 +55,4 @@ const likertScaleQuestions = [
   },
 ];
 
-const wordsQuestions = [
-  {
-    id: 8,
-    question:
-      'Provide 3 words that describe enablers/facilitators to providing high quality effective care in this interaction.',
-    standardId: 8,
-    url:
-      'http://www.wales.nhs.uk/governance-emanual/governance-leadership-and-accountability-1',
-  },
-  {
-    id: 9,
-    question:
-      'Provide 3 words that describe barriers/challenges to providing high quality effective care in this interaction.',
-    standardId: 8,
-    url:
-      'http://www.wales.nhs.uk/governance-emanual/governance-leadership-and-accountability-1',
-  },
-];
-
-module.exports = { standards, likertScaleQuestions, wordsQuestions };
+module.exports = { standards, likertScaleQuestions };

@@ -16,7 +16,6 @@ import {
   Filters,
   // DashboardFilters,
   LoginMessage,
-  WordCloud,
   NoAccess,
 } from '../components';
 
@@ -222,20 +221,6 @@ function Statistics({ session, toggleTheme }) {
         <div className={styles.graph}>
           {visualisationType === Visualisations.LINE_CHART ? (
             <LineChart data={dataToSend} />
-          ) : (
-            ''
-          )}
-
-          {visualisationType === Visualisations.WORD_CLOUD_ENABLERS ||
-          visualisationType === Visualisations.WORD_CLOUD_BARRIERS ? (
-            <WordCloud
-              words={
-                !localError && localData
-                  ? localData.responses.map(r => r.words.map(w => w)).flat()
-                  : null
-              }
-              visualisationType={visualisationType}
-            />
           ) : (
             ''
           )}

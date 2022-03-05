@@ -4,11 +4,7 @@ const NodeEnvironment = require('jest-environment-node');
 const { Client: PgClient } = require('pg');
 
 const prisma = require('../../lib/prisma');
-const {
-  standards,
-  likertScaleQuestions,
-  wordsQuestions,
-} = require('../../seedData');
+const { standards, likertScaleQuestions } = require('../../seedData');
 
 const getClient = async () => {
   const client = new PgClient({ connectionString: process.env.DATABASE_URL });
@@ -126,20 +122,6 @@ class ApiTestEnvironment extends NodeEnvironment {
             default_url: question.url,
             standard_id: question.standardId,
             type: 'likert_scale',
-            body: question.question,
-          },
-        })
-      ),
-    ]);
-
-    await Promise.all([
-      ...wordsQuestions.map((question, i) =>
-        prisma.questions.create({
-          data: {
-            id: question.id,
-            default_url: question.url,
-            standard_id: question.standardId,
-            type: 'words',
             body: question.question,
           },
         })

@@ -1,6 +1,5 @@
 const withTM = require('next-transpile-modules')([
   'next-auth',
-  'react-wordcloud',
   'd3-array',
   'd3-cloud',
   'd3-color',
