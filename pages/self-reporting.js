@@ -89,7 +89,7 @@ function SelfReporting({ session, toggleTheme }) {
       score: q.score,
     }));
 
-    const status = await fetch('/api/responses', {
+    const status = await fetch('/api/responses?dashboard_id=' + dashboardId, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -101,7 +101,10 @@ function SelfReporting({ session, toggleTheme }) {
 
     if (status === 200) {
       Alert.success('Successfully submitted', 3000);
-      router.push('/statistics');
+      router.push({
+        pathname: '/statistics',
+        query: { dashboard_id: dashboardId },
+      });
     } else {
       Alert.error(
         'There was an error submitting your responses. Please try again or contact the system administrator if the issue persists',

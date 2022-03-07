@@ -197,7 +197,7 @@ function Manage({ session, host, toggleTheme }) {
     } else if (session.user.roles.includes(Roles.USER_TYPE_HOSPITAL)) {
       return (
         <>
-          <div className={styles.Standard}>
+          {/* <div className={styles.Standard}>
             <div className={styles.child}>
               <h3 className={styles.standardTitle}>Create a new standard : </h3>
             </div>
@@ -246,7 +246,7 @@ function Manage({ session, host, toggleTheme }) {
                 </Form>
               )}
             </Formik>
-          </div>
+          </div> */}
 
           <div>
             <h3>Manage and add new departments</h3>
