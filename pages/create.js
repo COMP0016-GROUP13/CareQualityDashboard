@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { useRef } from 'react';
 import PropTypes from 'prop-types';
+import { Alert } from 'rsuite';
 
 import { Header } from '../components';
 import { Button, Message } from 'rsuite';
@@ -144,7 +145,7 @@ function Home({ session, toggleTheme }) {
           }).then(res => res.json());
 
           // TODO: Remove during refactor
-          alert(JSON.stringify(values, null, 2));
+          Alert.success('New dashboard successfully added', 3000);
           setSubmitting(false);
         }}>
         {({ isSubmitting, dirty, handleReset }) => (
