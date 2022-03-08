@@ -1,5 +1,7 @@
 # Architecture
 
+> NOTE: Packages and database names with `care_quality_dashboard` are from the first iteration of the project and future iterations found it unnesaarry to change the name
+
 The Care Quality Dashboard is a Next.js application. The following is a system architecture diagram showing a high-level overview of the various parts and how they are connected together:
 
 ![System Architecture Diagram](./docs/system-architecture.png)
@@ -19,7 +21,7 @@ The system contains 2 PostgreSQL databases, both within a single dockerised Post
 - The `keycloak` database is entirely managed by Keycloak in the Keycloak Docker Container
 - The `care_quality_dashboard` database is the system's own database storing information such as responses, questions, departments, hospitals, etc. An ER-UML diagram is below:
 
-  ![care_quality_dashboard database ER-UML diagram](./docs/er-uml-diagram.png)
+  ![MultiDashboard database ER-UML diagram](./docs/UMLdiagram.jpeg)
 
 Prisma is used as an ORM to communicate with the `care_quality_dashboard` database; the Prisma schema can be found at [`./prisma/schema.prisma`](./prisma/schema.prisma).
 

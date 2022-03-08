@@ -35,9 +35,13 @@ Standard Linux security configurations must be applied, which are out of the sco
 
 5. Update the `Caddyfile` to e.g. change the hostname based on the domain name that will be serving the website.
 
-6. Run `caddy run` to start the Web Server (ensure the firewall allows HTTPS/port 443 requests)
+6. Set the root DNS A record (usually called @) to be the IP of your Linode server with a short TTL, in the settings for your domain. Do the same process with "auth" as the hostname. The DNS will probably need to be configured on whatever registrar the domain is from (not Linode),
 
-7. Run `docker-compose -f docker-compose-prod.yml up -d` to start the Docker Containers for the system
+7. Run `caddy run` to start the Web Server (ensure the firewall allows HTTPS/port 443 requests)
+
+8. Create a docker package and link it to your github repository. Then update the docker package URL in the [`docker-compose-prod.yml`](./docker-compose-prod.yml) file.
+
+9. Run `docker-compose -f docker-compose-prod.yml up -d` to start the Docker Containers for the system
 
 The platform should now be running and accessible at your specified domain name over HTTPS.
 
