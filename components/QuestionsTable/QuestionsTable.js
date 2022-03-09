@@ -333,7 +333,7 @@ export default function QuestionsTable() {
             await deleteDashboard(dashboardId);
           }
         }}>
-        Delete Dashbooard
+        Delete Dashboard
       </Button>
 
       <Button
