@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import styles from './linechart.module.css';
 
-const MENTORING_SESSION_POINT_COLOR = '#000000'; //maybe light green will be better
+const MENTORING_SESSION_POINT_COLOR = '#000000';
 
 const baseProperties = {
   fill: false,
@@ -174,7 +174,7 @@ function LineChart({ data } = {}) {
             },
             legend: {
               labels: { fontColor: isDarkTheme() ? '#9C9C9D' : '#666' },
-              onClick: legendClickHandler, // To add 'invert selection' option to legend
+              onClick: legendClickHandler,
             },
           }}
         />

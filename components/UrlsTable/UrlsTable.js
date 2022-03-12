@@ -70,10 +70,9 @@ const useQuestions = dashboardId => {
 
 var editedRow = null;
 
-export default function UrlsTable({ session, host }) {
+export default function UrlsTable({ session, host, dashboardId }) {
   const [editing, setEditing] = useState(null);
   const router = useRouter();
-  const dashboardId = router.query.dashboard_id;
   const { data, error, message } = useQuestions(dashboardId);
 
   if (error) {

@@ -100,12 +100,11 @@ const useStandards = () => {
 };
 
 var editedRow = null;
-export default function QuestionsTable() {
+export default function QuestionsTable({ dashboardId }) {
   const [editing, setEditing] = useState(false);
   const [showNewQuestionDialog, setShowNewQuestionDialog] = useState(false);
   const [dialogText, setDialogText] = useState(null);
   const router = useRouter();
-  const dashboardId = router.query.dashboard_id;
   const {
     data: questions,
     error: questionsError,

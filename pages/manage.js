@@ -45,6 +45,7 @@ export async function getServerSideProps(context) {
 function Manage({ session, host, toggleTheme }) {
   const [addNewUserModalUserType, setAddNewUserModalUserType] = useState(null);
   const [addNewEntityModalType, setAddNewEntityModalType] = useState(null);
+  const dashboardId = router.query.dashboard_id;
 
   if (!session) {
     return (
@@ -60,7 +61,8 @@ function Manage({ session, host, toggleTheme }) {
       return (
         <div>
           <h3>Manage the URLs of each question</h3>
-          <UrlsTable session={session} host={host} />
+
+          <UrlsTable session={session} host={host} dashboardId={dashboardId} />
         </div>
       );
     } else if (session.user.roles.includes(Roles.USER_TYPE_ADMIN)) {

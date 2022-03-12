@@ -20,6 +20,8 @@ export async function getServerSideProps(context) {
  * @param toggleTheme the global function to toggle the current theme
  */
 function Manage({ session, toggleTheme }) {
+  const dashboardId = router.query.dashboard_id;
+
   if (!session) {
     return (
       <div>
@@ -40,7 +42,7 @@ function Manage({ session, toggleTheme }) {
       session.user.roles.includes(Roles.USER_TYPE_DEPARTMENT) ? (
         <div>
           <h3>Manage and add new questions</h3>
-          <QuestionsTable />
+          <QuestionsTable dashboardId={dashboardId} />
         </div>
       ) : (
         <NoAccess />

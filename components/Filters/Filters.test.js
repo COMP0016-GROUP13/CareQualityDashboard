@@ -27,9 +27,6 @@ describe('Filters', () => {
     expect(wrapper.findWhere(n => n.contains('Date Range')).exists()).toBe(
       true
     );
-    expect(wrapper.findWhere(n => n.contains('Visualisation')).exists()).toBe(
-      true
-    );
     expect(wrapper.findWhere(n => n.contains('Mentoring?')).exists()).toBe(
       true
     );
@@ -44,9 +41,6 @@ describe('Filters', () => {
     );
 
     expect(wrapper.findWhere(n => n.contains('Date Range')).exists()).toBe(
-      true
-    );
-    expect(wrapper.findWhere(n => n.contains('Visualisation')).exists()).toBe(
       true
     );
     expect(wrapper.findWhere(n => n.contains('Mentoring?')).exists()).toBe(

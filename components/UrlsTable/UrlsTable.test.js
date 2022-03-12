@@ -9,6 +9,7 @@ describe('UrlsTable', () => {
     <UrlsTable
       session={{ user: { roles: Roles.USER_TYPE_DEPARTMENT } }}
       host="example.com"
+      department_id={1}
     />
   );
 
