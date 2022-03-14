@@ -16,6 +16,7 @@ import {
 import { Roles } from '../lib/constants';
 import styles from './manage.module.css';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { useRouter } from 'next/router';
 
 export async function getServerSideProps(context) {
   return {
@@ -45,6 +46,7 @@ export async function getServerSideProps(context) {
 function Manage({ session, host, toggleTheme }) {
   const [addNewUserModalUserType, setAddNewUserModalUserType] = useState(null);
   const [addNewEntityModalType, setAddNewEntityModalType] = useState(null);
+  const router = useRouter();
   const dashboardId = router.query.dashboard_id;
 
   if (!session) {

@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { Header, LoginMessage, QuestionsTable, NoAccess } from '../components';
 
 import { Roles } from '../lib/constants';
+import { useRouter } from 'next/router';
 
 export async function getServerSideProps(context) {
   return { props: { session: await getSession(context) } };
@@ -20,6 +21,7 @@ export async function getServerSideProps(context) {
  * @param toggleTheme the global function to toggle the current theme
  */
 function Manage({ session, toggleTheme }) {
+  const router = useRouter();
   const dashboardId = router.query.dashboard_id;
 
   if (!session) {
