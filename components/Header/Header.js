@@ -85,9 +85,8 @@ function Header({ session, toggleTheme }) {
             onClick={() =>
               window &&
               window.open(
-                'https://liveuclac-my.sharepoint.com/:w:/g/personal/zcabmzi_ucl_ac_uk/EXJNiRz5slBPv0KfCFdaep4BEiiZumxu2SwkeFsuEx_RGg?e=cYTzgn',
-                '_blank',
-                'fullscreen=yes'
+                'https://liveuclac-my.sharepoint.com/:w:/g/personal/zcabnds_ucl_ac_uk/EX97GVqS_nxEtuKJjfwVyf8BU4t6EmndpnV01nNkqGHtRg?e=IOVqHI',
+                '_blank'
               )
             }>
             help

@@ -5,13 +5,13 @@ import QuestionsTable from './QuestionsTable.js';
 
 describe('QuestionsTable', () => {
   it('renders', () => {
-    const wrapper = shallow(<QuestionsTable />);
+    const wrapper = shallow(<QuestionsTable dashboardId={1} />);
 
     expect(wrapper.exists()).toBe(true);
   });
 
   it('shows headings', () => {
-    const wrapper = mount(<QuestionsTable />);
+    const wrapper = mount(<QuestionsTable dashboardId={1} />);
 
     expect(wrapper.findWhere(n => n.contains('Question body')));
     expect(wrapper.findWhere(n => n.contains('Standard')));
@@ -20,7 +20,7 @@ describe('QuestionsTable', () => {
   });
 
   it('shows add question button', () => {
-    const wrapper = mount(<QuestionsTable />);
+    const wrapper = mount(<QuestionsTable dashboardId={1} />);
 
     expect(
       wrapper.findWhere(
