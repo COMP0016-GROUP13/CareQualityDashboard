@@ -20,6 +20,7 @@ beforeAll(async () => {
       archived: false,
       id: 100,
       standard_id: 1,
+      dashboard_id: 1,
     },
   });
 });
@@ -45,7 +46,6 @@ describe('PUT /api/questions/{id}', () => {
 
   [
     Roles.USER_TYPE_CLINICIAN,
-    Roles.USER_TYPE_DEPARTMENT,
     Roles.USER_TYPE_HEALTH_BOARD,
     Roles.USER_TYPE_HOSPITAL,
     Roles.USER_TYPE_UNKNOWN,
@@ -165,7 +165,6 @@ describe('DELETE /api/questions/{id}', () => {
 
   [
     Roles.USER_TYPE_CLINICIAN,
-    Roles.USER_TYPE_DEPARTMENT,
     Roles.USER_TYPE_HEALTH_BOARD,
     Roles.USER_TYPE_HOSPITAL,
     Roles.USER_TYPE_UNKNOWN,

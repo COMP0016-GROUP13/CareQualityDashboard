@@ -1,6 +1,7 @@
 import styles from './SearchFilter.module.css';
-
-function SearchFilter({ data, setSearchTerm, searchTerm, router }) {
+import { useRouter } from 'next/router';
+function SearchFilter({ data, setSearchTerm, searchTerm }) {
+  const router = useRouter();
   return (
     <>
       {
@@ -9,11 +10,13 @@ function SearchFilter({ data, setSearchTerm, searchTerm, router }) {
           type="text"
           placeholder="Search..."
           onChange={event => {
+            console.log(setSearchTerm(event.target.value));
+
             setSearchTerm(event.target.value);
           }}
         />
       }
-
+      {router.query && router.query.error && showError(router.query.error)}
       {data &&
         data
           .filter(value => {

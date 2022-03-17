@@ -58,7 +58,7 @@ const getKeycloakAdminAccessToken = async () => {
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: `client_id=admin-cli&username=${process.env.KEYCLOAK_USER}&password=${process.env.KEYCLOAK_PASSWORD}&grant_type=password`,
+      body: `client_id=admin-cli&username=admin&password=dev&grant_type=password`,
     }
   ).then(res => res.json());
 
@@ -280,18 +280,41 @@ class PuppeteerTestEnvironment extends NodeEnvironment {
       ),
     ]);
 
-    await Promise.all([
-      ...likertScaleQuestions.map((question, i) =>
-        prisma.questions.create({
-          data: {
-            default_url: question.url,
-            standard_id: question.standardId,
-            type: 'likert_scale',
-            body: question.question,
-          },
-        })
-      ),
-    ]);
+    var question_data = [];
+
+    likertScaleQuestions.map(question =>
+      question_data.push({
+        default_url: question.url,
+        standards: { connect: { id: question.standardId } },
+        type: 'likert_scale',
+        body: question.question,
+      })
+    );
+
+    await Promise.all(prisma.users.create({ data: { id: 'testid' } }));
+    const dashboard = {
+      data: {
+        users: { connect: { id: 'testid' } },
+        name: 'Care Quality Dashboard',
+        departments: { connect: { id: 1 } },
+        questions: { create: question_data },
+      },
+    };
+
+    await Promise.all([prisma.dashboard.create(dashboard)]); // Start auto-incrementing at 1000 (large number) so the hard-coded values
+
+    // await Promise.all([
+    //   ...likertScaleQuestions.map((question, i) =>
+    //     prisma.questions.create({
+    //       data: {
+    //         default_url: question.url,
+    //         standard_id: question.standardId,
+    //         type: 'likert_scale',
+    //         body: question.question,
+    //       },
+    //     })
+    //   ),
+    // ]);
 
     // Start auto-incrementing at 1000 (large number) so the hard-coded values
     // in the tests don't cause conflicts

@@ -59,7 +59,7 @@ describe('GET /api/standards', () => {
 });
 
 describe('Invalid HTTP methods for /api/standards', () => {
-  ['DELETE', 'PUT', 'POST'].forEach(methodType => {
+  ['DELETE', 'PUT'].forEach(methodType => {
     it(`doesn't allow ${methodType} requests`, async () => {
       expect.hasAssertions();
       helpers.mockSessionWithUserType(Roles.USER_TYPE_CLINICIAN);

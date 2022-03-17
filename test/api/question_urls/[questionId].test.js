@@ -22,6 +22,7 @@ beforeAll(async () => {
       archived: false,
       id: 100,
       standard_id: 1,
+      dashboard_id: 1,
     },
   });
 });

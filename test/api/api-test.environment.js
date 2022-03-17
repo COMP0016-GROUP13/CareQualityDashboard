@@ -115,20 +115,27 @@ class ApiTestEnvironment extends NodeEnvironment {
       ),
     ]);
 
-    await Promise.all([
-      ...likertScaleQuestions.map((question, i) =>
-        prisma.questions.create({
-          data: {
-            default_url: question.url,
-            standard_id: question.standardId,
-            type: 'likert_scale',
-            body: question.question,
-          },
-        })
-      ),
-    ]);
+    var question_data = [];
 
-    // Start auto-incrementing at 1000 (large number) so the hard-coded values
+    likertScaleQuestions.map(question =>
+      question_data.push({
+        default_url: question.url,
+        standards: { connect: { id: question.standardId } },
+        type: 'likert_scale',
+        body: question.question,
+      })
+    );
+
+    const dashboard = {
+      data: {
+        users: { connect: { id: 'clinician' } },
+        name: 'Care Quality Dashboard',
+        departments: { connect: { id: 1 } },
+        questions: { create: question_data },
+      },
+    };
+
+    await Promise.all([prisma.dashboard.create(dashboard)]); // Start auto-incrementing at 1000 (large number) so the hard-coded values
     // in the tests don't cause conflicts
     await client.query('ALTER SEQUENCE departments_id_seq RESTART 1000;');
     await client.query('ALTER SEQUENCE hospitals_id_seq RESTART 1000;');

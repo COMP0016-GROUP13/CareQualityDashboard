@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { useRef } from 'react';
 import PropTypes, { arrayOf } from 'prop-types';
@@ -106,7 +105,6 @@ export async function getServerSideProps(context) {
 }
 
 function View({ session, toggleTheme }) {
-  const router = useRouter();
   // TODO: Handle Errors here, such as no dashboards created
   const { data, error, message } = fetchDashboards();
   const featuresRef = useRef(null);
@@ -159,7 +157,6 @@ function View({ session, toggleTheme }) {
       <Header session={session} toggleTheme={toggleTheme} />
       <div className={styles.squares}>
         <div className={styles.container}>
-          {router.query && router.query.error && showError(router.query.error)}
           <main className={styles.mainContent}>
             <h2 className={styles.title}>Here are your dashboards</h2>
             <div className={styles.features} ref={featuresRef}>
@@ -169,7 +166,6 @@ function View({ session, toggleTheme }) {
                   data={data}
                   setSearchTerm={setSearchTerm}
                   searchTerm={searchTerm}
-                  router={router}
                 />
               </div>
             </div>
