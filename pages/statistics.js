@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import querystring from 'querystring';
 import { useState } from 'react';
 import { Alert } from 'rsuite';
 import { getSession } from 'next-auth/client';

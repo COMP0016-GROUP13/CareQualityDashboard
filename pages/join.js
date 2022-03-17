@@ -1,14 +1,12 @@
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import { useRef } from 'react';
-import PropTypes, { arrayOf } from 'prop-types';
+import PropTypes from 'prop-types';
 
 import { Header } from '../components';
 import { Button, Message } from 'rsuite';
 import { signIn, getSession } from 'next-auth/client';
 import styles from './view.module.css';
-import useSWR from '../lib/swr';
-import { ClinicianJoinCode, CustomTable } from '../components';
+import { ClinicianJoinCode } from '../components';
 import { Roles } from '../lib/constants';
 
 export async function getServerSideProps(context) {

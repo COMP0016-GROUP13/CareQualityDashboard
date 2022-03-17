@@ -4,14 +4,8 @@ import PropTypes from 'prop-types';
 
 import { Roles, Visualisations } from '../../lib/constants';
 
-const subtractDays = days => {
-  const now = new Date().getTime();
-  return new Date(now - days * 24 * 60 * 60 * 1000);
-};
-
 export function DashboardFilters({ session, ...props }) {
   const [departments, setDepartments] = useState([]);
-  const [hospitals, setHospitals] = useState([]);
 
   /**
    * Render extra filters based on user type:

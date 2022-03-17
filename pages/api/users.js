@@ -1,6 +1,5 @@
 import requiresAuth from '../../lib/requiresAuthApiMiddleware';
 import { addNewUser } from '../../lib/handleUserAuthEvents';
-import prisma from '../../lib/prisma';
 import { Roles } from '../../lib/constants';
 
 /**

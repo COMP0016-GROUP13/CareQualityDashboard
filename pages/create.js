@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import Head from 'next/head';
 import { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Alert } from 'rsuite';

@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { useRef } from 'react';
-import PropTypes, { arrayOf } from 'prop-types';
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { Header } from '../components';
 import { Button, Message } from 'rsuite';

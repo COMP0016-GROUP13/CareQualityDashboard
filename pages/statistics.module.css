@@ -16,15 +16,12 @@
 
 @media (max-width: 648px) {
   /*Mobile view*/
-
   .content {
     flex-direction: column;
   }
-
   .filters {
     width: 100%;
   }
-
   .graph {
     width: 100%;
   }

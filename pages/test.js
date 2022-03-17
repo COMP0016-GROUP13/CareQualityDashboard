@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import { Header } from '../components';
 import { Button, Message } from 'rsuite';
 import { signIn, getSession } from 'next-auth/client';
-import styles from './view.module.css';
 import useSWR from '../lib/swr';
 
 const errors = {
