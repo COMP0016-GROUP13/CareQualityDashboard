@@ -46,11 +46,8 @@ const generateQueryParams = ({
   if (dataToDisplayOverride) {
     query[dataToDisplayOverride.key] = dataToDisplayOverride.value;
   }
-  // console.log(query);
   let convertedQuery = new URLSearchParams(query);
-  // console.log(queryString.stringify(query));
   return convertedQuery;
-  // return querystring.stringify(query);
 };
 
 export async function getServerSideProps(context) {
@@ -99,8 +96,6 @@ function Statistics({ session, toggleTheme }) {
       dashboardId,
     })}`
   );
-
-  console.log(data);
 
   var localData, localError, localMessage;
   if (data) {

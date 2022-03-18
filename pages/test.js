@@ -109,8 +109,6 @@ function Test({ session, toggleTheme }) {
   const id = router.query.dashboard_id;
   const { data, error } = useSWR('/api/dashboards/' + id);
 
-  console.log(data);
-  // console.log(router.query);
   const featuresRef = useRef(null);
 
   const showError = error => {

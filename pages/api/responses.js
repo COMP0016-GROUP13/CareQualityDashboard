@@ -294,12 +294,7 @@ const handler = async (req, res) => {
 
     const orderBy = { timestamp: 'asc' };
 
-    console.log('ID: ');
-    console.log(dashboard_id);
-
     filters.push({ dashboard_id: { equals: parseInt(dashboard_id) } });
-
-    // console.log(filters);
 
     const responses = filters.length
       ? await prisma.responses.findMany({
@@ -314,9 +309,6 @@ const handler = async (req, res) => {
           orderBy,
         })
       : await prisma.responses.findMany({ select, orderBy });
-
-    // console.log('responseData');
-    // console.log(responses);
 
     const scoresPerStandard = {};
     responses.forEach(val =>
@@ -341,7 +333,6 @@ const handler = async (req, res) => {
 
   if (req.method === 'POST') {
     const dashboardId = parseInt(req.query.dashboard_id);
-    console.log(dashboardId);
     const scores = req.body.scores.map(scoreObj => {
       return {
         standards: { connect: { id: scoreObj.standardId } },

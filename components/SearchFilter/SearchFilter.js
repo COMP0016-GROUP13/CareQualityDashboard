@@ -10,8 +10,6 @@ function SearchFilter({ data, setSearchTerm, searchTerm }) {
           type="text"
           placeholder="Search..."
           onChange={event => {
-            console.log(setSearchTerm(event.target.value));
-
             setSearchTerm(event.target.value);
           }}
         />

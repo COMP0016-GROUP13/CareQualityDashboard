@@ -201,7 +201,6 @@ if (!userId) {
   );
 }
 
-console.log('Seeding responses for user ' + userId);
 seedResponses(userId)
   .catch(e => console.error(e))
   .finally(async () => await prisma.$disconnect());

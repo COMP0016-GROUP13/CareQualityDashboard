@@ -96,19 +96,16 @@ const options = {
     signIn: async (user, account, profile) => {
       // Check if their department has been archived.
       // If so, cancel login, redirect to homepage with error query parameter
-      console.log('User attempting log in');
       return await handleUserAttemptLogin(user, account, profile);
     },
   },
   events: {
     signIn: async message => {
       // Ensure their ID and latest user type is stored in our database, fetched from Keycloak
-      console.log('User logged in successfully');
       return await handleUserSuccessfulLogin(message);
     },
     signOut: async message => {
       // Destroy user's Keycloak session
-      console.log('User signing out');
       return await handleUserLogout(message.accessToken, message.refreshToken);
     },
   },

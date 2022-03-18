@@ -141,8 +141,6 @@ if (!userId) {
   );
 }
 
-console.log('Seeding dashboards for user ' + userId);
-
 seedDashboards(userId)
   .catch(e => console.error(e))
   .finally(async () => await prisma.$disconnect());

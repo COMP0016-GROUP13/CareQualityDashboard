@@ -164,7 +164,6 @@ const handler = async (req, res) => {
         },
       });
     }
-    console.log(dashboards);
     return res.json(
       dashboards.map(d => ({
         id: d.id,
