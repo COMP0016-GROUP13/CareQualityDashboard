@@ -6,52 +6,51 @@ describe('Logging in', () => {
   afterEach(async () => await signOutToHomepage());
   afterAll(async () => await prisma.$disconnect());
 
-  it('Logs in as clinician', async () => {
-    await logInAs({
-      username: 'clinician@example.com',
-      password: 'clinician',
-    });
-    await expect(page).toMatchElement('a', { text: 'statistics' });
-    await expect(page).toMatchElement('a', { text: 'self-reporting' });
-    await expect(page).toMatchElement('a', { text: 'Your account' });
-  });
+  // it('Logs in as clinician', async () => {
+  //   await logInAs({
+  //     username: 'clinician@example.com',
+  //     password: 'clinician',
+  //   });
+  //   await expect(page).toMatchElement('a', { text: 'view' });
+  //   await expect(page).toMatchElement('a', { text: 'Your account' });
+  // });
 
   it('Logs in as department', async () => {
     await logInAs({
       username: 'department@example.com',
       password: 'department',
     });
-    await expect(page).toMatchElement('a', { text: 'statistics' });
-    await expect(page).toMatchElement('a', { text: 'self-reporting' });
-    await expect(page).toMatchElement('a', { text: 'manage' });
+    await expect(page).toMatchElement('a', { text: 'view' });
+    await expect(page).toMatchElement('a', { text: 'create' });
+    await expect(page).toMatchElement('a', { text: 'join' });
     await expect(page).toMatchElement('a', { text: 'Your account' });
   });
 
-  it('Logs in as hospital', async () => {
-    await logInAs({
-      username: 'hospital@example.com',
-      password: 'hospital',
-    });
-    await expect(page).toMatchElement('a', { text: 'statistics' });
-    await expect(page).toMatchElement('a', { text: 'manage' });
-    await expect(page).toMatchElement('a', { text: 'Your account' });
-  });
+  // it('Logs in as hospital', async () => {
+  //   await logInAs({
+  //     username: 'hospital@example.com',
+  //     password: 'hospital',
+  //   });
+  //   await expect(page).toMatchElement('a', { text: 'statistics' });
+  //   await expect(page).toMatchElement('a', { text: 'manage' });
+  //   await expect(page).toMatchElement('a', { text: 'Your account' });
+  // });
 
-  it('Logs in as health board', async () => {
-    await logInAs({
-      username: 'healthboard@example.com',
-      password: 'healthboard',
-    });
-    await expect(page).toMatchElement('a', { text: 'statistics' });
-    await expect(page).toMatchElement('a', { text: 'Your account' });
-  });
+  // it('Logs in as health board', async () => {
+  //   await logInAs({
+  //     username: 'healthboard@example.com',
+  //     password: 'healthboard',
+  //   });
+  //   await expect(page).toMatchElement('a', { text: 'statistics' });
+  //   await expect(page).toMatchElement('a', { text: 'Your account' });
+  // });
 
-  it('Logs in as admin', async () => {
-    await logInAs({
-      username: 'admin@example.com',
-      password: 'admin',
-    });
-    await expect(page).toMatchElement('a', { text: 'admin' });
-    await expect(page).toMatchElement('a', { text: 'Your account' });
-  });
+  // it('Logs in as admin', async () => {
+  //   await logInAs({
+  //     username: 'admin@example.com',
+  //     password: 'admin',
+  //   });
+  //   await expect(page).toMatchElement('a', { text: 'admin' });
+  //   await expect(page).toMatchElement('a', { text: 'Your account' });
+  // });
 });

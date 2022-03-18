@@ -9,7 +9,8 @@ describe('Fully filling in self report', () => {
       username: 'clinician@example.com',
       password: 'clinician',
     });
-    await expect(page).toClick('#self-reporting');
+    await page.goto(process.env.BASE_URL + '/DashboardNav?dashboard_id=1');
+    await page.goto(process.env.BASE_URL + '/self-reporting?dashboard_id=1');
     await page.waitForSelector('#submit');
   });
 
@@ -39,7 +40,7 @@ describe('Fully filling in self report', () => {
   it('Displays response in circles', async () => {
     // Confusing FF Puppeteer bug causes selectors to stop working when trying to
     // waitForSelector/waitForTimeout/anything really so need this
-    await page.goto(process.env.BASE_URL + '/statistics');
+    await page.goto(process.env.BASE_URL + '/statistics?dashboard_id=1');
     await expect(page).toMatchElement('text', { text: 'Quick Summary' });
     await expect(page).toClick('#summary');
 
@@ -56,7 +57,7 @@ describe('Fully filling in self report', () => {
   it('Displays response in analytics', async () => {
     // Confusing FF Puppeteer bug causes selectors to stop working when trying to
     // waitForSelector/waitForTimeout/anything really so need this
-    await page.goto(process.env.BASE_URL + '/statistics');
+    await page.goto(process.env.BASE_URL + '/statistics?dashboard_id=1');
     await expect(page).toMatchElement('text', { text: 'Personal Analytics' });
     await expect(page).toClick('#analytics');
 
@@ -70,18 +71,6 @@ describe('Fully filling in self report', () => {
 
   it('Displays response in line chart', async () => {
     await expect(page).toMatchElement('.chartjs-render-monitor');
-  });
-
-  it('Displays response in word cloud', async () => {
-    await expect(page).toClick('#lineChart');
-    await page.waitForTimeout(100);
-    await page.waitForSelector('#enablersWords');
-    await expect(page).toClick('#enablersWords');
-
-    await page.waitForSelector('#wordGraphic', { visible: true });
-    await new Promise(r => setTimeout(r, 500));
-
-    await expect(page).toMatchElement('text', { text: 'test' });
   });
 
   it('Checks if mentoring filter works', async () => {

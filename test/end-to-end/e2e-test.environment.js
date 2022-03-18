@@ -181,6 +181,7 @@ class PuppeteerTestEnvironment extends NodeEnvironment {
         defaultViewport: null,
         timeout: 10000,
         headless: false,
+        args: ['--disable-dev-shm-usage'],
         // Note that (at the moment) firefox nightly must be manually installed to this
         // location for this to work
         executablePath: '/usr/bin/firefox-trunk',
@@ -192,6 +193,7 @@ class PuppeteerTestEnvironment extends NodeEnvironment {
       this.global.browser = await puppeteer.launch({
         defaultViewport: { width: 1920, height: 1500 },
         timeout: 10000,
+        args: ['--disable-dev-shm-usage'],
       });
       this.global.page = (await this.global.browser.pages())[0];
     }
@@ -291,7 +293,8 @@ class PuppeteerTestEnvironment extends NodeEnvironment {
       })
     );
 
-    await Promise.all(prisma.users.create({ data: { id: 'testid' } }));
+    await Promise.all([prisma.users.create({ data: { id: 'testid' } })]);
+
     const dashboard = {
       data: {
         users: { connect: { id: 'testid' } },

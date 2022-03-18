@@ -109,7 +109,7 @@ const seedEntities = async () => {
 // };
 
 const seedData = async () => {
-  // await seedStandards();
+  await seedStandards();
   await seedEntities();
   // await seedQuestions();
 };
