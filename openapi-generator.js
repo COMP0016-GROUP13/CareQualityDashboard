@@ -5,12 +5,12 @@ const options = {
   swaggerDefinition: {
     openapi: '3.0.0',
     info: {
-      title: 'Care Quality Dashboard REST API',
+      title: 'Multidashboard REST API',
       version: '1.0.0',
     },
     servers: [
       {
-        url: 'https://clarionclinical.net/api',
+        url: 'https://clarionclinical.com/api',
       },
     ],
     security: [
@@ -146,6 +146,6 @@ const options = {
 
 const openapiSpec = swaggerJSDoc(options);
 fs.writeFileSync(
-  'care-quality-dashboard-api.json',
+  'multidashboard-api.json',
   JSON.stringify(openapiSpec, null, 2)
 );
