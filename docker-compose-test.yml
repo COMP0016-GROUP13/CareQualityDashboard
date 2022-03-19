@@ -1,5 +1,5 @@
 # Note this is a test version of the Docker Compose configuration, so there are no web or keycloak containers
-version: '3.8'
+version: '3.3'
 services:
   database:
     image: 'postgres:13.1-alpine'
