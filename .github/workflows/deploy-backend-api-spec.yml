@@ -34,5 +34,5 @@ jobs:
           mv multidashboard-api{2,}.json
           [[ -z $(git status --untracked-files=no --porcelain) ]] && echo "no changes, exiting" && exit 0;
           git add -f multidashboard-api.json
-          git -c user.name="Shubham Jain" -c user.email="shubham@sjain.dev" commit -m "Deploy OpenAPI specification"
+          git -c user.name="zcabnds" -c user.email="zcabnds@ucl.ac.uk" commit -m "Deploy OpenAPI specification"
           git push origin gh-pages
