@@ -156,6 +156,7 @@ describe('POST /api/questions', () => {
     helpers.mockSessionWithUserType(Roles.USER_TYPE_DEPARTMENT);
     await testApiHandler({
       handler,
+      requestPatcher: req => (req.url = '/api/questions?dashboard_id=1'),
       test: async ({ fetch }) => {
         const res = await fetch({
           method: 'POST',
@@ -163,9 +164,8 @@ describe('POST /api/questions', () => {
           body: JSON.stringify({
             body: 'Test question',
             url: 'https://example.com',
-            standards: { connect: { id: 1 } },
+            standard: 1,
             type: 'likert_scale',
-            dashboard: { connect: { id: 1 } },
           }),
         });
         expect(res.status).toBe(200);

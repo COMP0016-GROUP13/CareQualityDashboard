@@ -22,6 +22,7 @@ describe('GET /api/responses', () => {
     helpers.mockSessionWithUserType(null);
     await testApiHandler({
       handler,
+      requestPatcher: req => (req.url = '/api/responses?dashboard_id=1'),
       test: async ({ fetch }) => {
         const res = await fetch();
         expect(res.status).toBe(401);
@@ -34,6 +35,7 @@ describe('GET /api/responses', () => {
     helpers.mockSessionWithUserType(Roles.USER_TYPE_CLINICIAN);
     await testApiHandler({
       handler,
+      requestPatcher: req => (req.url = '/api/responses?dashboard_id=1'),
       test: async ({ fetch }) => {
         const res = await fetch();
         expect(res.status).toBe(200);
@@ -68,12 +70,7 @@ describe('GET /api/responses', () => {
               { score: 2, standards: { connect: { id: 7 } } },
             ],
           },
-          words: {
-            create: [
-              { word: 'satisfying', questions: { connect: { id: 8 } } },
-              { word: 'complex', questions: { connect: { id: 9 } } },
-            ],
-          },
+          dashboard: { connect: { id: 1 } },
         },
       });
 
@@ -94,6 +91,7 @@ describe('GET /api/responses', () => {
               { score: 2, standards: { connect: { id: 7 } } },
             ],
           },
+          dashboard: { connect: { id: 1 } },
         },
       });
 
@@ -114,6 +112,7 @@ describe('GET /api/responses', () => {
               { score: 2, standards: { connect: { id: 7 } } },
             ],
           },
+          dashboard: { connect: { id: 1 } },
         },
       });
       await prisma.responses.create({
@@ -133,6 +132,7 @@ describe('GET /api/responses', () => {
               { score: 2, standards: { connect: { id: 7 } } },
             ],
           },
+          dashboard: { connect: { id: 1 } },
         },
       });
     });
@@ -142,6 +142,7 @@ describe('GET /api/responses', () => {
       helpers.mockSessionWithUserType(Roles.USER_TYPE_CLINICIAN);
       await testApiHandler({
         handler,
+        requestPatcher: req => (req.url = '/api/responses?dashboard_id=1'),
         test: async ({ fetch }) => {
           const res = await fetch();
           expect(res.status).toBe(200);
@@ -154,7 +155,6 @@ describe('GET /api/responses', () => {
 
           expect(json.responses.length).toEqual(3);
           expect(json.responses[0].scores.length).toEqual(7);
-          expect(json.responses[0].words.length).toEqual(2);
           expect(Object.keys(json.averages).length).toEqual(7);
         },
       });
@@ -166,7 +166,8 @@ describe('GET /api/responses', () => {
       await testApiHandler({
         handler,
         requestPatcher: req =>
-          (req.url = '/api/responses?from=' + new Date().getTime()),
+          (req.url =
+            '/api/responses?dashboard_id=1&from=' + new Date().getTime()),
         test: async ({ fetch }) => {
           const res = await fetch();
           expect(res.status).toBe(200);
@@ -188,7 +189,8 @@ describe('GET /api/responses', () => {
         handler,
         requestPatcher: req =>
           (req.url =
-            '/api/responses?to=' + (new Date().getTime() - 60 * 60 * 1000)), // 1 hour ago
+            '/api/responses?dashboard_id=1&to=' +
+            (new Date().getTime() - 60 * 60 * 1000)), // 1 hour ago
         test: async ({ fetch }) => {
           const res = await fetch();
           expect(res.status).toBe(200);
@@ -209,7 +211,8 @@ describe('GET /api/responses', () => {
       await testApiHandler({
         handler,
         requestPatcher: req =>
-          (req.url = '/api/responses?only_is_mentoring_session=1'),
+          (req.url =
+            '/api/responses?dashboard_id=1&only_is_mentoring_session=1'),
         test: async ({ fetch }) => {
           const res = await fetch();
           expect(res.status).toBe(200);
@@ -230,7 +233,8 @@ describe('GET /api/responses', () => {
       await testApiHandler({
         handler,
         requestPatcher: req =>
-          (req.url = '/api/responses?only_not_mentoring_session=1'),
+          (req.url =
+            '/api/responses?dashboard_id=1&only_not_mentoring_session=1'),
         test: async ({ fetch }) => {
           const res = await fetch();
           expect(res.status).toBe(200);
@@ -251,7 +255,9 @@ describe('GET /api/responses', () => {
       await testApiHandler({
         handler,
         requestPatcher: req =>
-          (req.url = '/api/responses?user_id=' + Roles.USER_TYPE_DEPARTMENT),
+          (req.url =
+            '/api/responses?dashboard_id=1&user_id=' +
+            Roles.USER_TYPE_DEPARTMENT),
         test: async ({ fetch }) => {
           const res = await fetch();
           expect(res.status).toBe(200);
@@ -271,7 +277,8 @@ describe('GET /api/responses', () => {
       helpers.mockSessionWithUserType(Roles.USER_TYPE_HOSPITAL, 2);
       await testApiHandler({
         handler,
-        requestPatcher: req => (req.url = '/api/responses?department_id=3'),
+        requestPatcher: req =>
+          (req.url = '/api/responses?dashboard_id=1&department_id=3'),
         test: async ({ fetch }) => {
           const res = await fetch();
           expect(res.status).toBe(200);
@@ -291,7 +298,8 @@ describe('GET /api/responses', () => {
       helpers.mockSessionWithUserType(Roles.USER_TYPE_HEALTH_BOARD, 1);
       await testApiHandler({
         handler,
-        requestPatcher: req => (req.url = '/api/responses?hospital_id=2'),
+        requestPatcher: req =>
+          (req.url = '/api/responses?dashboard_id=1&hospital_id=2'),
         test: async ({ fetch }) => {
           const res = await fetch();
           expect(res.status).toBe(200);
@@ -311,6 +319,7 @@ describe('GET /api/responses', () => {
       helpers.mockSessionWithUserType(Roles.USER_TYPE_DEPARTMENT);
       await testApiHandler({
         handler,
+        requestPatcher: req => (req.url = '/api/responses?dashboard_id=1'),
         test: async ({ fetch }) => {
           const res = await fetch();
           expect(res.status).toBe(200);
@@ -332,6 +341,7 @@ describe('GET /api/responses', () => {
         helpers.mockSessionWithUserType(userType);
         await testApiHandler({
           handler,
+          requestPatcher: req => (req.url = '/api/responses?dashboard_id=1'),
           test: async ({ fetch }) => {
             const res = await fetch();
             expect(res.status).toBe(200);
@@ -357,6 +367,7 @@ describe('GET /api/responses', () => {
         helpers.mockSessionWithUserType(userType);
         await testApiHandler({
           handler,
+          requestPatcher: req => (req.url = '/api/responses?dashboard_id=1'),
           test: async ({ fetch }) => {
             const res = await fetch();
             expect(res.status).toBe(200);
@@ -384,7 +395,8 @@ describe('GET /api/responses', () => {
         helpers.mockSessionWithUserType(userType, 4);
         await testApiHandler({
           handler,
-          requestPatcher: req => (req.url = '/api/responses?user_id=clinician'),
+          requestPatcher: req =>
+            (req.url = '/api/responses?dashboard_id=1&user_id=clinician'),
           test: async ({ fetch }) => {
             const res = await fetch();
             expect(res.status).toBe(200);
@@ -400,31 +412,30 @@ describe('GET /api/responses', () => {
       });
     });
 
-    [
-      Roles.USER_TYPE_DEPARTMENT,
-      Roles.USER_TYPE_HOSPITAL,
-      Roles.USER_TYPE_HEALTH_BOARD,
-    ].forEach(userType => {
-      it(`doesn't return responses to ${userType} users who have no parent entity ID`, async () => {
-        expect.hasAssertions();
-        helpers.mockSessionWithUserType(userType, null);
-        await testApiHandler({
-          handler,
-          requestPatcher: req => (req.url = '/api/responses?user_id=clinician'),
-          test: async ({ fetch }) => {
-            const res = await fetch();
-            expect(res.status).toBe(200);
+    [Roles.USER_TYPE_HOSPITAL, Roles.USER_TYPE_HEALTH_BOARD].forEach(
+      userType => {
+        it(`doesn't return responses to ${userType} users who have no parent entity ID`, async () => {
+          expect.hasAssertions();
+          helpers.mockSessionWithUserType(userType, null);
+          await testApiHandler({
+            handler,
+            requestPatcher: req =>
+              (req.url = '/api/responses?dashboard_id=1&user_id=clinician'),
+            test: async ({ fetch }) => {
+              const res = await fetch();
+              expect(res.status).toBe(200);
 
-            const json = await res.json();
-            const validator = await helpers.getOpenApiValidatorForRequest(
-              '/responses'
-            );
-            expect(validator.validateResponse(200, json)).toEqual(undefined);
-            expect(json.responses.length).toEqual(0);
-          },
+              const json = await res.json();
+              const validator = await helpers.getOpenApiValidatorForRequest(
+                '/responses'
+              );
+              expect(validator.validateResponse(200, json)).toEqual(undefined);
+              expect(json.responses.length).toEqual(0);
+            },
+          });
         });
-      });
-    });
+      }
+    );
   });
 
   it(`doesn't return responses to users with no ID`, async () => {
@@ -432,7 +443,8 @@ describe('GET /api/responses', () => {
     helpers.mockSessionWithUserType(Roles.USER_TYPE_CLINICIAN, null, false);
     await testApiHandler({
       handler,
-      requestPatcher: req => (req.url = '/api/responses?user_id=clinician'),
+      requestPatcher: req =>
+        (req.url = '/api/responses?dashboard_id=1&user_id=clinician'),
       test: async ({ fetch }) => {
         const res = await fetch();
         expect(res.status).toBe(200);
@@ -457,44 +469,6 @@ describe('POST /api/responses', () => {
       test: async ({ fetch }) => {
         const res = await fetch({ method: 'POST' });
         expect(res.status).toBe(401);
-      },
-    });
-  });
-
-  it('allows user to add response', async () => {
-    expect.hasAssertions();
-    helpers.mockSessionWithUserType(Roles.USER_TYPE_CLINICIAN);
-    await testApiHandler({
-      handler,
-      test: async ({ fetch }) => {
-        const res = await fetch({
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            scores: [
-              { standardId: 1, score: 1 },
-              { standardId: 2, score: 2 },
-              { standardId: 3, score: 3 },
-              { standardId: 4, score: 4 },
-              { standardId: 5, score: 0 },
-              { standardId: 6, score: 2 },
-              { standardId: 7, score: 3 },
-            ],
-            words: [{ questionId: 8, word: 'Test' }],
-            is_mentoring_session: true,
-          }),
-        });
-        expect(res.status).toBe(200);
-
-        const json = await res.json();
-        const validator = await helpers.getOpenApiValidatorForRequest(
-          '/responses',
-          'post'
-        );
-        expect(validator.validateResponse(200, json)).toEqual(undefined);
-        expect(json.user_id).toEqual('clinician');
-        expect(json.is_mentoring_session).toEqual(true);
-        expect(json.department_id).toEqual(1);
       },
     });
   });
