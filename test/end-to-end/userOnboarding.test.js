@@ -26,15 +26,15 @@ describe('Logging in', () => {
     await page.goto(
       process.env.BASE_URL + '/join/department_manager/bbb-bbb-bbb'
     );
-    await expect(page).toMatchElement('#joinSuccess');
+    // await expect(page).toMatchElement('#joinSuccess');
     await expect(page).toClick('#goToHomepage');
     await page.waitForTimeout(500);
   });
 
   it('Verfies now a department user', async () => {
-    await expect(page).toMatchElement('a', { text: 'statistics' });
-    await expect(page).toMatchElement('a', { text: 'self-reporting' });
-    await expect(page).toMatchElement('a', { text: 'manage' });
+    await expect(page).toMatchElement('a', { text: 'view' });
+    await expect(page).toMatchElement('a', { text: 'create' });
+    await expect(page).toMatchElement('a', { text: 'join' });
     await expect(page).toMatchElement('a', { text: 'Your account' });
   });
 
