@@ -9,7 +9,8 @@ describe('Partially filling in self report', () => {
       username: 'clinician@example.com',
       password: 'clinician',
     });
-    await expect(page).toClick('#self-reporting');
+    await page.goto(process.env.BASE_URL + '/DashboardNav?dashboard_id=1');
+    await page.goto(process.env.BASE_URL + '/self-reporting?dashboard_id=1');
     await page.waitForSelector('#submit');
   });
 

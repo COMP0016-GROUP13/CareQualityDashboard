@@ -24,11 +24,11 @@ describe('Fully filling in self report', () => {
     }
 
     //answer all enabler inputs as test
-    var id;
-    for (var i = 0; i < 3; i++) {
-      id = 'wq' + (numberOfQuestions + 1).toString() + 'i' + i.toString();
-      await expect(page).toFill('input[id="' + id + '"]', 'test');
-    }
+    // var id;
+    // for (var i = 0; i < 3; i++) {
+    //   id = 'wq' + (numberOfQuestions + 1).toString() + 'i' + i.toString();
+    //   await expect(page).toFill('input[id="' + id + '"]', 'test');
+    // }
 
     await expect(page).toClick('#submit');
     await page.waitForTimeout(200);

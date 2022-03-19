@@ -1,6 +1,6 @@
 module.exports = {
   setupFilesAfterEnv: ['expect-puppeteer'],
-  testTimeout: 20000,
+  testTimeout: 2000,
   testEnvironment: './test/end-to-end/e2e-test.environment.js',
 };
 

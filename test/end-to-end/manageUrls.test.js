@@ -9,7 +9,9 @@ describe('Managing Urls', () => {
       username: 'department@example.com',
       password: 'department',
     });
-    await expect(page).toClick('#manage');
+
+    await page.goto(process.env.BASE_URL + '/DashboardNav?dashboard_id=1');
+    await page.goto(process.env.BASE_URL + '/manage?dashboard_id=1');
     await page.waitForTimeout(100);
     await expect(page).toMatchElement('h3', {
       text: 'Manage the URLs of each question',
@@ -27,7 +29,7 @@ describe('Managing Urls', () => {
   });
 
   it('Goes to self-report tab to check test url is there', async () => {
-    await expect(page).toClick('#self-reporting');
+    await page.goto(process.env.BASE_URL + '/self-reporting?dashboard_id=1');
     await page.waitForSelector('#submit');
 
     const links = await page.$$eval('a', el =>
@@ -38,7 +40,7 @@ describe('Managing Urls', () => {
   });
 
   it('Goes to manage tab and sets a Url to default', async () => {
-    await expect(page).toClick('#manage');
+    await page.goto(process.env.BASE_URL + '/manage?dashboard_id=1');
     await page.waitForTimeout(100);
     await expect(page).toMatchElement('h3', {
       text: 'Manage the URLs of each question',
