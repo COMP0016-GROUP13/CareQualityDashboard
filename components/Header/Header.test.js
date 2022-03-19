@@ -15,7 +15,7 @@ describe('Header', () => {
 
     expect(
       wrapper.findWhere(
-        n => n.type() === 'Button' && n.contains('CQ Dashboard')
+        n => n.type() === 'Button' && n.contains('Multidashboard')
       )
     );
   });

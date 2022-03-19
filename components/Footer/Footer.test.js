@@ -6,7 +6,6 @@ import Footer from './Footer.js';
 describe('Footer', () => {
   it('renders', () => {
     const wrapper = shallow(<Footer />);
-
     expect(wrapper.exists()).toBe(true);
   });
 

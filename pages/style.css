@@ -23,7 +23,7 @@ body.default {
 body.dark {
   --bg-color: #121212;
   --second-layer-bg-color: #353535;
-  --text-color: #ecf0f1;
+  --text-color: #22a7f0;
   --blue-text-color: #22a7f0;
   color: var(--text-color);
 }
