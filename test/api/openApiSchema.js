@@ -2,7 +2,7 @@ import fs from 'fs';
 import $RefParser from '@apidevtools/json-schema-ref-parser';
 
 const openApiSchema = JSON.parse(
-  fs.readFileSync('care-quality-dashboard-api.json', 'utf-8')
+  fs.readFileSync('multidashboard-api.json', 'utf-8')
 );
 openApiSchema.responses = openApiSchema.paths;
 delete openApiSchema.openapi;
