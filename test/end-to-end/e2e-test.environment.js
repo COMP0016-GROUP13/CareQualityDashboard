@@ -184,7 +184,7 @@ class PuppeteerTestEnvironment extends NodeEnvironment {
         args: ['--disable-dev-shm-usage'],
         // Note that (at the moment) firefox nightly must be manually installed to this
         // location for this to work
-        executablePath: '/usr/bin/firefox-trunk',
+        executablePath: '/usr/bin/firefox',
         product: 'firefox',
       });
       this.global.page = (await this.global.browser.pages())[0];

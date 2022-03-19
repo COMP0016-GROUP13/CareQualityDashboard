@@ -25,6 +25,8 @@ describe('Managing Urls', () => {
     await expect(page).toFill('input[id="url0"]', testUrl);
     await expect(page).toClick('#saveEdit0');
 
+    await page.goto(process.env.BASE_URL + '/manage?dashboard_id=1');
+
     await expect(page).toMatchElement('a', { text: testUrl });
   });
 
@@ -37,20 +39,5 @@ describe('Managing Urls', () => {
     );
 
     expect(links.includes(testUrl)).toBe(true);
-  });
-
-  it('Goes to manage tab and sets a Url to default', async () => {
-    await page.goto(process.env.BASE_URL + '/manage?dashboard_id=1');
-    await page.waitForTimeout(100);
-    await expect(page).toMatchElement('h3', {
-      text: 'Manage the URLs of each question',
-    });
-
-    await page.waitForSelector('#setDefault0', { visible: true });
-    await page.evaluate(() => document.querySelector('#setDefault0').click());
-
-    await expect(page).toMatchElement('div', {
-      text: 'URL set to default suggested URL',
-    });
   });
 });
