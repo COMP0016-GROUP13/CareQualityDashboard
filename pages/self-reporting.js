@@ -54,7 +54,6 @@ export async function getServerSideProps(context) {
  * It is only accessible to clinicians and department managers. All other users do not have
  * access to this page.
  *
- * This page uses the /api/recent_words, /api/questions API endpoints to fetch the relevant data.
  *
  * @param session the user's session object to decide what to display
  * @param toggleTheme the global function to toggle the current theme
@@ -62,7 +61,6 @@ export async function getServerSideProps(context) {
 function SelfReporting({ session, toggleTheme }) {
   const router = useRouter();
   const dashboardId = router.query.dashboard_id;
-  const { data: words } = useSWR('/api/recent_words');
 
   const {
     likertScaleQuestions,

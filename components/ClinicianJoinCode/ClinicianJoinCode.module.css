@@ -17,12 +17,10 @@
   .url {
     width: 100%;
   }
-
   .content {
     flex-direction: column;
     text-align: center;
   }
-
   .actions {
     margin-top: 10px;
   }

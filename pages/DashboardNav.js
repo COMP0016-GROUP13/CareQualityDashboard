@@ -1,20 +1,12 @@
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Header } from '../components';
 import { Button, Message } from 'rsuite';
 import { signIn, getSession } from 'next-auth/client';
 import styles from './DashboardNav.module.css';
-import useSWR from '../lib/swr';
 
-import {
-  Roles,
-  StandardColors,
-  Standards,
-  Visualisations,
-} from '../lib/constants';
-import { options } from 'less';
+import { Roles } from '../lib/constants';
 
 const errors = {
   configuration: {

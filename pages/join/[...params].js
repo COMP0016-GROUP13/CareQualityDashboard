@@ -25,7 +25,6 @@ export const getServerSideProps = async context => {
     return { props: { session } };
   }
 
-  console.log('Session', session ? session.user : undefined);
   const dbTable =
     type === Roles.USER_TYPE_DEPARTMENT
       ? prisma.department_join_codes

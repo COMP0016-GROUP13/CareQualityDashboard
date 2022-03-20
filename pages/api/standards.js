@@ -63,8 +63,6 @@ const handler = async (req, res) => {
       });
     }
 
-    // console.log(name);
-
     const record = await prisma.standards.create({
       data: {
         name: name,

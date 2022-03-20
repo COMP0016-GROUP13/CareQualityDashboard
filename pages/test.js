@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import { Header } from '../components';
 import { Button, Message } from 'rsuite';
 import { signIn, getSession } from 'next-auth/client';
-import styles from './view.module.css';
 import useSWR from '../lib/swr';
 
 const errors = {
@@ -110,8 +109,6 @@ function Test({ session, toggleTheme }) {
   const id = router.query.dashboard_id;
   const { data, error } = useSWR('/api/dashboards/' + id);
 
-  console.log(data);
-  // console.log(router.query);
   const featuresRef = useRef(null);
 
   const showError = error => {
