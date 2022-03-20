@@ -18,6 +18,6 @@ jobs:
         run: |
           sudo add-apt-repository ppa:ubuntu-mozilla-daily/ppa -y
           sudo apt update -y
-          sudo apt install firefox-trunk xvfb -y
+          sudo apt install firefox xvfb -y
       - name: Test
         run: TEST_FIREFOX=1 xvfb-run npm run test:e2e
