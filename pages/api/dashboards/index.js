@@ -122,7 +122,7 @@ const handler = async (req, res) => {
       });
     }
 
-    const { name, questions } = req.body;
+    const { name } = req.body;
     if (!name) {
       return res.status(422).json({
         error: true,
@@ -130,29 +130,18 @@ const handler = async (req, res) => {
       });
     }
 
-    // TODO: Create POST for adding new Dashboard
-
     const record = await prisma.dashboard.create({
       data: {
         users: { connect: { id: session.user.userId } },
         name: name,
         departments: { connect: { id: session.user.departmentId } },
-
-        ////     hospitals: { connect: { id: session.user.hospitalId } },
-        ////     clinician_join_codes: { create: { code: await createJoinCode() } },
-        ////     department_join_codes: { create: { code: await createJoinCode() } },
       },
-      ////   include: {
-      ////     department_join_codes: { select: { code: true } },
-      ////     clinician_join_codes: { select: { code: true } },
-      //   },
     });
 
     return res.json(record);
   }
 
   if (req.method === 'GET') {
-    const test = await prisma.dashboard.findMany();
     var dashboards = {};
     if (session.user.roles.includes(Roles.USER_TYPE_ADMIN)) {
       dashboards = await prisma.dashboard.findMany();

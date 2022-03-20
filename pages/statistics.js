@@ -46,8 +46,7 @@ const generateQueryParams = ({
   if (dataToDisplayOverride) {
     query[dataToDisplayOverride.key] = dataToDisplayOverride.value;
   }
-  let convertedQuery = new URLSearchParams(query);
-  return convertedQuery;
+  return new URLSearchParams(query);
 };
 
 export async function getServerSideProps(context) {

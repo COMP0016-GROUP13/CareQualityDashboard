@@ -54,7 +54,6 @@ describe('GET /api/questions', () => {
         );
         expect(validator.validateResponse(200, json)).toEqual(undefined);
         expect(json.likert_scale.length).toEqual(7);
-        // expect(json.words.length).toEqual(2);
       },
     });
   });

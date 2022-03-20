@@ -199,57 +199,6 @@ function Manage({ session, host, toggleTheme }) {
     } else if (session.user.roles.includes(Roles.USER_TYPE_HOSPITAL)) {
       return (
         <>
-          {/* <div className={styles.Standard}>
-            <div className={styles.child}>
-              <h3 className={styles.standardTitle}>Create a new standard : </h3>
-            </div>
-
-            <Formik
-              initialValues={{
-                title: '',
-              }}
-              validate={values => {
-                const errors = {};
-                if (!values.title) {
-                  errors.title = 'Required';
-                }
-                return errors;
-              }}
-              onSubmit={async (values, { setSubmitting }) => {
-                // post data to server
-                const res = await fetch('/api/standards', {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({
-                    name: values.title,
-                  }),
-                }).then(res => res.json());
-
-                // TODO: Remove during refactor
-                alert(JSON.stringify(values, null, 2));
-                setSubmitting(false);
-              }}>
-              {({ isSubmitting, dirty, handleReset }) => (
-                <Form>
-                  <label>
-                    <Field
-                      type="text"
-                      name="title"
-                      className={styles.TextBox}
-                    />
-                  </label>
-                  <ErrorMessage name="title" component="span" />
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className={styles.SubmitButton}>
-                    Submit
-                  </button>
-                </Form>
-              )}
-            </Formik>
-          </div> */}
-
           <div>
             <h3>Manage and add new departments</h3>
             <DepartmentsTable host={host} />

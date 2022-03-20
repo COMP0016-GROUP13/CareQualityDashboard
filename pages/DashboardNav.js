@@ -134,19 +134,8 @@ function DashboardNav({ session, toggleTheme }) {
     return null;
   };
 
-  // if (!session) {
-  //   return (
-  //     <div>
-  //       <Header session={session} toggleTheme={toggleTheme} />
-  //       <LoginMessage />
-  //     </div>
-  //   );
-  // } else {
-  // }
-
   const options = [];
 
-  // TODO must account for other roles
   if (session.user.roles.includes(Roles.USER_TYPE_CLINICIAN)) {
     options.push('statistics');
     options.push('self-reporting');

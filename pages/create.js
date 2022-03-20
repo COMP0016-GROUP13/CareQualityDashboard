@@ -1,5 +1,3 @@
-import { useRouter } from 'next/router';
-import { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Alert } from 'rsuite';
 
@@ -92,9 +90,6 @@ export async function getServerSideProps(context) {
 }
 
 function Home({ session, toggleTheme }) {
-  const router = useRouter();
-  const featuresRef = useRef(null);
-
   const showError = error => {
     // Don't do exact match
     error = error.toLowerCase();
@@ -143,7 +138,6 @@ function Home({ session, toggleTheme }) {
             }),
           }).then(res => res.json());
 
-          // TODO: Remove during refactor
           Alert.success('New dashboard successfully added', 3000);
           setSubmitting(false);
         }}>
