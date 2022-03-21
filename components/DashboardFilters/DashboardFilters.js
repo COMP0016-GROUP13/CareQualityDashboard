@@ -1,4 +1,4 @@
-import { SelectPicker, DateRangePicker, Icon } from 'rsuite';
+import { Icon, SelectPicker } from 'rsuite';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 
@@ -81,13 +81,6 @@ export function DashboardFilters({ session, ...props }) {
 
     return <span />;
   };
-
-  const getMentoringValue = () => {
-    if (props.isMentoringSession === true) return 'yes';
-    else if (props.isMentoringSession === false) return 'no';
-    else return 'any';
-  };
-
   /**
    * The standard filters shown to ALL users are:
    * - Date range: a datepicker

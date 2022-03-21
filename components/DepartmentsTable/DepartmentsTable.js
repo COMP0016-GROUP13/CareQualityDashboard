@@ -1,8 +1,6 @@
 import { useState } from 'react';
-import { Button, Input, Alert, Icon } from 'rsuite';
+import { Button, Input, Alert, Icon, Message } from 'rsuite';
 import { mutate } from 'swr';
-import { useRouter } from 'next/router';
-import { useRef } from 'react';
 
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import PropTypes from 'prop-types';
@@ -120,29 +118,6 @@ const useDepartments = () => {
 };
 
 export default function DepartmentsTable({ host }) {
-  const router = useRouter();
-  const featuresRef = useRef(null);
-
-  const showError = error => {
-    // Don't do exact match
-    error = error.toLowerCase();
-    const key = Object.keys(errors).find(e => error.indexOf(e) > -1);
-
-    if (key) {
-      const details = errors[key];
-      return (
-        <Message
-          type="error"
-          closable
-          title={details.heading}
-          description={details.message}
-        />
-      );
-    }
-    console.error('Unknown error');
-    return null;
-  };
-
   const [showNewDepartmentDialog, setShowNewDepartmentDialog] = useState(false);
   const [dialogText, setDialogText] = useState(null);
   const [newDepartmentName, setNewDepartmentName] = useState(null);

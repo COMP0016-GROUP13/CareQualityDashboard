@@ -1,5 +1,6 @@
 import styles from './SearchFilter.module.css';
 import { useRouter } from 'next/router';
+import PropTypes from 'prop-types';
 function SearchFilter({ data, setSearchTerm, searchTerm }) {
   const router = useRouter();
   return (
@@ -18,9 +19,8 @@ function SearchFilter({ data, setSearchTerm, searchTerm }) {
       {data &&
         data
           .filter(value => {
-            if (searchTerm === '') {
-              return value;
-            } else if (
+            if (
+              searchTerm === '' ||
               value.name.toLowerCase().includes(searchTerm.toLowerCase())
             ) {
               return value;
@@ -44,5 +44,12 @@ function SearchFilter({ data, setSearchTerm, searchTerm }) {
     </>
   );
 }
+
+SearchFilter.propTypes = {
+  session: PropTypes.object,
+  data: PropTypes.array,
+  setSearchTerm: PropTypes.func,
+  searchTerm: PropTypes.string,
+};
 
 export default SearchFilter;

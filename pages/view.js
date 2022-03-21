@@ -1,7 +1,6 @@
 import Head from 'next/head';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
 import { Header } from '../components';
 import { Button, Message } from 'rsuite';
 import { signIn, getSession } from 'next-auth/client';
@@ -106,7 +105,7 @@ export async function getServerSideProps(context) {
 
 function View({ session, toggleTheme }) {
   // TODO: Handle Errors here, such as no dashboards created
-  const { data, error, message } = fetchDashboards();
+  const { data } = fetchDashboards();
   const featuresRef = useRef(null);
 
   if (data != null && data.length < 1) {
@@ -179,6 +178,7 @@ function View({ session, toggleTheme }) {
 View.propTypes = {
   session: PropTypes.object.isRequired,
   toggleTheme: PropTypes.func.isRequired,
+  showError: PropTypes.func.isRequired,
 };
 
 export default View;

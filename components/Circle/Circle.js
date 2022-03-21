@@ -18,8 +18,6 @@ const Circle = ({ id, name, color, percentage }) => {
 };
 
 Circle.propTypes = {
-  /** The HTML id for the element */
-  id: PropTypes.string.isRequired,
   /** The label (e.g. Standard name) to show for this Circle */
   name: PropTypes.string.isRequired,
   /** The fill color of the circle */
