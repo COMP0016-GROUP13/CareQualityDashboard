@@ -115,7 +115,10 @@ const handler = async (req, res) => {
   const { session } = req;
 
   if (req.method === 'POST') {
-    if (!session.user.roles.includes(Roles.USER_TYPE_DEPARTMENT)) {
+    if (
+      !session.user.roles.includes(Roles.USER_TYPE_DEPARTMENT) &&
+      !session.user.roles.includes(Roles.USER_TYPE_ADMIN)
+    ) {
       return res.status(403).json({
         error: true,
         message: 'You do not have permission to add new dashboards',
@@ -130,14 +133,62 @@ const handler = async (req, res) => {
       });
     }
 
-    const record = await prisma.dashboard.create({
-      data: {
-        users: { connect: { id: session.user.userId } },
-        name: name,
-        departments: { connect: { id: session.user.departmentId } },
-      },
-    });
+    var record;
 
+    if (session.user.roles.includes(Roles.USER_TYPE_DEPARTMENT)) {
+      const allDashboards = await prisma.dashboard.findMany({
+        where: {
+          department_id: session.user.departmentId,
+        },
+      });
+
+      for (var dash of allDashboards) {
+        if (Object.values(dash).indexOf(name) > -1) {
+          return res.json({
+            error: true,
+            message: 'Dashboard already exists',
+          });
+        }
+      }
+
+      record = await prisma.dashboard.create({
+        data: {
+          users: { connect: { id: session.user.userId } },
+          name: name,
+          departments: { connect: { id: session.user.departmentId } },
+        },
+      });
+    } else {
+      const departments = await prisma.departments.findMany();
+      console.log(departments);
+      for (var department of departments) {
+        console.log(department.id);
+        record = await prisma.dashboard.create({
+          data: {
+            users: { connect: { id: session.user.userId } },
+            name: name,
+            departments: { connect: { id: department.id } },
+          },
+        });
+      }
+      // for (var i = 0; i < departments.length; i++) {
+      //   var currentDepartment = departments[i];
+      //   console.log(currentDepartment.id);
+      // record = await prisma.dashboard.create({
+      //   data: {
+      //     users: { connect: { id: session.user.userId } },
+      //     name: name,
+      //     departments: { connect: { id: currentDepartment.id } },
+      //   },
+      // });
+    }
+
+    // record = await prisma.dashboard.create({
+    //   data: {
+    //     users: { connect: { id: session.user.userId } },
+    //     name: name,
+    //   },
+    // });
     return res.json(record);
   }
 

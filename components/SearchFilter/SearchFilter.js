@@ -1,8 +1,17 @@
 import styles from './SearchFilter.module.css';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
-function SearchFilter({ data, setSearchTerm, searchTerm }) {
+function SearchFilter({ data, setSearchTerm, searchTerm, session }) {
   const router = useRouter();
+
+  // for (var dashboard of data) {
+  //   const { data, error } = useSWR('/api/departments');
+  // }
+  // if (session.user.roles.includes(Roles.USER_TYPE_DEPARTMENT)) {
+  //   data.map(dashboard => {
+  //     dashboard.name =
+  //   })
+  // }
   return (
     <>
       {

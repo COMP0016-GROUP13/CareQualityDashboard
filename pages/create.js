@@ -137,8 +137,12 @@ function Home({ session, toggleTheme }) {
             }),
           }).then(res => res.json());
 
-          Alert.success('New dashboard successfully added', 3000);
-          setSubmitting(false);
+          if (res.error) {
+            Alert.error(res.message, 3000);
+          } else {
+            Alert.success('New dashboard successfully added', 3000);
+            setSubmitting(false);
+          }
         }}>
         {({ isSubmitting, dirty, handleReset }) => (
           <div className={styles.Form}>
