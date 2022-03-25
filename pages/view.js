@@ -165,7 +165,6 @@ function View({ session, toggleTheme }) {
                   data={data}
                   setSearchTerm={setSearchTerm}
                   searchTerm={searchTerm}
-                  session={session}
                 />
               </div>
             </div>

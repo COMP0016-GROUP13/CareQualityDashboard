@@ -1,7 +1,7 @@
 import styles from './SearchFilter.module.css';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
-function SearchFilter({ data, setSearchTerm, searchTerm, session }) {
+function SearchFilter({ data, setSearchTerm, searchTerm }) {
   const router = useRouter();
 
   // for (var dashboard of data) {
