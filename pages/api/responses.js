@@ -299,12 +299,6 @@ const handler = async (req, res) => {
     const responses = filters.length
       ? await prisma.responses.findMany({
           where: { AND: filters },
-          // where: {
-          //   AND: {
-          //     user_id: { equals: session.user.userId },
-          //     dashboard_id: { equals: parseInt(dashboard_id) },
-          //   },
-          // },
           select,
           orderBy,
         })

@@ -3,6 +3,7 @@ import { Button, Icon, Input, SelectPicker, Alert } from 'rsuite';
 import { mutate } from 'swr';
 
 import styles from './QuestionsTable.module.css';
+import PropTypes from 'prop-types';
 
 import { AlertDialog, CustomTable } from '../';
 import useSWR from '../../lib/swr';

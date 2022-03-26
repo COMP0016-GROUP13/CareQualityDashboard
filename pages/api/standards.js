@@ -67,10 +67,6 @@ const handler = async (req, res) => {
       data: {
         name: name,
       },
-      //   ////   include: {
-      //   ////     department_join_codes: { select: { code: true } },
-      //   ////     clinician_join_codes: { select: { code: true } },
-      //   //   },
     });
 
     return res.json(record);
