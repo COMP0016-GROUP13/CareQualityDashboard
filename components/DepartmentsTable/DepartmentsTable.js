@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Input, Alert, Icon, Message } from 'rsuite';
+import { Button, Input, Alert, Icon } from 'rsuite';
 import { mutate } from 'swr';
 
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -9,83 +9,6 @@ import styles from './DepartmentsTable.module.css';
 import { AlertDialog, CustomTable } from '../';
 import { Roles } from '../../lib/constants';
 import useSWR from '../../lib/swr';
-
-const errors = {
-  configuration: {
-    heading: 'Server error',
-    message: (
-      <div>
-        <p>There is a problem with the server configuration.</p>
-        <p>Check the server logs for more information.</p>
-      </div>
-    ),
-  },
-  accessdenied: {
-    heading: 'Access Denied',
-    message: (
-      <div>
-        <p>You do not have permission to sign in.</p>
-        <p>
-          <Button
-            appearance="primary"
-            onClick={() => signIn('keycloak', { callbackUrl: '/' })}>
-            Sign in
-          </Button>
-        </p>
-      </div>
-    ),
-  },
-  verification: {
-    heading: 'Unable to sign in',
-    message: (
-      <div>
-        <p>The sign in link is no longer valid.</p>
-        <p>It may have be used already or it may have expired.</p>
-        <p>
-          <Button
-            appearance="primary"
-            onClick={() => signIn('keycloak', { callbackUrl: '/' })}>
-            Sign in
-          </Button>
-        </p>
-      </div>
-    ),
-  },
-  departmentdeleted: {
-    heading: 'Department deleted',
-    message: (
-      <div>
-        <p>Your department was deleted by your hospital.</p>
-        <p>
-          Please log in again, and request a new join URL to join another
-          department.
-        </p>
-        <p>
-          <Button
-            appearance="primary"
-            onClick={() => signIn('keycloak', { callbackUrl: '/' })}>
-            Sign in
-          </Button>
-        </p>
-      </div>
-    ),
-  },
-  invaliduser: {
-    heading: 'Unable to sign in',
-    message: (
-      <div>
-        <p>There was an error logging in. Please try again.</p>
-        <p>
-          <Button
-            appearance="primary"
-            onClick={() => signIn('keycloak', { callbackUrl: '/' })}>
-            Sign in
-          </Button>
-        </p>
-      </div>
-    ),
-  },
-};
 
 export async function getServerSideProps(context) {
   return { props: { session: await getSession(context) } };

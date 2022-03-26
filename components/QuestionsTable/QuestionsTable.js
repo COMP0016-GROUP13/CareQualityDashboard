@@ -6,7 +6,6 @@ import styles from './QuestionsTable.module.css';
 
 import { AlertDialog, CustomTable } from '../';
 import useSWR from '../../lib/swr';
-import { useRouter } from 'next/router';
 
 const columns = [
   {
@@ -104,7 +103,6 @@ export default function QuestionsTable({ dashboardId }) {
   const [editing, setEditing] = useState(false);
   const [showNewQuestionDialog, setShowNewQuestionDialog] = useState(false);
   const [dialogText, setDialogText] = useState(null);
-  const router = useRouter();
   const {
     data: questions,
     error: questionsError,
@@ -210,7 +208,7 @@ export default function QuestionsTable({ dashboardId }) {
     }
   };
 
-  const renderActionCells = (editing, row, i, host) => {
+  const renderActionCells = (editing, row, i) => {
     if (editing === i) {
       return (
         <div className={styles.actionButtons}>
@@ -355,3 +353,7 @@ export default function QuestionsTable({ dashboardId }) {
     </div>
   );
 }
+
+QuestionsTable.propTypes = {
+  dashboardId: PropTypes.number.isRequired,
+};

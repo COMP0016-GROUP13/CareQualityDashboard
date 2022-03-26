@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Input, Alert, Button, Icon } from 'rsuite';
 import { mutate } from 'swr';
-import { useRouter } from 'next/router';
 import styles from './UrlsTable.module.css';
 
 import PropTypes from 'prop-types';
@@ -72,7 +71,6 @@ var editedRow = null;
 
 export default function UrlsTable({ session, host, dashboardId }) {
   const [editing, setEditing] = useState(null);
-  const router = useRouter();
   const { data, error, message } = useQuestions(dashboardId);
 
   if (error) {
@@ -114,7 +112,7 @@ export default function UrlsTable({ session, host, dashboardId }) {
     }
   };
 
-  const renderActionCells = (editing, row, i, host) => {
+  const renderActionCells = (editing, row, i) => {
     if (editing === i) {
       return (
         <div className={styles.actionButtons}>
@@ -178,4 +176,6 @@ UrlsTable.propTypes = {
   session: PropTypes.object.isRequired,
   /** The host name of the website */
   host: PropTypes.string.isRequired,
+  /** The id of the dashboard that the user is currently on */
+  dashboardId: PropTypes.number.isRequired,
 };
