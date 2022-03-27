@@ -34,6 +34,8 @@ const columns = [
 const useDepartments = () => {
   const { data, error } = useSWR('/api/departments');
 
+  console.log(data);
+
   if (data) {
     return { data: data, error: error || data.error, message: data.message };
   }
