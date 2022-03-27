@@ -279,24 +279,6 @@ function SelfReporting({ session, toggleTheme }) {
             your recent experience?
           </p>
         )}
-        {/* if (data != null && data.length < 1) {
-    return (
-      <>
-        <Head>
-          <title>MultiDashboard</title>
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
-        <Header session={session} toggleTheme={toggleTheme} />
-
-        <h2 className={styles.title}>
-          You currently do not have any dashboards yet.
-        </h2>
-        <h5 className={styles.title}>
-          Please contact your system administrator to assign a dashboard{' '}
-        </h5>
-      </>
-    );
-  } */}
 
         {!questionsError &&
           !isQuestionsLoading &&

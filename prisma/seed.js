@@ -1,5 +1,5 @@
 const { PrismaClient } = require('@prisma/client');
-const { standards, likertScaleQuestions } = require('../seedData');
+const { standards } = require('../seedData');
 
 const prisma = new PrismaClient();
 
@@ -67,51 +67,9 @@ const seedEntities = async () => {
   });
 };
 
-// const seedQuestions = async () => {
-//   await Promise.all(
-//     likertScaleQuestions.map(question => {
-//       const data = {
-//         default_url: question.url,
-//         standards: { connect: { id: question.standardId } },
-//         type: 'likert_scale',
-//         body: question.question,
-//       };
-
-//       return prisma.questions.create({ data });
-//     })
-//   );
-
-// 'Word' Questions have their IDs hardcoded to enable filtering for different
-// word clouds in the UI
-// Use upsert because Prisma doesn't support create() with a hardcoded ID when
-// the field is an autoincremented field
-// await Promise.all(
-//   wordsQuestions.map(question =>
-//     prisma.questions.upsert({
-//       create: {
-//         default_url: question.url,
-//         standards: { connect: { id: question.standardId } },
-//         type: 'words',
-//         body: question.question,
-//       },
-//       update: {
-//         default_url: question.url,
-//         standards: { connect: { id: question.standardId } },
-//         type: 'words',
-//         body: question.question,
-//       },
-//       where: {
-//         id: question.id,
-//       },
-//     })
-//   )
-// );
-// };
-
 const seedData = async () => {
   await seedStandards();
   await seedEntities();
-  // await seedQuestions();
 };
 
 seedData()

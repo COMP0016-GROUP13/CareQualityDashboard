@@ -101,8 +101,6 @@ const showError = error => {
       />
     );
   }
-
-  console.error('Unknown error');
   return null;
 };
 
@@ -179,6 +177,7 @@ function DashboardNav({ session, toggleTheme }) {
                 <>
                   {options.map(name => (
                     <button
+                      key={name}
                       onClick={() => {
                         router.push({
                           pathname: '/' + name,

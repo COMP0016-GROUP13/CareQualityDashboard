@@ -41,8 +41,6 @@ Error.getInitialProps = ({ res, err }) => {
     return err.statusCode;
   }
   return { statusCode };
-
-  ///res ? res.statusCode : err ? err.statusCode : 404;
 };
 
 Error.propTypes = {

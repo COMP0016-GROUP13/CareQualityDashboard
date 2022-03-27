@@ -69,17 +69,6 @@ const handler = async (req, res) => {
       },
     });
 
-    // let department;
-    // if (Object.keys(includes).length) {
-    //   department = await prisma.departments.findFirst({
-    //     where: { id: +req.query.departmentId },
-    //     include: includes,
-    //   });
-    // } else {
-    //   department = await prisma.departments.findFirst({
-    //     where: { id: +req.query.departmentId },
-    //   });
-    // }
     return res.json(dashboard);
   }
 

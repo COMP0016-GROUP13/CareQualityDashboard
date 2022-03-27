@@ -171,25 +171,9 @@ const handler = async (req, res) => {
           },
         });
       }
-      // for (var i = 0; i < departments.length; i++) {
-      //   var currentDepartment = departments[i];
-      //   console.log(currentDepartment.id);
-      // record = await prisma.dashboard.create({
-      //   data: {
-      //     users: { connect: { id: session.user.userId } },
-      //     name: name,
-      //     departments: { connect: { id: currentDepartment.id } },
-      //   },
-      // });
-    }
 
-    // record = await prisma.dashboard.create({
-    //   data: {
-    //     users: { connect: { id: session.user.userId } },
-    //     name: name,
-    //   },
-    // });
-    return res.json(record);
+      return res.json(record);
+    }
   }
 
   if (req.method === 'GET') {
@@ -200,7 +184,6 @@ const handler = async (req, res) => {
       dashboards = await prisma.dashboard.findMany({
         where: {
           department_id: session.user.departmentId,
-          // user_id: session.user.userId,
         },
       });
     }
