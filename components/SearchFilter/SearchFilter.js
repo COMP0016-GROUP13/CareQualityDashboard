@@ -1,42 +1,8 @@
 import styles from './SearchFilter.module.css';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
-<<<<<<< Updated upstream
 function SearchFilter({ data, setSearchTerm, searchTerm }) {
   const router = useRouter();
-=======
-import useSWR from '../../lib/swr';
-
-function SearchFilter({ data, setSearchTerm, searchTerm }) {
-  const router = useRouter();
-
-  // const printstate = () => {
-  //   const check = {};
-  //   for (var dashboard of data) {
-  //     const { departmentData, error } = useSWR(
-  //       '/api/departments?' + dashboard.dashboard_id
-  //     );
-  //     console.log(departmentData.name);
-  //     check.dashboard = departmentData.name;
-  //   }
-  //   return check;
-  //   // if (session.user.roles.includes(Roles.USER_TYPE_DEPARTMENT)) {
-  //   //   data.map(dashboard => {
-  //   //     dashboard.name =
-  //   //   })
-  //   // }
-  // };
-
-  // const jsonData = JSON.stringify(data);
-  // const { departmentData, error } = useSWR('/api/departments');
-  // console.log(departmentData);
-  // console.log(error);
-  // if (session.user.roles.includes(Roles.USER_TYPE_DEPARTMENT)) {
-  //   data.map(dashboard => {
-  //     dashboard.name =
-  //   })
-
->>>>>>> Stashed changes
   return (
     <>
       {
