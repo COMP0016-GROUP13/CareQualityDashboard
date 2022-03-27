@@ -84,8 +84,6 @@ function Statistics({ session, toggleTheme }) {
 
   // When the state is updated, this will re-fetch from the API with the newly required query parameters
 
-  // TODO: Ranges were not working for unknown reason, find out later
-
   const { data, error } = useSWR(
     `/api/responses?${generateQueryParams({
       start: dateRange.start.getTime(),

@@ -163,7 +163,7 @@ export default function QuestionsTable({ dashboardId }) {
       Alert.success('Question successfully deleted', 3000);
     }
   };
-  // //TODO account for deleting dashboards
+
   const deleteDashboard = async id => {
     const res = await fetch('/api/dashboards/' + id, {
       method: 'DELETE',

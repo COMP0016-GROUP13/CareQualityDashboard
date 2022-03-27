@@ -168,11 +168,9 @@ function DashboardNav({ session, toggleTheme }) {
             Go Back
           </Button>
 
-          {/* TODO need to account for Dashboard name */}
           <h2 className={styles.DashboardName}>Dashboard Navigation</h2>
           <div className={styles.navItems}>
             <div>
-              {/* TODO account for different types of users */}
               {
                 <>
                   {options.map(name => (

@@ -126,8 +126,9 @@ const handler = async (req, res) => {
     const isHealthBoard = session.user.roles.includes(
       Roles.USER_TYPE_HEALTH_BOARD
     );
+    const isAdmin = session.user.roles.includes(Roles.USER_TYPE_ADMIN);
 
-    if (!isHospital && !isHealthBoard) {
+    if (!isHospital && !isHealthBoard && !isAdmin) {
       return res.status(403).json({
         error: true,
         message: 'You do not have permission to view departments',
@@ -143,10 +144,17 @@ const handler = async (req, res) => {
       };
     }
 
-    const departments = await prisma.departments.findMany({
-      include: { department_join_codes: true },
-      where,
-    });
+    var departments;
+    if (!isAdmin) {
+      departments = await prisma.departments.findMany({
+        include: { department_join_codes: true },
+        where,
+      });
+    } else {
+      departments = await prisma.departments.findMany({
+        include: { department_join_codes: true },
+      });
+    }
 
     // Only return the name, join code and id of the department
     return res.json(

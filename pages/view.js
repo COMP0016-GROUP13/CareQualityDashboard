@@ -104,10 +104,8 @@ export async function getServerSideProps(context) {
 }
 
 function View({ session, toggleTheme }) {
-  // TODO: Handle Errors here, such as no dashboards created
   const { data } = fetchDashboards();
   const featuresRef = useRef(null);
-  console.log(data);
   if (data != null && data.length < 1) {
     return (
       <>
