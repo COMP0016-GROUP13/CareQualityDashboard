@@ -27,7 +27,6 @@ describe('GET /api/departments', () => {
   });
 
   [
-    Roles.USER_TYPE_ADMIN,
     Roles.USER_TYPE_CLINICIAN,
     Roles.USER_TYPE_DEPARTMENT,
     Roles.USER_TYPE_UNKNOWN,
@@ -113,7 +112,6 @@ describe('POST /api/departments', () => {
     Roles.USER_TYPE_CLINICIAN,
     Roles.USER_TYPE_DEPARTMENT,
     Roles.USER_TYPE_HEALTH_BOARD,
-    Roles.USER_TYPE_ADMIN,
     Roles.USER_TYPE_UNKNOWN,
   ].forEach(userType => {
     it(`doesn't allow ${userType} users to add a new department`, async () => {

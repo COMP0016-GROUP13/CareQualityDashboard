@@ -94,40 +94,7 @@ const fetchDashboards = () => {
   });
 
   if (data) {
-    // console.log(data);
-    // for (var dashboard of data) {
-    //   const { departmentData, error } = useSWR(
-    //     '/api/departments?' + dashboard.dashboard_id
-    //   );
-    //   console.log(departmentData.name);
-    //   data.dashboard.departmentName = departmentData.name;
-    // }
     return { data: data, error: error || data.error, message: data.message };
-  }
-  return { data: null, error: error, message: error ? error.message : null };
-};
-
-/**
- * Fetches departments from the backend
- */
-const fetchDepartments = () => {
-  const { departmentData, error } = useSWR('/api/departments');
-  // console.log(departmentData.name);
-  // data.dashboard.departmentName = departmentData.name;
-  if (departmentData) {
-    // console.log(data);
-    // for (var dashboard of data) {
-    //   const { departmentData, error } = useSWR(
-    //     '/api/departments?' + dashboard.dashboard_id
-    //   );
-    //   console.log(departmentData.name);
-    //   data.dashboard.departmentName = departmentData.name;
-    // }
-    return {
-      data: departmentData,
-      error: error || data.error,
-      message: data.message,
-    };
   }
   return { data: null, error: error, message: error ? error.message : null };
 };
@@ -137,15 +104,8 @@ export async function getServerSideProps(context) {
 }
 
 function View({ session, toggleTheme }) {
-  // TODO: Handle Errors here, such as no dashboards created
   const { data } = fetchDashboards();
-  console.log(data);
-  const { editData, error, message } = fetchDepartments();
-  console.log(editData);
-  console.log(error);
-  console.log(message);
   const featuresRef = useRef(null);
-  console.log(data);
   if (data != null && data.length < 1) {
     return (
       <>

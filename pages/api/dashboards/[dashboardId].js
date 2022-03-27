@@ -7,7 +7,7 @@ import requiresAuth from '../../../lib/requiresAuthApiMiddleware';
  * /dashboard/{id}:
  *  get:
  *    summary: Retrieve a single dashboard
- *    description: "Retrieve the details of a single departments in the system, for your hospital, health board or department. Note: you must be a hospital, health board or department user to perform this operation, and `id` must be your own department, or a department within your hospital/health board."
+ *    description: "Retrieve the details of a single dashboard in the system, for your hospital, health board or department. Note: you must be a hospital, health board, department user or admin to perform this operation, and `id` must be your own department, or a department within your hospital/health board."
  *    tags: [dashboard]
  *    parameters:
  *      - name: id
@@ -22,7 +22,7 @@ import requiresAuth from '../../../lib/requiresAuthApiMiddleware';
  *        content:
  *          application/json:
  *            schema:
- *              $ref: '#/components/schemas/department'
+ *              $ref: '#/components/schemas/dashboard'
  *      401:
  *        $ref: '#/components/responses/unauthorized'
  *      403:
@@ -31,7 +31,7 @@ import requiresAuth from '../../../lib/requiresAuthApiMiddleware';
  *        $ref: '#/components/responses/internal_server_error'
  *  delete:
  *    summary: Delete a dashboard
- *    description: "Delete the given dashboard from the system, to no longer be shown to any users when they view all their dashboards. This is irreversible. Note: you must be an administrator to perform this operation."
+ *    description: "Delete the given dashboard from the system, to no longer be shown to any users when they view all their dashboards. This is irreversible. Note: you must be an administrator or department user to perform this operation."
  *    tags: [dashboards]
  *    parameters:
  *      - name: id
@@ -59,8 +59,6 @@ import requiresAuth from '../../../lib/requiresAuthApiMiddleware';
 
 const handler = async (req, res) => {
   const { session } = req;
-
-  // TODO: Error Handling, eg if user not in role
 
   if (req.method === 'GET') {
     const dashboard = await prisma.dashboard.findUnique({

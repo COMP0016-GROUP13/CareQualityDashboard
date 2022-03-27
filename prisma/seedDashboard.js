@@ -17,7 +17,6 @@ const seedDashboards = async userId => {
     })
   );
 
-  // TODO: Create seed data for words
   responses = [
     {
       users: { connect: { id: userId } },
