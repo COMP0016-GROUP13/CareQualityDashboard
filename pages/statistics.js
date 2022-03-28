@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { Alert } from 'rsuite';
+import { Alert, Button } from 'rsuite';
 import { getSession } from 'next-auth/client';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
@@ -175,7 +175,7 @@ function Statistics({ session, toggleTheme }) {
       <Header session={session} toggleTheme={toggleTheme} />
 
       {/* back button */}
-      <button
+      <Button
         className={styles.backButton}
         onClick={() =>
           router.push({
@@ -184,7 +184,7 @@ function Statistics({ session, toggleTheme }) {
           })
         }>
         Go Back
-      </button>
+      </Button>
 
       <CirclesAccordion circles={averageStats} />
 

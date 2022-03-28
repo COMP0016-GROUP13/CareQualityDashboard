@@ -162,11 +162,11 @@ function DashboardNav({ session, toggleTheme }) {
         {router.query && router.query.error && showError(router.query.error)}
         <main className={styles.mainContent}>
           {/* back button */}
-          <button
+          <Button
             className={styles.backButton}
             onClick={() => router.push('/view')}>
             Go Back
-          </button>
+          </Button>
 
           <h2 className={styles.DashboardName}>Dashboard Navigation</h2>
           <div className={styles.navItems}>

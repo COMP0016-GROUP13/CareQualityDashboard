@@ -225,7 +225,7 @@ function SelfReporting({ session, toggleTheme }) {
         actions={dialogActions}
       />
       {/* back button */}
-      <button
+      <Button
         className={styles.backButton}
         onClick={() =>
           router.push({
@@ -234,7 +234,7 @@ function SelfReporting({ session, toggleTheme }) {
           })
         }>
         Go Back
-      </button>
+      </Button>
 
       {!questionsError && !isQuestionsLoading && (
         <div className={styles.mentoringSessionContainer}>
