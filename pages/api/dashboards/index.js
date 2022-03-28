@@ -171,9 +171,8 @@ const handler = async (req, res) => {
           },
         });
       }
-
-      return res.json(record);
     }
+    return res.json(record);
   }
 
   if (req.method === 'GET') {
