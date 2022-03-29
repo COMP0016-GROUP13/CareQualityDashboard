@@ -102,7 +102,7 @@ const seedDashboards = async userId => {
    * Uncomment this for all data, eg questions and responses
    */
 
-  // await Promise.all([prisma.dashboard.create(dashboard)]);
+  await Promise.all([prisma.dashboard.create(dashboard)]);
 
   /**
    * Uncomment this for fake date, just names
