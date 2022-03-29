@@ -1,7 +1,7 @@
 import { getSession } from 'next-auth/client';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
-
+import { Button } from 'rsuite';
 import { Header, LoginMessage, QuestionsTable, NoAccess } from '../components';
 
 import { Roles } from '../lib/constants';
@@ -40,6 +40,16 @@ function Manage({ session, toggleTheme }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header session={session} toggleTheme={toggleTheme} />
+
+      <Button
+        onClick={() =>
+          router.push({
+            pathname: '/DashboardNav',
+            query: { dashboard_id: dashboardId },
+          })
+        }>
+        Go Back
+      </Button>
       {session.user.roles.includes(Roles.USER_TYPE_ADMIN) ||
       session.user.roles.includes(Roles.USER_TYPE_DEPARTMENT) ? (
         <div>

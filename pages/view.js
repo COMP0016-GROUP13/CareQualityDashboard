@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import Head from 'next/head';
 import { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
@@ -158,7 +159,7 @@ function View({ session, toggleTheme }) {
             <h2 className={styles.title}>Here are your dashboards</h2>
             <div className={styles.features} ref={featuresRef}>
               <div className={styles.feature}>
-                {/* Data is the data for all the dashboards, this includes id and name as stated in API */}
+                {/* data is the Data for all the dashboards objects, this includes id and name as stated in API */}
                 <SearchFilter
                   data={data}
                   setSearchTerm={setSearchTerm}

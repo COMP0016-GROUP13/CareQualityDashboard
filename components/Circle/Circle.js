@@ -9,6 +9,7 @@ const Circle = ({ id, name, color, percentage }) => {
     <div className={styles.circle}>
       <strong
         id={id + '%' + percentage.toString()}
+        //When the length of the health and care standard is too big move it to the left
         className={name.length > 10 ? styles.leftOffset : styles.rightOffset}>
         {name}
       </strong>
