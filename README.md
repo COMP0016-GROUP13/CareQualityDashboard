@@ -115,11 +115,11 @@ Now your database should be running with some initial data!
 
 You might also want to seed some dummy responses for the new user (note: this must be done **after** you have created users -- see the next section):
 
-1. Ensure you have logged in as the user you want to seed the responses for on your local server (i.e. at <localhost:3000>). This is needed so that the User ID is added to our database, which only happens on the first login. **You'll get an error about no matching parent ID for nested inserts if you don't do this first!**
+1. Ensure you have logged in as the user you want to seed the responses for on your local server (i.e. at <localhost:3000>). This is needed so that the User ID is added to our database, which only happens on the first login. You will also need to set the department_id attribute for this user in KeyCloak **You'll get an error about no matching parent ID for nested inserts if you don't do this first!**
+ 
+2. Run `node prisma/seedDashboards.js USER_ID`, replacing `USER_ID` with the new user's ID, which you can copy from Keycloak.
 
-2. Run `node prisma/seedResponses.js USER_ID`, replacing `USER_ID` with the new user's ID, which you can copy from Keycloak.
-
-3. Run `node prisma/seedDashboards.js USER_ID`, replacing `USER_ID` with the new user's ID, which you can copy from Keycloak.
+3. Run `node prisma/seedResponses.js USER_ID`, replacing `USER_ID` with the new user's ID, which you can copy from Keycloak.
 
 Now your database should have some initial fake data for the given user!
 
