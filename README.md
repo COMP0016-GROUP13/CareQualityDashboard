@@ -6,13 +6,11 @@ The aim is to encourage open conversations through the use of regular online sel
 
 This repository contains the entire source code for the project, which is currently deployed on a [Linode VPS](https://linode.com/) through Docker.
 
-This project was built as part of the [UCL Industry Exchange Network (IXN)](https://www.ucl.ac.uk/computer-science/collaborate/ucl-industry-exchange-network-ucl-ixn) in the academic year 2020-2021 by [Shubham Jain](https://sjain.dev), [Mateusz Zielinski](https://github.com/mateuszz7) and [Matthieu Schulz](https://matthieuschulz.me/).
+This project was built as part of the [UCL Industry Exchange Network (IXN)](https://www.ucl.ac.uk/computer-science/collaborate/ucl-industry-exchange-network-ucl-ixn) in the academic year 2021-2022 by Sarvesh Rajdev and Nathan D'Souza
 
-The project's comprehensive Development Blog [can be found here](https://comp0016-team-20.github.io/blog/) for details on design decisions and weekly progress updates for the duration of the project.
+The project's comprehensive Development Blog [can be found here](https://carequalitydashboard.wordpress.com) for details on design decisions and weekly progress updates for the duration of the project.
 
-The project's report website [can be found here](http://students.cs.ucl.ac.uk/2020/group20/) with an overview of the project and it's details.
-
-The project's user manual [can be found here](https://liveuclac-my.sharepoint.com/:w:/g/personal/zcabmzi_ucl_ac_uk/EXJNiRz5slBPv0KfCFdaep4BEiiZumxu2SwkeFsuEx_RGg?e=cYTzgn).
+The project's report website [can be found here](http://students.cs.ucl.ac.uk/2021/group13/) with an overview of the project and it's details.
 
 See also [`ARCHITECTURE.md`](./ARCHITECTURE.md) and [`DEPLOYMENT.md`](./DEPLOYMENT.md) for further information on the system architecture and deployment procedures.
 
@@ -115,7 +113,7 @@ Now your database should be running with some initial data!
 
 You might also want to seed some dummy responses for the new user (note: this must be done **after** you have created users -- see the next section):
 
-1. Ensure you have logged in as the user you want to seed the responses for on your local server (i.e. at <localhost:3000>). This is needed so that the User ID is added to our database, which only happens on the first login. You will also need to set the department_id attribute for this user in KeyCloak **You'll get an error about no matching parent ID for nested inserts if you don't do this first!**
+1. Ensure you have logged in as the user you want to seed the responses for on your local server (i.e. at <localhost:3000>). This is needed so that the User ID is added to our database, which only happens on the first login. You will also need to set the department_id attribute to 1 for this user in KeyCloak **You'll get an error about no matching parent ID for nested inserts if you don't do this first!**
  
 2. Run `node prisma/seedDashboards.js USER_ID`, replacing `USER_ID` with the new user's ID, which you can copy from Keycloak.
 
