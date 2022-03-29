@@ -92,7 +92,7 @@ You will need to configure some secrets/configuration settings: place a `.env` f
 
 To run tests, you will also need to update the [`.env.test`](./.env.test) file with passwords you configured in `.env` (e.g. your PostgreSQL and Keycloak passwords).
 
-At the moment, you also need a secret Realm file for Keycloak. Get the `care_quality_dashboard_realm.json` secret file from Shubham, and place this into a folder called `keycloak` in your project root (i.e. `./keycloak/care_quality_dashboard_realm/json`).
+At the moment, you also need a secret Realm file for Keycloak. Get the `care_quality_dashboard_realm.json` secret file from Nathan or Sarvesh, and place this into a folder called `keycloak` in your project root (i.e. `./keycloak/care_quality_dashboard_realm/json`).
 
 ### Developing locally
 
@@ -115,7 +115,7 @@ You might also want to seed some dummy responses for the new user (note: this mu
 
 1. Ensure you have logged in as the user you want to seed the responses for on your local server (i.e. at <localhost:3000>). This is needed so that the User ID is added to our database, which only happens on the first login. You will also need to set the department_id attribute to 1 for this user in KeyCloak **You'll get an error about no matching parent ID for nested inserts if you don't do this first!**
  
-2. Run `node prisma/seedDashboards.js USER_ID`, replacing `USER_ID` with the new user's ID, which you can copy from Keycloak.
+2. Run `node prisma/seedDashboard.js USER_ID`, replacing `USER_ID` with the new user's ID, which you can copy from Keycloak.
 
 3. Run `node prisma/seedResponses.js USER_ID`, replacing `USER_ID` with the new user's ID, which you can copy from Keycloak.
 
