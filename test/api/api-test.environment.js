@@ -1,3 +1,7 @@
+/**
+ * Authors: Shubham Jain, Mateusz Zielinski, Matthew Schulz
+ * Contributers: Sarvesh Rajdev
+ */
 const fs = require('fs');
 
 const NodeEnvironment = require('jest-environment-node');

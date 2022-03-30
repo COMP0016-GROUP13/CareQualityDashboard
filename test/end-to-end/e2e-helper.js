@@ -1,3 +1,7 @@
+/**
+ * Authors: Shubham Jain, Mateusz Zielinski, Matthew Schulz
+ * Contributers: Sarvesh Rajdev
+ */
 export async function logInAs(props) {
   await expect(page).toClick('a', { text: 'Log in' });
   await page.waitForSelector('#kc-form-login');

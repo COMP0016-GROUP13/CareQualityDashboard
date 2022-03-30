@@ -1,3 +1,6 @@
+/**
+ * Authors: Sarvesh Rajdev, Nathan D'Souza
+ */
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
@@ -107,6 +110,17 @@ const showError = error => {
 export async function getServerSideProps(context) {
   return { props: { session: await getSession(context) } };
 }
+
+/**
+ * The page that provides the user with different options within the dashboard
+ * If the user is not logged in, they are prompted to login.
+ *
+ * It is only accessible to all Users
+ *
+ *
+ * @param session the user's session object to decide what to display
+ * @param toggleTheme the global function to toggle the current theme
+ */
 
 function DashboardNav({ session, toggleTheme }) {
   const router = useRouter();

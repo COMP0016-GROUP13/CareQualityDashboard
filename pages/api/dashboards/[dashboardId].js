@@ -1,3 +1,6 @@
+/**
+ * Authors: Sarvesh Rajdev
+ */
 import prisma from '../../../lib/prisma';
 import { Roles } from '../../../lib/constants';
 import requiresAuth from '../../../lib/requiresAuthApiMiddleware';

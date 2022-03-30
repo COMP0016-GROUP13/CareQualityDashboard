@@ -1,3 +1,7 @@
+/**
+ * Authors: Shubham Jain, Mateusz Zielinski, Matthew Schulz
+ * Contributers: Sarvesh Rajdev
+ */
 import requiresAuth from '../../lib/requiresAuthApiMiddleware';
 import prisma from '../../lib/prisma';
 import { Roles } from '../../lib/constants';

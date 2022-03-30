@@ -1,3 +1,6 @@
+/**
+ * Authors: Sarvesh Rajdev
+ */
 import requiresAuth from '../../../lib/requiresAuthApiMiddleware';
 import prisma from '../../../lib/prisma';
 import createJoinCode from '../../../lib/createJoinCode';

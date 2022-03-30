@@ -1,3 +1,6 @@
+/**
+ * Authors: Sarvesh Rajdev, Nathan D'Souza
+ */
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
@@ -94,6 +97,18 @@ const errors = {
     ),
   },
 };
+
+/**
+ * The page that provides a link for department manages to give to users to join their department
+ * If the user is not logged in, they are prompted to login.
+ *
+ * It is only accessible to hospital and department managers. All other users do not have
+ * access to this page.
+ *
+ *
+ * @param session the user's session object to decide what to display
+ * @param toggleTheme the global function to toggle the current theme
+ */
 
 function Join({ session, host, toggleTheme }) {
   const router = useRouter();

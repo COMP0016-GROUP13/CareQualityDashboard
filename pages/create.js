@@ -1,3 +1,6 @@
+/**
+ * Authors: Nathan D'Souza
+ */
 import PropTypes from 'prop-types';
 import { Alert } from 'rsuite';
 import { Header } from '../components';

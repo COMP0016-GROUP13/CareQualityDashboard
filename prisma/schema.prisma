@@ -1,3 +1,6 @@
+// /**
+//  * Authors: Sarvesh Rajdev
+//  */
 generator client {
   provider = "prisma-client-js"
 }

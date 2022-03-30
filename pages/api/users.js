@@ -1,3 +1,7 @@
+/**
+ * Authors: Shubham Jain, Mateusz Zielinski, Matthew Schulz
+ * Contributers: Sarvesh Rajdev, Nathan D'Souza
+ */
 import requiresAuth from '../../lib/requiresAuthApiMiddleware';
 import { addNewUser } from '../../lib/handleUserAuthEvents';
 import { Roles } from '../../lib/constants';

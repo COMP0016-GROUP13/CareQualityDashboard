@@ -1,3 +1,6 @@
+/**
+ * Authors: Sarvesh Rajdev
+ */
 import prisma from '../../../lib/prisma';
 import { Roles } from '../../../lib/constants';
 import requiresAuth from '../../../lib/requiresAuthApiMiddleware';
@@ -93,7 +96,7 @@ import requiresAuth from '../../../lib/requiresAuthApiMiddleware';
  *        content:
  *          application/json:
  *            schema:
- *              $ref: '#/components/schemas/question'
+ *              $ref: '#/components/schemas/Dashboard'
  *      401:
  *        $ref: '#/components/responses/unauthorized'
  *      403:
@@ -160,9 +163,7 @@ const handler = async (req, res) => {
       });
     } else {
       const departments = await prisma.departments.findMany();
-      console.log(departments);
       for (var department of departments) {
-        console.log(department.id);
         record = await prisma.dashboard.create({
           data: {
             users: { connect: { id: session.user.userId } },

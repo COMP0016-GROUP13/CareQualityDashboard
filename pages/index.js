@@ -1,3 +1,7 @@
+/**
+ * Authors: Shubham Jain, Mateusz Zielinski, Matthew Schulz
+ * Contributers: Sarvesh Rajdev, Nathan D'Souza
+ */
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { useRef } from 'react';

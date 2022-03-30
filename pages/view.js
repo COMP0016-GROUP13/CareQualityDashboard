@@ -1,4 +1,6 @@
-/* eslint-disable no-unused-vars */
+/**
+ * Authors: Sarvesh Rajdev, Nathan D'Souza
+ */
 import Head from 'next/head';
 import { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
@@ -103,6 +105,17 @@ const fetchDashboards = () => {
 export async function getServerSideProps(context) {
   return { props: { session: await getSession(context) } };
 }
+
+/**
+ * The view page provides tall the dashboards available to the user
+ * If the user is not logged in, they are prompted to login.
+ *
+ * It is only accessible to all users
+ *
+ *
+ * @param session the user's session object to decide what to display
+ * @param toggleTheme the global function to toggle the current theme
+ */
 
 function View({ session, toggleTheme }) {
   const { data } = fetchDashboards();

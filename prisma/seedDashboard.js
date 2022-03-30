@@ -1,3 +1,6 @@
+/**
+ * Authors: Sarvesh Rajdev
+ */
 const { PrismaClient } = require('@prisma/client');
 const { likertScaleQuestions } = require('../seedData');
 const prisma = new PrismaClient();
