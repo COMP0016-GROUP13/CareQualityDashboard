@@ -1,10 +1,10 @@
-clarionclinical.net {
+clarionclinical.com {
         reverse_proxy localhost:3000 {
                 header_up X-Forwarded-Proto https
         }
 }
 
-auth.clarionclinical.net {
+auth.clarionclinical.com {
         reverse_proxy localhost:8080 {
                 header_up X-Forwarded-Proto https
         }

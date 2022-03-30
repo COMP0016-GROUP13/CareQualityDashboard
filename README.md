@@ -86,6 +86,44 @@ The following tree shows the main files and folders in the repository, and their
 
 Please ensure you have [Node.js](https://nodejs.org/en/), [Docker](https://www.docker.com/), [Docker Compose](https://docs.docker.com/compose/),[Postgres](https://www.postgresql.org/) and [npm](https://www.npmjs.com/get-npm) installed on your machine before proceeding with development.
 
+NOTE: The previous iteration of the project uses Node Version 10, however the project was still able to work on Node Version 16 on some machines. If the project is not able to launch, please try the command `nvm install 10` and try again.
+
+### Dependencies
+
+These are installed when running the command `npm install`:
+
+```
+"dependencies": {
+    "@material-ui/core": "^4.11.3",
+    "@prisma/client": "^2.18.0",
+    "@zeit/next-less": "^1.0.1",
+    "chart.js": "^2.9.4",
+    "d3": "^7.3.0",
+    "d3-array": "^3.1.1",
+    "d3-cloud": "^1.2.5",
+    "env-cmd": "^10.1.0",
+    "formik": "^2.2.9",
+    "less": "^4.1.1",
+    "next": "^10.0.7",
+    "next-auth": "^3.7.0",
+    "next-transpile-modules": "^6.3.0",
+    "node-fetch": "^2.6.1",
+    "openapi-response-validator": "^7.4.0",
+    "pg": "^8.5.1",
+    "prop-types": "^15.7.2",
+    "query-string": "^7.1.0",
+    "react": "^16.14.0",
+    "react-bootstrap": "^2.0.3",
+    "react-chartjs-2": "^2.11.1",
+    "react-copy-to-clipboard": "^5.0.3",
+    "react-dom": "16.13.1",
+    "rsuite": "^4.9.2",
+    "styled-components": "^5.3.3",
+    "swagger-jsdoc": "^6.0.8",
+    "swr": "^0.3.11"
+  },
+```
+
 ### Configuration
 
 You will need to configure some secrets/configuration settings: place a `.env` file in the project root, based off the [`.env.example`](./.env.example) file, replacing the relevant placeholders with an appropriate value. For passwords, you could just use something like `dev` if running locally.
@@ -114,7 +152,7 @@ Now your database should be running with some initial data!
 You might also want to seed some dummy responses for the new user (note: this must be done **after** you have created users -- see the next section):
 
 1. Ensure you have logged in as the user you want to seed the responses for on your local server (i.e. at <localhost:3000>). This is needed so that the User ID is added to our database, which only happens on the first login. You will also need to set the department_id attribute to 1 for this user in KeyCloak **You'll get an error about no matching parent ID for nested inserts if you don't do this first!**
- 
+
 2. Run `node prisma/seedDashboard.js USER_ID`, replacing `USER_ID` with the new user's ID, which you can copy from Keycloak.
 
 3. Run `node prisma/seedResponses.js USER_ID`, replacing `USER_ID` with the new user's ID, which you can copy from Keycloak.
