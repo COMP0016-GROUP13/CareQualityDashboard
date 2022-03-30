@@ -1,6 +1,6 @@
 /**
  * Authors: Shubham Jain, Mateusz Zielinski, Matthew Schulz
- * Contributers: Sarvesh Rajdev
+ * Contributers: COMP0016-Team13-Sarvesh Rajdev
  */
 import requiresAuth from '../../lib/requiresAuthApiMiddleware';
 import prisma from '../../lib/prisma';

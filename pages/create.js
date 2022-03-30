@@ -1,5 +1,5 @@
 /**
- * Authors: Nathan D'Souza
+ * Authors: COMP0016-Team13-Nathan D'Souza
  */
 import PropTypes from 'prop-types';
 import { Alert } from 'rsuite';

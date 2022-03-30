@@ -1,3 +1,6 @@
+/**
+ * Authors: COMP0016-Team13-Sarvesh Rajdev, Nathan D'Souza
+ */
 import { Nav, Button } from 'rsuite';
 import Link from 'next/link';
 import styles from './error.module.css';

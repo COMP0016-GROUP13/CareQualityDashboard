@@ -1,5 +1,5 @@
 /**
- * Authors: Sarvesh Rajdev
+ * Authors: COMP0016-Team13-Sarvesh Rajdev
  */
 import requiresAuth from '../../../lib/requiresAuthApiMiddleware';
 import prisma from '../../../lib/prisma';

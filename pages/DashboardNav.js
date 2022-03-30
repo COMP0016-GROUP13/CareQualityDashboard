@@ -1,5 +1,5 @@
 /**
- * Authors: Sarvesh Rajdev, Nathan D'Souza
+ * Authors: COMP0016-Team13-Nathan D'Souza
  */
 import { useRouter } from 'next/router';
 import Head from 'next/head';

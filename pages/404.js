@@ -1,5 +1,5 @@
 /**
- * Authors: Sarvesh Rajdev
+ * Authors: COMP0016-Team13-Sarvesh Rajdev
  */
 import { Nav, Button } from 'rsuite';
 import Link from 'next/link';

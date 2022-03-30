@@ -1,3 +1,7 @@
+/**
+ * Authors: Shubham Jain, Mateusz Zielinski, Matthew Schulz
+ * Contributers: COMP0016-Team13-Sarvesh Rajdev
+ */
 const { PrismaClient } = require('@prisma/client');
 const { standards } = require('../seedData');
 

@@ -1,6 +1,6 @@
 /**
  * Authors: Shubham Jain, Mateusz Zielinski, Matthew Schulz
- * Contributers: Sarvesh Rajdev, Nathan D'Souza
+ * Contributers: COMP0016-Team13-Sarvesh Rajdev, Nathan D'Souza
  */
 import { getSession } from 'next-auth/client';
 import Head from 'next/head';

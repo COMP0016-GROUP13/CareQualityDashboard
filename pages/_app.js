@@ -1,3 +1,6 @@
+/**
+ * Authors: COMP0016-Team13-Sarvesh Rajdev, Nathan D'Souza
+ */
 import 'rsuite/dist/styles/rsuite-default.min.css';
 import './style.css';
 import PropTypes from 'prop-types';

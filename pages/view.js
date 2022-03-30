@@ -1,5 +1,5 @@
 /**
- * Authors: Sarvesh Rajdev, Nathan D'Souza
+ * Authors: COMP0016-Team13-Sarvesh Rajdev, Nathan D'Souza
  */
 import Head from 'next/head';
 import { useRef, useState } from 'react';

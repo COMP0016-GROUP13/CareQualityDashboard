@@ -1,6 +1,6 @@
 /**
  * Authors: Shubham Jain, Mateusz Zielinski, Matthew Schulz
- * Contributers: Sarvesh Rajdev, Nathan D'Souza
+ * Contributers: COMP0016-Team13-Sarvesh Rajdev, Nathan D'Souza
  */
 import { useRouter } from 'next/router';
 import { useState } from 'react';

@@ -1,5 +1,5 @@
 /**
- * Authors: Sarvesh Rajdev
+ * Authors: COMP0016-Team13-Sarvesh Rajdev
  */
 import prisma from '../../../lib/prisma';
 import { Roles } from '../../../lib/constants';
