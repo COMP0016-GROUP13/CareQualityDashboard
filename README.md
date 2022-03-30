@@ -84,7 +84,7 @@ The following tree shows the main files and folders in the repository, and their
 
 ### Requirements
 
-Please ensure you have [Node.js](https://nodejs.org/en/), [Docker](https://www.docker.com/), [Docker Compose](https://docs.docker.com/compose/), and [npm](https://www.npmjs.com/get-npm) installed on your machine before proceeding with development.
+Please ensure you have [Node.js](https://nodejs.org/en/), [Docker](https://www.docker.com/), [Docker Compose](https://docs.docker.com/compose/),[Postgres](https://www.postgresql.org/) and [npm](https://www.npmjs.com/get-npm) installed on your machine before proceeding with development.
 
 ### Configuration
 
