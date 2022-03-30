@@ -92,7 +92,7 @@ You will need to configure some secrets/configuration settings: place a `.env` f
 
 To run tests, you will also need to update the [`.env.test`](./.env.test) file with passwords you configured in `.env` (e.g. your PostgreSQL and Keycloak passwords).
 
-At the moment, you also need a secret Realm file for Keycloak. Get the `care_quality_dashboard_realm.json` secret file from Nathan or Sarvesh, and place this into a folder called `keycloak` in your project root (i.e. `./keycloak/care_quality_dashboard_realm/json`).
+At the moment, you also need a secret Realm file for Keycloak. Get the `care_quality_dashboard_realm.json` secret file from Nathan or Sarvesh, and place this into a folder called `keycloak` in your project root (i.e. `./keycloak/care_quality_dashboard_realm.json`).
 
 ### Developing locally
 
